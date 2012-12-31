@@ -1,0 +1,28 @@
+
+.ui-widget
+{
+    font-family: Tahoma, Arial, Verdana, serif, sans-serif, fantasy, cursive !important;
+    font-size: 8pt !important;
+    text-shadow: none !important;
+}
+
+.ui-layout-north
+{
+    z-index: 999 !important;
+    overflow: visible;
+}
+
+.ui-layout-north .ui-layout-unit-content
+{
+    overflow:visible;
+}
+
+.texto_negrita
+{
+    font-weight: bold !important;
+}
+
+.usuarioICON
+{
+    background: url("/resources/imagenes/usuarios/usuarios.png"); 
+}

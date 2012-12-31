@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>
+            <h:outputText value="Infosweb - CRM"/>
+        </title>
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/default.css" rel="stylesheet" type="text/css"/>
+    </h:head>
+    <h:body>
+        <div id="header"><!-- Header STARTS -->
+
+            <div id="floatLeft">
+                <a href="http://www.infosgroup.com">
+                    <h:graphicImage value="/resources/imagenes/logo.png" width="233" height="53" alt="infosgroup"/>
+                    <!--img class="logo" src="# {facesContext.externalContext.requestContextPath}/resources/imagenes/logo.png" width="233" height="53" alt="infosgroup"/-->
+                </a>
+            </div>
+            <div id="floatRight">
+                <p>Version : 1.0.0, Lenguage: Espa&ntilde;ol</p>
+            </div>
+        </div><!--Header ENDS-->
+        <h2>Infosgroup - Portal de ventas</h2>
+        <h:form>
+            <p:growl autoUpdate="true" showDetail="true" showSummary="false"/>
+            <h:panelGrid columns="2">
+                <h:outputText value="Usuario"/>
+                <p:inputText value="#{login.usuario}"/>
+                <h:outputText value="Password"/>
+                <p:password value="#{login.pass}"/>
+                <f:facet name="footer">
+                    <p:commandButton value="Iniciar Sesi&oacute;n" style="font-weight: bold;" action="#{login.login$action}"/>
+                </f:facet>
+            </h:panelGrid>
+
+            <div id="login">
+                <br />
+                <p><a href="#">Olvid&oacute; su usuario o contrase&ntilde;a</a></p>
+            </div>
+            <div id="register">
+                <p><a href="#">Registrarse</a> para solicitar una cuenta.<br/>
+                    <a href="#" class="help">Ayuda</a></p>
+            </div>
+        </h:form>
+        <div id="footer">
+            <p>
+                Infosgroup 1997 - 2012<br/>All Rights Reserved
+            </p>
+        </div>
+    </h:body>
+</html>

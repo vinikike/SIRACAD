@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="titulo">
+        <h:outputText value="Prueba JSF 2.1 - Error 403"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones"/>
+    <ui:define name="contenido">
+        <h:panelGrid columns="1" width="100%">
+            <h:outputText value="HTTP Error 403: Prohibido el acceso al recurso" style="font-size: x-large; font-weight: bold;"/>
+            <h:panelGrid columns="2">
+                <p:graphicImage value="/resources/imagenes/128/edit-bomb.png" width="128" height="128"/>
+                <h:outputText value="El contenedor web ha restringido el acceso a la página o recurso solicitado"/>
+            </h:panelGrid>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>

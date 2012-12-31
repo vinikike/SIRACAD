@@ -1,0 +1,1 @@
+./generate-source-from-schema --hostname svrinfos02 --port 389 --bindDN "uid=vmercado,ou=usuarios,dc=infosgroup,dc=com" --bindPassword "vmercado" --outputDirectory /root/Desktop --structuralClass inetOrgPerson --rdnAttribute cn --defaultParentDN "ou=usuarios,dc=infosgroup,dc=com" --packageName com.infosgroup.ldap --className UsuarioLDAP 

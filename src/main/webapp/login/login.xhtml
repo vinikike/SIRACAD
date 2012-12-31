@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>
+            <h:outputText value="SIRACAD - Login"/>
+        </title>
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/default.css" rel="stylesheet" type="text/css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:growl autoUpdate="true" showDetail="true" showSummary="false"/>
+        </h:form>        
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" style="text-align: center;">
+                <h:form>
+                    <p:graphicImage value="/resources/imagenes/mined3.jpg" width="970" height="120"/>
+                    <p:commandButton id="iniciaSesionBT" value="Iniciar sesi&oacute;n" icon="ui-icon-locked" style="position: absolute; top: 25px; left: 850px; width: 120px;" oncomplete="inicioSesionPanel.show();" immediate="true"/>
+                    <!--p:splitButton id="iniciaSesionBT" value="Iniciar sesi&oacute;n" icon="ui-icon-locked" title="Cerrar sesi&oacute;n" oncomplete="inicioSesionPanel.show();" immediate="true" style="position: absolute; top: 25px; left: 700px;">
+                        <p:menuitem value="Registro"/>
+                        <p:menuitem value="Olvide mi contrae&ntilde;a"/>
+                    </p:splitButton-->
+                    <p:overlayPanel id="inicioSesionPanel" widgetVar="inicioSesionPanel" for="iniciaSesionBT" showEvent="none" showEffect="slide" hideEffect="slide">  
+                        <p:panelGrid columns="2">  
+                            <f:facet name="header">  
+                                <h:outputText value="Inicio de sesi&oacute;n"/>
+                            </f:facet>  
+                            <h:outputText value="Usuario"/>
+                            <p:inputText value="#{loginManager.usuario}" required="true" requiredMessage="Ingrese el usuario"/>
+                            <h:outputText value="Password"/>
+                            <p:password value="#{loginManager.pass}" required="true" requiredMessage="Ingrese la contrase&ntilde;a"/>
+                            <f:facet name="footer">                                    
+                                <p:commandButton id="is1cb" value="Iniciar sesi&oacute;n" action="#{loginManager.iniciarSesion$action}" icon="ui-icon-locked"/>
+                            </f:facet>
+                            <p:defaultCommand target="is1cb"/>
+                        </p:panelGrid>
+                    </p:overlayPanel>                      
+                </h:form>
+            </p:layoutUnit>            
+            <p:layoutUnit position="center" style="text-align: center;">                
+                <p:carousel itemStyleClass="carItem" pageLinks="5" autoPlayInterval="7000" rows="1" effect="easeInStrong" circular="true">  
+                    <p:graphicImage value="/resources/imagenes/nature1.JPG" width="950" height="400"/>  
+                    <p:graphicImage value="/resources/imagenes/nature2.JPG" width="950" height="400"/>  
+                    <p:graphicImage value="/resources/imagenes/nature3.JPG" width="950" height="400"/>  
+                    <p:graphicImage value="/resources/imagenes/nature4.JPG" width="950" height="400"/>  
+                    <p:graphicImage value="/resources/imagenes/nature5.JPG" width="950" height="400"/>  
+                </p:carousel>                
+            </p:layoutUnit>
+            <p:layoutUnit position="south" style="text-align: center;" size="70">      
+                <p:graphicImage value="/resources/imagenes/fooder_bg2.png"/>
+            </p:layoutUnit>            
+        </p:layout>
+    </h:body>
+</html>

@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/default.css" rel="stylesheet" type="text/css"/>
+        <title>
+            <ui:insert name="titulo">
+                <h:outputText value="titulo"/>
+            </ui:insert>
+        </title>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <!-- ========================================================================================== -->
+            <p:layoutUnit position="north" size="120" closable="false" collapsible="false" resizable="false">
+                <h:form>
+                    <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
+                        <h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="0">
+                            <p:media player="flash" value="/resources/otros/banner2.swf" width="880" height="80"/>
+                            <p:splitButton value="#{(SessionBean.usuario ne null) ? SessionBean.usuario.id : '[Cerrar sesi&oacute;n]'}" icon="ui-icon-unlocked" oncomplete="sesionDialog.show();" title="Cerrar sesi&oacute;n">
+                                <p:menuitem value="Informaci&oacute;n de #{SessionBean.usuario.id}" icon="ui-icon-contact" oncomplete="usuarioDialog.show();" rendered="#{SessionBean.usuario ne null}"/>
+                                <p:separator rendered="#{SessionBean.usuario ne null}"/>
+                                <p:menuitem value="Opciones" icon="ui-icon-gear" oncomplete="opcionesDialog.show();"/>
+                                <p:separator rendered="#{SessionBean.usuario ne null}"/>
+                                <p:menuitem value="Inicio" icon="ui-icon-home" url="inicio.xhtml?faces-redirect=true"/>
+                            </p:splitButton>
+                        </h:panelGrid>
+                        <p:menubar model="#{SessionBean.menuBarModel}" autoDisplay="false" rendered="#{SessionBean.usuario ne null}"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:layoutUnit>
+            <!-- ========================================================================================== -->
+            <p:layoutUnit position="west" size="200" collapsible="true" resizable="true" header="Acciones">
+                <h:form>
+                    <p:panelMenu>
+                        <ui:insert name="acciones">
+                        </ui:insert>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+            <!-- ========================================================================================== -->
+            <p:layoutUnit position="center" collapsible="false" closable="false" style="padding-top: 0px !important;">
+                <h:form prependId="false">
+                    <p:panel id="panelContenido" style="border: none !important; padding: 0px !important;">
+                        <f:facet name="header">
+                            <ui:insert name="titulo">
+                                <h:outputText value="titulo"/>
+                            </ui:insert>
+                        </f:facet>
+                        <ui:insert name="contenido">
+                            <h:outputText value="contenido"/>
+                        </ui:insert>
+                    </p:panel>
+                </h:form>
+            </p:layoutUnit>
+            <!-- ========================================================================================== -->
+            <p:layoutUnit position="south" size="24" closable="false" collapsible="false" resizable="false" style="text-align: center">
+                <h:outputText value="Universidad de El Salvador &copy; 2012 Derechos Reservados"/>
+            </p:layoutUnit>
+            <!-- ========================================================================================== -->
+        </p:layout>
+        <!-- ========================================================================================== -->
+        <h:form>
+            <!-- ============================================== -->
+            <p:dialog widgetVar="usuarioDialog" header="Informaci&oacute;n de #{SessionBean.usuario.id}" closable="true" resizable="false" modal="true" draggable="true" width="500" showEffect="fold" hideEffect="fold">
+                <h:panelGrid columns="4">
+                    <h:outputText value="Inicio de sesi&oacute;n" styleClass="texto_negrita"/>
+                    <h:outputText value="#{SessionBean.fechaHoraInicioSesion}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-6"/>
+                    </h:outputText>
+                    <h:outputText/>
+                    <h:outputText/>
+                    <h:outputText value="Compa&ntilde;&iacute;a" styleClass="texto_negrita"/>
+                    <h:outputText value="#{SessionBean.compania.nombre}"/>
+                    <h:outputText value="Rol" styleClass="texto_negrita"/>
+                    <h:outputText value="#{SessionBean.rol.id}"/>
+                    <f:facet name="footer">
+                        <p:commandButton value="OK" icon="ui-icon-circle-check" oncomplete="usuarioDialog.hide();"/>
+                    </f:facet>
+                </h:panelGrid>
+            </p:dialog>
+            <!-- ============================================== -->
+            <p:dialog widgetVar="opcionesDialog" header="Opciones" closable="true" resizable="false" modal="true" draggable="true" width="400" showEffect="fold" hideEffect="fold">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Tema"/>
+                    <p:themeSwitcher style="width: 250px;" effect="slide">
+                        <f:selectItem itemLabel="Aristo" itemValue="aristo"/>
+                        <f:selectItem itemLabel="Redmond" itemValue="redmond"/>
+                        <f:selectItem itemLabel="Cupertino" itemValue="cupertino"/>
+                    </p:themeSwitcher>
+                    <f:facet name="footer">
+                        <p:commandButton value="Aceptar" icon="ui-icon-circle-check" oncomplete="opcionesDialog.hide();"/>
+                        <p:commandButton value="Cancelar" icon="ui-icon-circle-close" oncomplete="opcionesDialog.hide();"/>
+                    </f:facet>
+                </h:panelGrid>
+            </p:dialog>
+            <!-- ============================================== -->
+            <p:dialog widgetVar="sesionDialog" header="Cerrar sesi&oacute;n #{(SessionBean.usuario ne null) ? SessionBean.usuario.id : ''}" closable="true" resizable="false" modal="true" draggable="true" width="400" showEffect="fold" hideEffect="fold">
+                <h:panelGrid columns="2">
+                    <p:graphicImage value="/resources/imagenes/64/dialog-question.png" width="64" height="64"/>
+                    <h:outputText value="&iquest;Confirma que desea cerrar la sesi&oacute;n?"/>
+                    <f:facet name="footer">
+                        <p:commandButton value="S&iacute;, cerrar sesi&oacute;n" icon="ui-icon-locked" oncomplete="sesionDialog.hide();" action="#{loginManager.cerrarSesion$action}"/>
+                        <p:commandButton value="No" icon="ui-icon-circle-close" oncomplete="sesionDialog.hide();" rendered="#{SessionBean.usuario ne null}"/>
+                    </f:facet>
+                </h:panelGrid>
+            </p:dialog>
+            <!-- ============================================== -->
+            <ui:insert name="dialogos"/>
+            <p:growl autoUpdate="true" showDetail="true" showSummary="false"/>
+        </h:form>
+        <!-- ========================================================================================== -->
+    </h:body>
+</html>

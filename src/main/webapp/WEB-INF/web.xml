@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!-- =================================================================== -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <!-- =================================================================== -->
+    <session-config>
+        <session-timeout>15</session-timeout>
+    </session-config>
+    <!-- =================================================================== -->
+    <welcome-file-list>
+        <welcome-file>/faces/app/inicio.xhtml</welcome-file>
+    </welcome-file-list>
+    <!-- =================================================================== -->
+    <error-page>
+        <exception-type>com.sun.faces.context.FacesFileNotFoundException</exception-type>
+        <location>/faces/error/404.xhtml</location>
+    </error-page>
+    <error-page>
+        <exception-type>javax.faces.FacesException</exception-type>
+        <location>/faces/error/503.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/faces/error/403.xhtml</location>
+    </error-page>
+    <!-- ==================================================================== -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Production</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.enableMissingResourceLibraryDetection</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <!-- ==================================================================== -->
+    <context-param>  
+        <param-name>primefaces.THEME</param-name>  
+        <param-value>redmond</param-value>  
+    </context-param>     
+    <!-- ==================================================================== -->
+    <security-constraint>
+        <display-name>Default security constraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>Default LDAP Resource</web-resource-name>
+            <description>Default LDAP web security resource</description>
+            <url-pattern>/faces/app/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Default LDAP authorization role constraint</description>
+            <role-name>administrador</role-name>
+            <role-name>director</role-name>
+            <role-name>subdirector</role-name>
+            <role-name>docente</role-name>
+            <role-name>bibliotecario</role-name>
+            <role-name>academico</role-name>
+            <role-name>estudiante</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!-- -->
+    <security-role>
+        <description>Rol de administrador</description>
+        <role-name>administrador</role-name>
+    </security-role>
+    <security-role>
+        <description>Rol de director</description>
+        <role-name>director</role-name>
+    </security-role>
+    <security-role>
+        <description>Rol de subdirector</description>
+        <role-name>subdirector</role-name>
+    </security-role>
+    <security-role>
+        <description>Rol de docente</description>
+        <role-name>docente</role-name>
+    </security-role>
+    <security-role>
+        <description>Rol de bibliotecario</description>
+        <role-name>bibliotecario</role-name>
+    </security-role>
+    <security-role>
+        <description>Rol de academico</description>
+        <role-name>academico</role-name>
+    </security-role>
+    <security-role>
+        <description>Rol de estudiante</description>
+        <role-name>estudiante</role-name>
+    </security-role>    
+    <!-- =================================================================== -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>SIRACAD_LDAP_Realm</realm-name>
+        <form-login-config>
+            <form-login-page>/faces/login/login.xhtml</form-login-page>
+            <form-error-page>/faces/login/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <!-- =================================================================== -->
+    <!--filter>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+        <init-param>
+            <param-name>thresholdSize</param-name>
+            <param-value>2097152</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping-->
+    <!-- =================================================================== -->
+</web-app>

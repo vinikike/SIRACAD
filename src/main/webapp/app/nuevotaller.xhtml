@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="titulo">
+        <h:outputText value="Ingreso de Talleres"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" />            
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+        <h:panelGrid columns="2" cellspacing="10">
+            <h:outputLabel value="Nombre de Taller:  " />
+            <p:inputText required="true" requiredMessage="Ingresse el Nombre de l Taller"/>
+            <h:outputLabel value="Descrpicion:  " />
+            <p:inputTextarea id="descripcion" cols="50" rows="5" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Docente Responsable:" />
+            <p:selectOneMenu style="width: 300px">  
+                <f:selectItem itemLabel="Seleccione un Docente" itemDisabled="true" />  
+                <f:selectItem itemLabel="Ulises Renderos" itemValue="1" />  
+                <f:selectItem itemLabel="Cindy Osorio" itemValue="2" />  
+                <f:selectItem itemLabel="Ulises Renderos" itemValue="3" />  
+                <f:selectItem itemLabel="Gerardo Mejia" itemValue="4" />
+            </p:selectOneMenu>        
+        </h:panelGrid>
+
+
+
+        <h1 align="center">Talleres Disponibles</h1>
+        
+            <p:dataTable value="#{datosTabla.listadatos}" var="dato">
+                <p:column headerText="Nombre del Taller">
+                    <h:outputText value="#{dato.nombre}"/>
+                </p:column>
+                <p:column headerText="Descripcion">
+                    <h:outputText value="#{dato.descripcion}"/>
+                </p:column>
+                <p:column headerText="Docente Responsable">
+                    <h:outputText value="#{dato.docente}"/>
+                </p:column>
+            </p:dataTable>
+        
+
+
+    </ui:define>
+</ui:composition>

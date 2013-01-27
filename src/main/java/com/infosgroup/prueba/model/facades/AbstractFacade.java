@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
  *
  * @author Guille
  */
-public abstract class AbstractFacade<T> {
+public abstract class AbstractFacade<T, P> {
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
@@ -32,7 +32,7 @@ public abstract class AbstractFacade<T> {
         getEntityManager().remove(getEntityManager().merge(entity));
     }
 
-    public T find(Object id) {
+    public T find(P id) {
         return getEntityManager().find(entityClass, id);
     }
 

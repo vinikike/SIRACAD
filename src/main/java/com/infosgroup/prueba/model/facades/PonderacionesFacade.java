@@ -5,6 +5,7 @@
 package com.infosgroup.prueba.model.facades;
 
 import com.infosgroup.prueba.model.entities.Ponderaciones;
+import com.infosgroup.prueba.model.entities.PonderacionesPK;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Guille
  */
 @Stateless
-public class PonderacionesFacade extends AbstractFacade<Ponderaciones> {
+public class PonderacionesFacade extends AbstractFacade<Ponderaciones, PonderacionesPK> {
     @PersistenceContext(unitName = "WebApplicationPFPU")
     private EntityManager em;
 

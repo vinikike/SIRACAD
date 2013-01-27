@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
  * @author Guille
  */
 @Stateless
-public class MenuFacade extends AbstractFacade<Menu> {
+public class MenuFacade extends AbstractFacade<Menu, Integer> {
     @PersistenceContext(unitName = "WebApplicationPFPU")
     private EntityManager em;
 

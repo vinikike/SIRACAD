@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="titulo">
+        <h:outputText value="Nuevo Usuario"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" />
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+        <h2>Añadir Usuario de Sistema</h2>
+        <h:panelGrid columns="2" cellspacing="10">
+            <h:outputLabel value="Nombre de Usuario:  " />
+            <p:inputText id="usuario" size="50" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Contraseña:  " />
+            <p:inputText id="contraseña" size="30" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Repita Contraseña:  " />
+            <p:inputText id="libro" size="30" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+
+            <h:outputText value="Area: " />  
+            <p:selectOneMenu value="#{buttonBean.number}">  
+                <f:selectItem itemLabel="Seleccione uno" itemValue="" />  
+                <f:selectItem itemLabel="Administrador" itemValue="1" />  
+                <f:selectItem itemLabel="academica" itemValue="2" />  
+                <f:selectItem itemLabel="administrativo" itemValue="3" />  
+            </p:selectOneMenu>  
+            <h:outputText value="Cargo: " />  
+            <p:selectOneMenu value="#{buttonBean.number}">  
+                <f:selectItem itemLabel="Seleccione uno" itemValue="" />  
+                <f:selectItem itemLabel="Docente" itemValue="1" />  
+                <f:selectItem itemLabel="Director/a" itemValue="2" />  
+                <f:selectItem itemLabel="Subdirector/a" itemValue="3" />
+                <f:selectItem itemLabel="Secretaria" itemValue="3" />
+            </p:selectOneMenu>  
+        </h:panelGrid>
+
+
+    </ui:define>
+</ui:composition>
+

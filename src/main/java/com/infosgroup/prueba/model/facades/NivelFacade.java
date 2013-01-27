@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Guille
  */
 @Stateless
-public class NivelFacade extends AbstractFacade<Nivel> {
+public class NivelFacade extends AbstractFacade<Nivel, Integer> {
     @PersistenceContext(unitName = "WebApplicationPFPU")
     private EntityManager em;
 

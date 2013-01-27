@@ -10,6 +10,7 @@ import com.infosgroup.prueba.model.entities.Compania;
 import com.infosgroup.prueba.model.entities.Menu;
 import com.infosgroup.prueba.model.entities.Rol;
 import com.infosgroup.prueba.model.entities.Usuario;
+import com.infosgroup.prueba.model.entities.UsuarioPK;
 import com.infosgroup.prueba.model.facades.MenuFacade;
 import com.infosgroup.prueba.model.facades.UsuarioFacade;
 import com.infosgroup.prueba.view.AbstractJSFBean;
@@ -65,7 +66,8 @@ public void _init()
     _menuBarModel.getContents().clear();
     //
     _fechaHoraInicioSesion = GregorianCalendar.getInstance().getTime();
-    _usuario = usuarioFacade.find(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+    // TODO: Cambiar periodo escolar
+    _usuario = usuarioFacade.find(new UsuarioPK(2012, FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()));
     if (_usuario != null)
         {
         _compania = _usuario.getCompania();

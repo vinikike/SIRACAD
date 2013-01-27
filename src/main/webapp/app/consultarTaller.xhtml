@@ -12,8 +12,10 @@
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
-            <p:menuitem value="Cancelar" icon="ui-icon-trash" />            
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+            <p:menuitem value="Inscripcion en Talleres" action="inscripcionTaller?faces-redirect=true" icon="ui-icon-person" />            
+            <p:menuitem value="Nuevo Taller" action="nuevoTaller?faces-redirect=true" icon="ui-icon-plusthick" />            
+            <p:menuitem value="Editar Talleres" action="editarTaller?faces-redirect=true" icon="ui-icon-pencil" />
         </p:submenu>      
     </ui:define>
     <ui:define name="contenido">
@@ -40,7 +42,7 @@
 
         </h:panelGrid>
 
-        <h1 align="center">Talleres Disponibles</h1>
+        <h2 align="center">Talleres Disponibles</h2>
 
         <p:dataTable value="#{datosTabla.listadatos}" var="dato">
             <p:column headerText="Nombre del Taller">

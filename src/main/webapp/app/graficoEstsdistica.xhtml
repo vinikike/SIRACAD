@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="titulo">
+        <h:outputText value="Consulta de Libros"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Volver" action="estadisticaGeneral?faces-redirect=true" icon="ui-icon-arrowreturnthick-1-w" />  
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+            <p:menuitem value="Imprimir" icon="ui-icon-print" />                        
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+        <h2 align="center">Complejo Educatovo &quot;Dr. Victoriano Rodriguez&quot;</h2>
+        <h2 align="center">Grafico Estadistico General</h2>
+        <h2 align="center">Año: __________</h2>
+
+        <p:lineChart id="MatriculaInicial" value="#{inicio.modelo}" legendPosition="e" title="Matricula Inicial" minY="0" maxY="200" style="height:300px;margin-top:20px"/>
+        <br/>
+        <p:lineChart id="IngresosMes" value="#{inicio.modelo}" legendPosition="e" title="Ingresos del Mes" minY="0" maxY="200" style="height:300px;margin-top:20px"/>
+        <br/>
+        <p:lineChart id="EgresosMes" value="#{inicio.modelo}" legendPosition="e" title="Egresos del Mes" minY="0" maxY="200" style="height:300px;margin-top:20px"/>
+        <br/>
+        <p:lineChart id="MatriculaEfectivaMes" value="#{inicio.modelo}" legendPosition="e" title="Matricula Efectiva del Mes" minY="0" maxY="200" style="height:300px;margin-top:20px"/>
+        <br/>
+        <p:lineChart id="AsistenciaMedia" value="#{inicio.modelo}" legendPosition="e" title="Asistencia Media" minY="0" maxY="200" style="height:300px;margin-top:20px"/>
+        <br/>
+        <p:lineChart id="InasistenciaMedia" value="#{inicio.modelo}" legendPosition="e" title="Inasistencia Media" minY="0" maxY="200" style="height:300px;margin-top:20px"/>
+        <br/>
+        <p:lineChart id="SobreEdad" value="#{inicio.modelo}" legendPosition="e" title="Sobre Edad" minY="0" maxY="200" style="height:300px;margin-top:20px"/>
+        <br/>
+        <p:lineChart id="Repitencia" value="#{inicio.modelo}" legendPosition="e" title="Repitencia" minY="0" maxY="200" style="height:300px;margin-top:20px"/>
+        <h:panelGrid columns="1" style="text-align: center;" >
+            <h2>texxxxxxxxxxx</h2>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>

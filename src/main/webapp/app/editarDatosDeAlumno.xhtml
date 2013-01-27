@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <ui:define name="titulo">
+        <h:outputText value="Editar datos del Estudiante"/>
+    </ui:define>
+
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Actualizar Datos" icon="ui-icon-refresh" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" /> 
+            <p:menuitem value="Inicio" icon="ui-icon-home" action="inicio?faces-redirect=true" />
+            <p:menuitem value="Matricula Parvularia" icon="ui-icon-contact" action="matriculaParvularia?faces-redirect=true"/>            
+            <p:menuitem value="Matricula B&aacute;sica" icon="ui-icon-contact" action="matriculaBasica?faces-redirect=true" />            
+            <p:menuitem value="Matricula Media" icon="ui-icon-contact" action="matriculaMedia?faces-redirect=true" />            
+            <p:menuitem value="Matricula Nocturna" icon="ui-icon-contact" action="matriculaNocturna?faces-redirect=true" />            
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+        <h1 align="center">Editar Datos</h1>
+        <h3 align="center">Para ver la informaci&oacute;n del estudiante ingrese el NIE correspondiente</h3>
+        <table align="center" border="0" >
+            <tr>
+                <td colspan="2" align="center">
+                    <p:inputMask mask="99999999" maxlength="8" id="ingresarNIE" value="#{inicio.numero}" requiredMessage="Se nesesita un valor para el NIE para verificar los datos" required="true"  style="width: 200px; height: 30px; text-align: center; text-justify: distribute; font-size: 25pt !important; margin-left: auto; margin-right: auto;"/>
+                </td>
+            </tr>
+            
+            <tr>
+                <td align="center">
+                    <p:commandButton id="buscarAlumno" value="Buscar" icon="ui-icon-search" style="alignment-adjust: central" partialSubmit="true" process="@(form)" update="@(form)" action="#{inicio.cambioPagina$action}"/>
+                </td>
+                <td align="center">
+                    <p:commandButton id="cancelaBuscar" value="Cancelar" icon="ui-icon-cancel" partialSubmit="true" process="@form" update="@form"/>
+                </td>
+            </tr>
+            
+        </table>
+    </ui:define>
+</ui:composition>

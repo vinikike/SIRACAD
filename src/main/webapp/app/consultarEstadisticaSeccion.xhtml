@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="titulo">
+        <h:outputText value="Consulta Estadistica por Secci&oacute;n"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+            <p:menuitem value="Imprimir" icon="ui-icon-print" /> 
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+        <h1 align="center">Informe Estadistico</h1>
+        <h2 align="center">Complejo Educativo Dr. Victoriano Rodriguez</h2>
+        <center style="font-weight: bold;">
+            <h:panelGrid columns="1" cellpadding="0" cellspacing="5">
+                <h:outputLabel value="Informe Estadistico del mes de: " /> 
+            </h:panelGrid>
+
+            <h:panelGrid columns="3" cellpadding="0" cellspacing="5">
+                <h:outputLabel value="Grado: _______________________" />
+                <h:outputLabel value="Seccion: _________________" />
+                <h:outputLabel value="Año: ___________" />  
+            </h:panelGrid>
+
+            <h:panelGrid columns="1" cellpadding="0" cellspacing="5" style="text-align: center">
+                <h:outputLabel value="Profesor/a: ___________________________________________________________________" />
+                <h:outputLabel value="  " />
+            </h:panelGrid>
+
+        </center>
+        <table border="1" align="center" rules="rows" style="border-collapse:collapse; border-color:#9CC2E5;">
+            <tr align="center" style="font-size: 12pt;" bgcolor="#5B9BD5">
+                <td width="300">Aspectos</td>
+                <td width="150">Masculino</td>
+                <td width="100">Femenino</td>
+                <td width="50">Total</td>
+            </tr>
+
+            <tr align="center" bgcolor="#DEEAF6" style="font-size: 11pt;">
+                <td align="left">Matricula Inicial</td>
+                <td>5</td>
+                <td>4</td>
+                <td style="font-size: 12pt;">9</td>
+            </tr>
+
+
+            <tr align="center" style="font-size: 11pt;">
+                <td align="left">Ingresos del Mes</td>
+                <td>1</td>
+                <td>3</td>
+                <td style="font-size: 12pt;">6</td>
+            </tr>
+
+            <tr align="center" bgcolor="#DEEAF6" style="font-size: 11pt;">
+                <td align="left">Egresos del Mes</td>
+                <td>1</td>
+                <td>7</td>
+                <td style="font-size: 12pt;">8</td>
+            </tr>
+
+            <tr align="center" style="font-size: 11pt;">
+                <td align="left">Matricula Efectiva del Mes</td>
+                <td>8</td>
+                <td>4</td>
+                <td style="font-size: 12pt;">3</td>
+            </tr>
+
+            <tr align="center" bgcolor="#DEEAF6" style="font-size: 11pt;">
+                <td align="left">Asistencia Media</td>
+                <td>2</td>
+                <td>3</td>
+                <td style="font-size: 12pt;">7</td>
+            </tr>
+
+            <tr align="center" style="font-size: 11pt;">
+                <td align="left">Inasistencia Media</td>
+                <td>3</td>
+                <td>2</td>
+                <td style="font-size: 12pt;">4</td>
+            </tr>
+
+            <tr align="center" bgcolor="#DEEAF6" style="font-size: 11pt; bo">
+                <td align="left">Sobre Edad</td>
+                <td>2</td>
+                <td>2</td>
+                <td style="font-size: 12pt;">5</td>
+            </tr>
+
+            <tr align="center" style="font-size: 11pt;">
+                <td align="left">Repitencia</td>
+                <td>4</td>
+                <td>3</td>
+                <td style="font-size: 12pt;">4</td>
+            </tr>
+        </table>
+    </ui:define>
+</ui:composition>

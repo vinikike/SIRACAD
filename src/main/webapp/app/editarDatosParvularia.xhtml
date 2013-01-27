@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="titulo">
+        <h:outputText value="Matricula Parvularia"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" />
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+            <p:menuitem value="Matricula Media" action="matriculaMedia?faces-redirect=true" icon="ui-icon-contact" />            
+            <p:menuitem value="Matricula Nocturna" action="matriculaNocturna?faces-redirect=true" icon="ui-icon-contact" />            
+            <p:menuitem value="Matricula B&aacute;asica" action="matriculaBasica?faces-redirect=true" icon="ui-icon-contact" />            
+            <p:menuitem value="Imprimir" icon="ui-icon-print" /> 
+        </p:submenu>      
+    </ui:define>
+
+    <ui:define name="contenido">
+        <h2 align="center">Ficha de inscripcion de Parvularia</h2>
+        <br/>
+        <h2>Ficha No. </h2>
+        <h:panelGrid columns="4" cellspacing="25">
+            <h:outputLabel value="Nombre del Estudiante:   " />
+            <p:inputText id="nombre" size="40" required="true"  requiredMessage="Escribir el Nombre del Estudiante" />
+
+            <h:outputLabel value="NIE:  " />
+            <p:inputText id="nie" size="8" required="true"  requiredMessage="Escribir el NIE del Estudiante" />
+
+        </h:panelGrid>
+
+        <h:panelGrid columns="2" cellspacing="10">
+            <h:outputLabel value="Lugar y Fecha de Nacimiento:  " />
+            <p:inputText id="Nacimiento" size="80" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+        </h:panelGrid>
+
+        <h:panelGrid columns="10" cellspacing="10">
+            <h:outputLabel value=" Edad: Años,  " />
+            <p:inputText id="años" size="2" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="meses:  " />
+            <p:inputText id="meses" size="2" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Kinder:  " />
+            <p:inputText id="kinder" size="10" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="sección:  " />
+            <p:inputText id="seccion" size="2" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Periodo de Estudio:  " />
+            <p:inputText id="periodo" size="2" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputText value="Turno: " />  
+            <p:selectOneRadio id="turno" value="#{formBean.number}">  
+                <f:selectItem itemLabel="Mañana" itemValue="1" />  
+                <f:selectItem itemLabel="Tarde" itemValue="2" />  
+            </p:selectOneRadio>  
+        </h:panelGrid>
+
+        <h:panelGrid columns="4" cellspacing="10">
+            <h:outputLabel value="Nombre del Padre:  " />
+            <p:inputText id="Nom_Padre" size="60" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Telefono:  " />
+            <p:inputText id="Telefono_p" size="10" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Nombre de la Madre:  " />
+            <p:inputText id="Nom_Madre" size="60" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Telefono:  " />
+            <p:inputText id="Telefono_m" size="10" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Nombre del Responsable ante la Insititución:  " />
+            <p:inputText id="responsable" size="60" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Telefono:  " />
+            <p:inputText id="telefono_r" size="10" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+        </h:panelGrid>
+
+        <h:panelGrid columns="2" cellspacing="10">
+            <h:outputLabel value="Nº de DUI de responsable ante la institución:   " />
+            <p:inputText id="DUI_res" size="10" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Direcciçon donde reside el/la Párvulo/a:   " />
+            <p:inputText id="Direccion" size="80" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Nombre del Centro Escolar donde estudio, el año anterior:   " />
+            <p:inputText id="Centro_Escolar" size="80" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+
+        </h:panelGrid>
+        <h:panelGrid columns="2" cellspacing="10">
+            <h:outputText value="Zona Residencial: " />  
+            <p:selectOneRadio id="zona" value="#{formBean.number}">  
+                <f:selectItem itemLabel="Rural" itemValue="1" />  
+                <f:selectItem itemLabel="Urbana" itemValue="2" />  
+                <f:selectItem itemLabel="Urbana Marginal" itemValue="3" />  
+            </p:selectOneRadio> 
+        </h:panelGrid>
+        <h:panelGrid columns="2" cellspacing="10">
+            <h:outputText value="Recibo servicio de apoyo fuera de la institución: " />  
+            <p:selectOneRadio id="sino" value="#{formBean.number}">  
+                <f:selectItem itemLabel="SI" itemValue="1" />  
+                <f:selectItem itemLabel="NO" itemValue="2" />  
+            </p:selectOneRadio> 
+        </h:panelGrid>
+        <h:panelGrid columns="2" cellspacing="10">
+            <h:outputLabel value="Que clase de apoyo:   " />
+            <p:inputText id="apoyo" size="80" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+        </h:panelGrid>
+        <h:panelGrid columns="2" cellspacing="10">
+            <h:outputText value="Estado Familiar: " />  
+            <p:selectOneRadio id="Estado_Familiar" value="#{formBean.number}">  
+                <f:selectItem itemLabel="Vive solo con la Madre" itemValue="1" />  
+                <f:selectItem itemLabel="Vive solo con el Padre" itemValue="2" /> 
+                <f:selectItem itemLabel="Vive con el Padre y la Madre" itemValue="3" />  
+                <f:selectItem itemLabel="Vive con familiares" itemValue="4" /> 
+                <f:selectItem itemLabel="Otros" itemValue="5" />  
+            </p:selectOneRadio> 
+        </h:panelGrid>   
+        <h:panelGrid columns="4" cellspacing="10">
+            <h:outputLabel value="Especifique:   " />
+            <p:inputText id="especifique" size="50" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+        </h:panelGrid>
+
+        <h:panelGrid columns="2" cellspacing="10">
+            <h:outputText value="Posee discapacidad: " />  
+            <p:selectOneRadio id="discapacidad" value="#{formBean.number}">  
+                <f:selectItem itemLabel="SI" itemValue="1" />  
+                <f:selectItem itemLabel="NO" itemValue="2" />  
+            </p:selectOneRadio> 
+            <h:outputLabel value="Tipo de discapacidad:   " />
+            <p:inputText id="Tipo_Discapacidad" size="80" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+
+            <h:outputText value="Vacuna Completa: " />  
+            <p:selectOneRadio id="Vacuna" value="#{formBean.number}">  
+                <f:selectItem itemLabel="SI" itemValue="1" />  
+                <f:selectItem itemLabel="NO" itemValue="2" />  
+            </p:selectOneRadio> 
+            <h:outputLabel value="Problema de Salud:   " />
+            <p:inputText id="Problema_Salud" size="80" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+        </h:panelGrid>
+        <h3>Numero de niños y niñas menores de seis años que viven en su hogar</h3>
+        <h:panelGrid columns="4" cellspacing="10">
+            <h:outputLabel value="Niñas:   " />
+            <p:inputText id="niñas" size="2" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Niños:   " />
+            <p:inputText id="niños" size="2" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+        </h:panelGrid>
+        <h:panelGrid columns="10" cellspacing="10">
+            <h:outputLabel value="Informe de tallas:  Falda:   " />
+            <p:inputText id="Falda" size="4" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Pantalón:   " />
+            <p:inputText id="Pantalon" size="4" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Blusa:   " />
+            <p:inputText id="Blusa" size="4" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Camisa:   " />
+            <p:inputText id="camisa" size="4" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Calzado:   " />
+            <p:inputText id="Calzado" size="4" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+        </h:panelGrid>
+        <h:form>  
+            <p:growl id="growl" showDetail="true"/>  
+            <p:panel header="Autorización">  
+                <h3>Por este medio autorizo a que mi hijo/a se vaya con:</h3>
+                <h:outputLabel value="Nombre de la Persona autorizada:   " />
+                <p:inputText id="persona_autorizada" size="60" required="false" requiredMessage="Escribir la Descripcion del Taller" />
+                <h:outputLabel value="Nº de DUI:   " />
+                <p:inputText id="DUI_autorizada" size="10" required="false" requiredMessage="Escribir la Descripcion del Taller" />
+            </p:panel> 
+        </h:form>
+    </ui:define>
+</ui:composition>
+

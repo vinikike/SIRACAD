@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Guille
  */
 @Stateless
-public class CompaniaFacade extends AbstractFacade<Compania> {
+public class CompaniaFacade extends AbstractFacade<Compania, Integer> {
     @PersistenceContext(unitName = "WebApplicationPFPU")
     private EntityManager em;
 

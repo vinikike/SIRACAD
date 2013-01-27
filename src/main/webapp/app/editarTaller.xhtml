@@ -12,13 +12,17 @@
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
-            <p:menuitem value="Cancelar" icon="ui-icon-trash" />            
+            <p:menuitem value="Actualizar Datos" icon="ui-icon-refresh" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" /> 
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+            <p:menuitem value="Inscripcion en Talleres" action="inscripcionTaller?faces-redirect=true" icon="ui-icon-person" />            
+            <p:menuitem value="Nuevo Taller" action="nuevoTaller?faces-redirect=true" icon="ui-icon-plusthick" />            
+            <p:menuitem value="Consultar Talleres" action="consultarTaller?faces-redirect=true" icon="ui-icon-tag" />
         </p:submenu>      
     </ui:define>
     <ui:define name="contenido">
         <h:panelGrid columns="1" cellspacing="10">
-            <h:panelGrid columns="3" cellspacing="10">
+            <h:panelGrid columns="2" cellspacing="10">
                 <h:outputLabel value="Talleres Disponibles:" />
                 <p:selectOneMenu style="width: 300px">  
                     <f:selectItem itemLabel="Seleccione un Taller" itemDisabled="true" />  
@@ -27,9 +31,8 @@
                     <f:selectItem itemLabel="Cosmetilogia" itemValue="3" />  
                     <f:selectItem itemLabel="Pintura" itemValue="4" />
                 </p:selectOneMenu>        
-                <p:commandButton icon="ui-icon-pencil" />
             </h:panelGrid>
-            
+
             <h:panelGrid columns="2" cellspacing="10">
                 <h:outputLabel value="Nombre de Taller:  " />
                 <p:inputText id="nombreTaller" disabled="true" required="true" requiredMessage="Ingresse el Nombre de l Taller" />

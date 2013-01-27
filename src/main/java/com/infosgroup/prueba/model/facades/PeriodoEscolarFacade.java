@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Guille
  */
 @Stateless
-public class PeriodoEscolarFacade extends AbstractFacade<PeriodoEscolar> {
+public class PeriodoEscolarFacade extends AbstractFacade<PeriodoEscolar, Integer> {
     @PersistenceContext(unitName = "WebApplicationPFPU")
     private EntityManager em;
 

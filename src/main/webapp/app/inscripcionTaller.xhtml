@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <ui:define name="titulo">
+        <h:outputText value="Inscripcion de Talleres"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" />
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />            
+            <p:menuitem value="Editar Talleres" action="editarTaller?faces-redirect=true" icon="ui-icon-pencil" />            
+            <p:menuitem value="Nuevo Taller" action="nuevoTaller?faces-redirect=true" icon="ui-icon-plusthick" />            
+            <p:menuitem value="Consultar Talleres" action="consultarTaller?faces-redirect=true" icon="ui-icon-tag" />
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+        <h2 align="center">Registro de Alumnos en Taller</h2>
+        <h:panelGrid columns="3" cellspacing="10">
+            <h:outputLabel value="Ingrese el NIE:" />
+            <pe:inputNumber id="ingresarNIETaller" requiredMessage="Se nesesita un n&uacute;mero NIE valido para verificar los datos" required="true"  decimalPlaces="0" thousandSeparator="" style="width: 100px; text-align: center; text-justify: distribute; font-size: 11pt !important;" />
+            <p:commandButton id="consultarNIE" icon="ui-icon-check" />
+        </h:panelGrid>
+
+        <h:panelGrid columns="3" cellspacing="5">
+            <h:outputLabel value="Nombres:" style="font-size: 11pt" />
+            <h:outputLabel value="Juan Jose" style="font-size: 11pt" />
+            <h:outputLabel value="Garcia Lara" style="font-size: 11pt" />
+        </h:panelGrid>
+
+        <h:panelGrid columns="4" cellspacing="5">
+            <h:outputLabel value="Grado:" style="font-size: 11pt" />
+            <h:outputLabel value="2do" style="font-size: 11pt" />
+            <h:outputLabel value="&nbsp;&nbsp;Secci&oacute;n:" style="font-size: 11pt" />
+            <h:outputLabel value='"A"' style="font-size: 11pt" />
+        </h:panelGrid>
+        <br/>
+        <h:panelGrid columns="2" cellspacing="5">
+            <h:outputLabel value="Talleres Disponibles:" />
+            <p:selectOneMenu style="width: 300px">  
+                <f:selectItem itemLabel="Seleccione un Taller" itemDisabled="true" />  
+                <f:selectItem itemLabel="Guitarra" itemValue="1" />  
+                <f:selectItem itemLabel="Danza" itemValue="2" />  
+                <f:selectItem itemLabel="Cosmetilogia" itemValue="3" />  
+                <f:selectItem itemLabel="Pintura" itemValue="4" />
+            </p:selectOneMenu> 
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>

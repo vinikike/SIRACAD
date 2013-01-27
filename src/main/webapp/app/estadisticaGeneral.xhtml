@@ -1,0 +1,878 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="titulo">
+        <h:outputText value="Consulta de Estadistica General"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" />
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+            <p:menuitem value="Grafico" action="graficoEstsdistica?faces-redirect=true" icon="ui-icon-image" />
+            <p:menuitem value="Reporte" icon="ui-icon-document" /> 
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+
+        <center>
+            <h:panelGrid columns="1" cellpadding="0" cellspacing="5" style="text-align: center;">
+                <h:outputLabel value="CONSULTA DE INFORME ESTADISTICO" style="font-size: 10pt; font-weight: bold;" />
+                <h:outputLabel value="COMPLEJO EDUCATIVO &quot;DOCTOR VICTORIANO RODRIGUEZ&quot;" style="font-size: 10pt; font-weight: bold;"/>
+                <h:outputLabel value="DISTRITO SEDE: 10 - 05" style="font-size: 10pt; font-weight: bold;" />
+                <h:outputLabel value="CORRESPONDIENTE AL MES DE ___________ DE 20___" style="font-size: 10pt; font-weight: bold;" />
+                <h:outputLabel value="&nbsp;" style="font-size: 10pt; font-weight: bold;" />
+
+                <p:dataTable id="ParvuMananaTabla">  
+
+                    <f:facet name="header">  
+                        EDUCACION PARVULARIA (MAÑANA)  
+                    </f:facet>  
+
+                    <p:columnGroup type="header">  
+                        <p:row>  
+                            <p:column headerText="Grados" width="175" style="text-align: left" />  
+                            <p:column colspan="2" headerText="4 Años" />  
+                            <p:column colspan="2" headerText="5 Años" />  
+                            <p:column colspan="2" headerText="6 Años" />  
+                            <p:column colspan="2" headerText="Totales" />  
+                        </p:row>  
+
+                        <p:row>  
+                            <p:column headerText="No. de Secciones" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="xxx" />  
+                        </p:row>
+
+                        <p:row>  
+                            <p:column headerText="Sexo" style="text-align: left;" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                        </p:row>
+
+                    </p:columnGroup>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                </p:dataTable> 
+
+                <h:outputLabel value="&nbsp;" style="font-size: 10pt; font-weight: bold;" />
+
+                <p:dataTable id="ParvuTardeTabla">  
+
+                    <f:facet name="header">  
+                        EDUCACION PARVULARIA (TARDE)  
+                    </f:facet>  
+
+                    <p:columnGroup type="header">  
+                        <p:row>  
+                            <p:column headerText="Grados" width="175" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="4 Años" />  
+                            <p:column colspan="2" headerText="5 Años" />  
+                            <p:column colspan="2" headerText="6 Años" />  
+                            <p:column colspan="2" headerText="Totales" />  
+                        </p:row>  
+
+                        <p:row>  
+                            <p:column headerText="No. de Secciones" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="xxx" />  
+                        </p:row>
+
+                        <p:row>  
+                            <p:column headerText="Sexo" style="text-align: left;" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                        </p:row>
+
+                    </p:columnGroup>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                </p:dataTable>
+
+                <h:outputLabel value="&nbsp;" style="font-size: 10pt; font-weight: bold;" />
+
+                <p:dataTable id="BasicaMananaTabla">  
+
+                    <f:facet name="header">  
+                        EDUCACION BASICA (MAÑANA)  
+                    </f:facet>  
+
+                    <p:columnGroup type="header">  
+                        <p:row>  
+                            <p:column headerText="Grados" width="175" style="text-align: left" />  
+                            <p:column colspan="2" headerText="1" />  
+                            <p:column colspan="2" headerText="2" />  
+                            <p:column colspan="2" headerText="3" /> 
+                            <p:column colspan="2" headerText="4" />  
+                            <p:column colspan="2" headerText="5" />  
+                            <p:column colspan="2" headerText="6" /> 
+                            <p:column colspan="2" headerText="7" />  
+                            <p:column colspan="2" headerText="8" />  
+                            <p:column colspan="2" headerText="9" /> 
+                            <p:column colspan="2" headerText="Totales" />  
+                        </p:row>  
+
+                        <p:row>  
+                            <p:column headerText="No. de Secciones" style="text-align: left" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" /> 
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" /> 
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" /> 
+                            <p:column colspan="2" headerText="xxx" />  
+                        </p:row>
+
+                        <p:row>  
+                            <p:column headerText="Sexo" style="text-align: left" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" /> 
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                        </p:row>
+
+                    </p:columnGroup>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+                </p:dataTable>
+
+                <h:outputLabel value="&nbsp;" style="font-size: 10pt; font-weight: bold;" />
+
+                <p:dataTable id="BasicaTardeTabla">  
+
+                    <f:facet name="header">  
+                        EDUCACION BASICA (TARDE)  
+                    </f:facet>  
+
+                    <p:columnGroup type="header">  
+                        <p:row>  
+                            <p:column headerText="Grados" width="175" style="text-align: left" />  
+                            <p:column colspan="2" headerText="1" />  
+                            <p:column colspan="2" headerText="2" />  
+                            <p:column colspan="2" headerText="3" /> 
+                            <p:column colspan="2" headerText="4" />  
+                            <p:column colspan="2" headerText="5" />  
+                            <p:column colspan="2" headerText="6" /> 
+                            <p:column colspan="2" headerText="7" />  
+                            <p:column colspan="2" headerText="8" />  
+                            <p:column colspan="2" headerText="9" /> 
+                            <p:column colspan="2" headerText="Totales" />  
+                        </p:row>  
+
+                        <p:row>  
+                            <p:column headerText="No. de Secciones" style="text-align: left" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" /> 
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" /> 
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" /> 
+                            <p:column colspan="2" headerText="xxx" />  
+                        </p:row>
+
+                        <p:row>  
+                            <p:column headerText="Sexo" style="text-align: left" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" /> 
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                        </p:row>
+
+                    </p:columnGroup>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+                </p:dataTable>
+
+                <h:outputLabel value="&nbsp;" style="font-size: 10pt; font-weight: bold;" />
+
+                <p:dataTable id="EduMediaTabla">  
+
+                    <f:facet name="header">  
+                        EDUCACION MEDIA  
+                    </f:facet>  
+
+                    <p:columnGroup type="header">  
+                        <p:row>  
+                            <p:column headerText="Grados" width="175" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="1" />  
+                            <p:column colspan="2" headerText="2" />  
+                            <p:column colspan="2" headerText="3" />  
+                            <p:column colspan="2" headerText="Totales" />  
+                        </p:row>  
+
+                        <p:row>  
+                            <p:column headerText="No. de Secciones" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="xxx" />  
+                        </p:row>
+
+                        <p:row>  
+                            <p:column headerText="Sexo" style="text-align: left;" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                        </p:row>
+
+                    </p:columnGroup>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                </p:dataTable>
+
+                <h:outputLabel value="&nbsp;" style="font-size: 10pt; font-weight: bold;" />
+
+                <p:dataTable id="EduAdultosTabla">  
+
+                    <f:facet name="header">  
+                        EDUCACION ADULTOS  
+                    </f:facet>  
+
+                    <p:columnGroup type="header">  
+                        <p:row>  
+                            <p:column headerText="Grados" width="175" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="Primer Nivel" />  
+                            <p:column colspan="2" headerText="Segundo Nivel" />  
+                            <p:column colspan="2" headerText="Tercer Nivel" />  
+                            <p:column colspan="2" headerText="Totales" />  
+                        </p:row>  
+
+                        <p:row>  
+                            <p:column headerText="No. de Secciones" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="xxx" />  
+                        </p:row>
+
+                        <p:row>  
+                            <p:column headerText="Sexo" style="text-align: left;" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                        </p:row>
+
+                    </p:columnGroup>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                </p:dataTable>
+
+                <h:outputLabel value="&nbsp;" style="font-size: 10pt; font-weight: bold;" />
+
+                <p:dataTable id="EduNocturnaTabla">  
+
+                    <f:facet name="header">  
+                        TERCER CICLO NOCTURNO 
+                    </f:facet>  
+
+                    <p:columnGroup type="header">  
+                        <p:row>  
+                            <p:column headerText="Grados" width="175" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="SEPTIMO" />  
+                            <p:column colspan="2" headerText="OCTAVO" />  
+                            <p:column colspan="2" headerText="NOVENO" />  
+                            <p:column colspan="2" headerText="Totales" />  
+                        </p:row>  
+
+                        <p:row>  
+                            <p:column headerText="No. de Secciones" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="xxx" />  
+                        </p:row>
+
+                        <p:row>  
+                            <p:column headerText="Sexo" style="text-align: left;" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                        </p:row>
+
+                    </p:columnGroup>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                </p:dataTable>
+
+                <h:outputLabel value="&nbsp;" style="font-size: 10pt; font-weight: bold;" />
+
+                <p:dataTable id="EduMediaNocturnaTabla">  
+
+                    <f:facet name="header">  
+                        EDUCACION MEDIA NOCTURNA  
+                    </f:facet>  
+
+                    <p:columnGroup type="header">  
+                        <p:row>  
+                            <p:column headerText="Grados" width="175" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="1" />  
+                            <p:column colspan="2" headerText="2" />  
+                            <p:column colspan="2" headerText="3" />  
+                            <p:column colspan="2" headerText="Totales" />  
+                        </p:row>  
+
+                        <p:row>  
+                            <p:column headerText="No. de Secciones" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="x" />  
+                            <p:column colspan="2" headerText="xxx" />  
+                        </p:row>
+
+                        <p:row>  
+                            <p:column headerText="Sexo" style="text-align: left;" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                        </p:row>
+
+                    </p:columnGroup>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                </p:dataTable>
+
+                <h:outputLabel value="&nbsp;" style="font-size: 10pt; font-weight: bold;" />
+
+                <p:dataTable id="TotalesTabla">  
+
+                    <f:facet name="header">  
+                        TOTAL GENERAL  
+                    </f:facet>  
+
+                    <p:columnGroup type="header">  
+                        <p:row>  
+                            <p:column headerText="Matricula General" width="175" style="text-align: left;" />  
+                            <p:column colspan="2" headerText="Parvularia" />  
+                            <p:column colspan="2" headerText="Basica" />  
+                            <p:column colspan="2" headerText="Media" /> 
+                            <p:column colspan="2" headerText="Nocturna" />
+                            <p:column colspan="2" headerText="Total" />  
+                        </p:row>  
+
+                        <p:row>  
+                            <p:column headerText="Sexo" style="text-align: left;" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" />  
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" /> 
+                            <p:column headerText="V" />  
+                            <p:column headerText="N" /> 
+                        </p:row>
+
+                    </p:columnGroup>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>  
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:column>  
+                        Matricula inicial
+                    </p:column>
+
+                    <p:columnGroup type="footer">  
+                        <p:row>  
+                            <p:column colspan="9" footerText="Total de Alumnos:" style="text-align:right"  />  
+
+                            <p:column colspan="2" footerText="" />    
+                        </p:row>  
+                    </p:columnGroup>
+
+                </p:dataTable>
+
+            </h:panelGrid>
+        </center>
+    </ui:define>
+</ui:composition>

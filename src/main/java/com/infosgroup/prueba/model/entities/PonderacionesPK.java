@@ -18,19 +18,19 @@ import javax.validation.constraints.NotNull;
 public class PonderacionesPK implements Serializable {
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_periodo_escolar", nullable = false)
+    @Column(name = "id_periodo_escolar")
     private int idPeriodoEscolar;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_nivel", nullable = false)
+    @Column(name = "id_nivel")
     private int idNivel;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_periodo", nullable = false)
+    @Column(name = "id_periodo")
     private int idPeriodo;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_ponderacion", nullable = false)
+    @Column(name = "id_ponderacion")
     private int idPonderacion;
 
     public PonderacionesPK() {

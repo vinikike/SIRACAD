@@ -41,20 +41,20 @@ public class Menu implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Size(max = 1000)
-    @Column(name = "direccion", length = 1000)
+    @Column(name = "direccion")
     private String direccion;
     @Size(max = 500)
-    @Column(name = "icono", length = 500)
+    @Column(name = "icono")
     private String icono;
     @Size(max = 500)
-    @Column(name = "titulo", length = 500)
+    @Column(name = "titulo")
     private String titulo;
     @JoinTable(name = "menu_rol", joinColumns = {
-        @JoinColumn(name = "menu", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "rol", referencedColumnName = "id", nullable = false)})
+        @JoinColumn(name = "menu", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "rol", referencedColumnName = "id")})
     @ManyToMany
     private List<Rol> rolList;
     @OneToMany(mappedBy = "menuPadre")

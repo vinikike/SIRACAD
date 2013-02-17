@@ -57,74 +57,74 @@ public class Empleado implements Serializable {
     @EmbeddedId
     protected EmpleadoPK empleadoPK;
     @Size(max = 500)
-    @Column(name = "apartado_email", length = 500)
+    @Column(name = "apartado_email")
     private String apartadoEmail;
     @Size(max = 100)
-    @Column(name = "apellido_casada", length = 100)
+    @Column(name = "apellido_casada")
     private String apellidoCasada;
     @Size(max = 255)
-    @Column(name = "celular", length = 255)
+    @Column(name = "celular")
     private String celular;
     @Size(max = 1000)
-    @Column(name = "direccion", length = 1000)
+    @Column(name = "direccion")
     private String direccion;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Correo electrónico no válido")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 255)
-    @Column(name = "email", length = 255)
+    @Column(name = "email")
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "estado", nullable = false)
+    @Column(name = "estado")
     private int estado;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "estado_civil", nullable = false)
+    @Column(name = "estado_civil")
     private int estadoCivil;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "externo", nullable = false)
+    @Column(name = "externo")
     private boolean externo;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fecha_ingreso", nullable = false)
+    @Column(name = "fecha_ingreso")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaIngreso;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "apellidos", nullable = false, length = 100)
+    @Column(name = "apellidos")
     private String apellidos;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "nombres", nullable = false, length = 100)
+    @Column(name = "nombres")
     private String nombres;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "sexo", nullable = false)
+    @Column(name = "sexo")
     private int sexo;
     @Size(max = 255)
-    @Column(name = "telefono", length = 255)
+    @Column(name = "telefono")
     private String telefono;
     @Size(max = 255)
-    @Column(name = "telefono_celular", length = 255)
+    @Column(name = "telefono_celular")
     private String telefonoCelular;
     @Size(max = 255)
-    @Column(name = "tipo_sangre", length = 255)
+    @Column(name = "tipo_sangre")
     private String tipoSangre;
     @Size(max = 255)
-    @Column(name = "especialidad", length = 255)
+    @Column(name = "especialidad")
     private String especialidad;
     @Column(name = "cargo")
     private Integer cargo;
     @Size(max = 50)
-    @Column(name = "jefe", length = 50)
+    @Column(name = "jefe")
     private String jefe;
-    @JoinColumn(name = "periodo_escolar", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private PeriodoEscolar periodoEscolar1;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "empleado")
     private Usuario usuario;
+    @JoinColumn(name = "periodo_escolar", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private PeriodoEscolar periodoEscolar1;
 
     public Empleado() {
     }
@@ -300,20 +300,20 @@ public class Empleado implements Serializable {
         this.jefe = jefe;
     }
 
-    public PeriodoEscolar getPeriodoEscolar1() {
-        return periodoEscolar1;
-    }
-
-    public void setPeriodoEscolar1(PeriodoEscolar periodoEscolar1) {
-        this.periodoEscolar1 = periodoEscolar1;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public PeriodoEscolar getPeriodoEscolar1() {
+        return periodoEscolar1;
+    }
+
+    public void setPeriodoEscolar1(PeriodoEscolar periodoEscolar1) {
+        this.periodoEscolar1 = periodoEscolar1;
     }
 
     @Override

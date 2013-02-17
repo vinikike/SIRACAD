@@ -5,18 +5,27 @@
 package com.infosgroup.prueba.model.entities;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,16 +40,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Alumno.findByNie", query = "SELECT a FROM Alumno a WHERE a.alumnoPK.nie = :nie"),
     @NamedQuery(name = "Alumno.findByNombres", query = "SELECT a FROM Alumno a WHERE a.nombres = :nombres"),
     @NamedQuery(name = "Alumno.findByApellidos", query = "SELECT a FROM Alumno a WHERE a.apellidos = :apellidos"),
-    @NamedQuery(name = "Alumno.findByLugarnacimiento", query = "SELECT a FROM Alumno a WHERE a.lugarnacimiento = :lugarnacimiento"),
-    @NamedQuery(name = "Alumno.findByFechanacimiento", query = "SELECT a FROM Alumno a WHERE a.fechanacimiento = :fechanacimiento"),
+    @NamedQuery(name = "Alumno.findByLugarNacimiento", query = "SELECT a FROM Alumno a WHERE a.lugarNacimiento = :lugarNacimiento"),
     @NamedQuery(name = "Alumno.findByEdad", query = "SELECT a FROM Alumno a WHERE a.edad = :edad"),
     @NamedQuery(name = "Alumno.findByDireccion", query = "SELECT a FROM Alumno a WHERE a.direccion = :direccion"),
-    @NamedQuery(name = "Alumno.findByZonaResidencia", query = "SELECT a FROM Alumno a WHERE a.zonaResidencia = :zonaResidencia"),
-    @NamedQuery(name = "Alumno.findByEstadoFamiliar", query = "SELECT a FROM Alumno a WHERE a.estadoFamiliar = :estadoFamiliar"),
-    @NamedQuery(name = "Alumno.findByNombrePadre", query = "SELECT a FROM Alumno a WHERE a.nombrePadre = :nombrePadre"),
-    @NamedQuery(name = "Alumno.findByTelPadre", query = "SELECT a FROM Alumno a WHERE a.telPadre = :telPadre"),
-    @NamedQuery(name = "Alumno.findByNombreMadre", query = "SELECT a FROM Alumno a WHERE a.nombreMadre = :nombreMadre"),
-    @NamedQuery(name = "Alumno.findByTelMadre", query = "SELECT a FROM Alumno a WHERE a.telMadre = :telMadre")})
+    @NamedQuery(name = "Alumno.findByIdEstadoFamiliar", query = "SELECT a FROM Alumno a WHERE a.idEstadoFamiliar = :idEstadoFamiliar"),
+    @NamedQuery(name = "Alumno.findByFechaNacimiento", query = "SELECT a FROM Alumno a WHERE a.fechaNacimiento = :fechaNacimiento"),
+    @NamedQuery(name = "Alumno.findByMeses", query = "SELECT a FROM Alumno a WHERE a.meses = :meses"),
+    @NamedQuery(name = "Alumno.findByEscuelaanterior", query = "SELECT a FROM Alumno a WHERE a.escuelaanterior = :escuelaanterior"),
+    @NamedQuery(name = "Alumno.findBySexo", query = "SELECT a FROM Alumno a WHERE a.sexo = :sexo")})
 public class Alumno implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -48,55 +55,72 @@ public class Alumno implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "nombres", nullable = false, length = 50)
+    @Column(name = "nombres")
     private String nombres;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "apellidos", nullable = false, length = 50)
+    @Column(name = "apellidos")
     private String apellidos;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "lugarnacimiento", nullable = false, length = 50)
-    private String lugarnacimiento;
+    @Column(name = "lugar_nacimiento")
+    private String lugarNacimiento;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "fechanacimiento", nullable = false, length = 50)
-    private String fechanacimiento;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "edad", nullable = false)
+    @Column(name = "edad")
     private int edad;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 200)
-    @Column(name = "direccion", nullable = false, length = 200)
+    @Size(min = 1, max = 300)
+    @Column(name = "direccion")
     private String direccion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "zona_residencia", nullable = false, length = 50)
-    private String zonaResidencia;
+    @Column(name = "id_estado_familiar")
+    private String idEstadoFamiliar;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "estado_familiar", nullable = false, length = 50)
-    private String estadoFamiliar;
+    @Column(name = "fecha_nacimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechaNacimiento;
+    @Column(name = "meses")
+    private Integer meses;
     @Size(max = 100)
-    @Column(name = "nombre_padre", length = 100)
-    private String nombrePadre;
-    @Column(name = "tel_padre")
-    private Integer telPadre;
-    @Size(max = 100)
-    @Column(name = "nombre_madre", length = 100)
-    private String nombreMadre;
-    @Column(name = "tel_madre")
-    private Integer telMadre;
-    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "escuelaanterior")
+    private String escuelaanterior;
+    @Size(max = 50)
+    @Column(name = "sexo")
+    private String sexo;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private EstadoFamiliar estadoFamiliar;
+    @JoinColumn(name = "id_zona_residencia", referencedColumnName = "id")
+    @ManyToOne
+    private ZonaResidencia idZonaResidencia;
+    @JoinColumns({
+        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
+        @JoinColumn(name = "representante", referencedColumnName = "dui")})
+    @ManyToOne(optional = false)
+    private Representante representante;
+    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PeriodoEscolar periodoEscolar;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private Salud salud;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private List<FichaAlumno> fichaAlumnoList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private Ninosvive ninosvive;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private Estudio estudio;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private Autorizacion autorizacion;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private Tallas tallas;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private Otrainformacion otrainformacion;
 
     public Alumno() {
     }
@@ -105,16 +129,15 @@ public class Alumno implements Serializable {
         this.alumnoPK = alumnoPK;
     }
 
-    public Alumno(AlumnoPK alumnoPK, String nombres, String apellidos, String lugarnacimiento, String fechanacimiento, int edad, String direccion, String zonaResidencia, String estadoFamiliar) {
+    public Alumno(AlumnoPK alumnoPK, String nombres, String apellidos, String lugarNacimiento, int edad, String direccion, String idEstadoFamiliar, Date fechaNacimiento) {
         this.alumnoPK = alumnoPK;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.lugarnacimiento = lugarnacimiento;
-        this.fechanacimiento = fechanacimiento;
+        this.lugarNacimiento = lugarNacimiento;
         this.edad = edad;
         this.direccion = direccion;
-        this.zonaResidencia = zonaResidencia;
-        this.estadoFamiliar = estadoFamiliar;
+        this.idEstadoFamiliar = idEstadoFamiliar;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public Alumno(int idPeriodoEscolar, String nie) {
@@ -145,20 +168,12 @@ public class Alumno implements Serializable {
         this.apellidos = apellidos;
     }
 
-    public String getLugarnacimiento() {
-        return lugarnacimiento;
+    public String getLugarNacimiento() {
+        return lugarNacimiento;
     }
 
-    public void setLugarnacimiento(String lugarnacimiento) {
-        this.lugarnacimiento = lugarnacimiento;
-    }
-
-    public String getFechanacimiento() {
-        return fechanacimiento;
-    }
-
-    public void setFechanacimiento(String fechanacimiento) {
-        this.fechanacimiento = fechanacimiento;
+    public void setLugarNacimiento(String lugarNacimiento) {
+        this.lugarNacimiento = lugarNacimiento;
     }
 
     public int getEdad() {
@@ -177,52 +192,68 @@ public class Alumno implements Serializable {
         this.direccion = direccion;
     }
 
-    public String getZonaResidencia() {
-        return zonaResidencia;
+    public String getIdEstadoFamiliar() {
+        return idEstadoFamiliar;
     }
 
-    public void setZonaResidencia(String zonaResidencia) {
-        this.zonaResidencia = zonaResidencia;
+    public void setIdEstadoFamiliar(String idEstadoFamiliar) {
+        this.idEstadoFamiliar = idEstadoFamiliar;
     }
 
-    public String getEstadoFamiliar() {
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Integer getMeses() {
+        return meses;
+    }
+
+    public void setMeses(Integer meses) {
+        this.meses = meses;
+    }
+
+    public String getEscuelaanterior() {
+        return escuelaanterior;
+    }
+
+    public void setEscuelaanterior(String escuelaanterior) {
+        this.escuelaanterior = escuelaanterior;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public EstadoFamiliar getEstadoFamiliar() {
         return estadoFamiliar;
     }
 
-    public void setEstadoFamiliar(String estadoFamiliar) {
+    public void setEstadoFamiliar(EstadoFamiliar estadoFamiliar) {
         this.estadoFamiliar = estadoFamiliar;
     }
 
-    public String getNombrePadre() {
-        return nombrePadre;
+    public ZonaResidencia getIdZonaResidencia() {
+        return idZonaResidencia;
     }
 
-    public void setNombrePadre(String nombrePadre) {
-        this.nombrePadre = nombrePadre;
+    public void setIdZonaResidencia(ZonaResidencia idZonaResidencia) {
+        this.idZonaResidencia = idZonaResidencia;
     }
 
-    public Integer getTelPadre() {
-        return telPadre;
+    public Representante getRepresentante() {
+        return representante;
     }
 
-    public void setTelPadre(Integer telPadre) {
-        this.telPadre = telPadre;
-    }
-
-    public String getNombreMadre() {
-        return nombreMadre;
-    }
-
-    public void setNombreMadre(String nombreMadre) {
-        this.nombreMadre = nombreMadre;
-    }
-
-    public Integer getTelMadre() {
-        return telMadre;
-    }
-
-    public void setTelMadre(Integer telMadre) {
-        this.telMadre = telMadre;
+    public void setRepresentante(Representante representante) {
+        this.representante = representante;
     }
 
     public PeriodoEscolar getPeriodoEscolar() {
@@ -231,6 +262,63 @@ public class Alumno implements Serializable {
 
     public void setPeriodoEscolar(PeriodoEscolar periodoEscolar) {
         this.periodoEscolar = periodoEscolar;
+    }
+
+    public Salud getSalud() {
+        return salud;
+    }
+
+    public void setSalud(Salud salud) {
+        this.salud = salud;
+    }
+
+    @XmlTransient
+    public List<FichaAlumno> getFichaAlumnoList() {
+        return fichaAlumnoList;
+    }
+
+    public void setFichaAlumnoList(List<FichaAlumno> fichaAlumnoList) {
+        this.fichaAlumnoList = fichaAlumnoList;
+    }
+
+    public Ninosvive getNinosvive() {
+        return ninosvive;
+    }
+
+    public void setNinosvive(Ninosvive ninosvive) {
+        this.ninosvive = ninosvive;
+    }
+
+    public Estudio getEstudio() {
+        return estudio;
+    }
+
+    public void setEstudio(Estudio estudio) {
+        this.estudio = estudio;
+    }
+
+    public Autorizacion getAutorizacion() {
+        return autorizacion;
+    }
+
+    public void setAutorizacion(Autorizacion autorizacion) {
+        this.autorizacion = autorizacion;
+    }
+
+    public Tallas getTallas() {
+        return tallas;
+    }
+
+    public void setTallas(Tallas tallas) {
+        this.tallas = tallas;
+    }
+
+    public Otrainformacion getOtrainformacion() {
+        return otrainformacion;
+    }
+
+    public void setOtrainformacion(Otrainformacion otrainformacion) {
+        this.otrainformacion = otrainformacion;
     }
 
     @Override

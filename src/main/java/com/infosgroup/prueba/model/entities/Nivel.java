@@ -36,10 +36,10 @@ public class Nivel implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_nivel", nullable = false)
+    @Column(name = "id_nivel")
     private Integer idNivel;
     @Size(max = 50)
-    @Column(name = "descripcion", length = 50)
+    @Column(name = "descripcion")
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nivel")
     private List<Periodo> periodoList;

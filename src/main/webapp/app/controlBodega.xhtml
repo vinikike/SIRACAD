@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="titulo">
+        <h:outputText value="Matricula Nocturna"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">
+            <p:menuitem value="Agregar Nuevo Alimento" icon="ui-icon-search" oncomplete="buscarEstudianteDialog.show();"/> 
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" />
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+        <h2 align="center">Formulario Control Bodega</h2>
+        <p:accordionPanel>
+            <p:tab title="Ingreso de Alimentos">
+                <h:panelGrid columns="4" cellspacing="15">
+                    <h:outputLabel value="Fecha de ingreso: " />
+                    <p:calendar showOn="button" pattern="dd/MM/yyyy" navigator="true" />                    
+                    <h:outputText value="Tipo de Alimento:" />  
+                    <p:selectOneMenu editable="false" style="width: 120px;">  
+                        <f:selectItems var="zonaResidencia" itemValue="#{zonaResidencia.id}" itemLabel="#{zonaResidencia.nombre}"/>
+                    </p:selectOneMenu> 
+                    <h:outputLabel value="Total Ingresos:"/>
+                    <p:spinner min="0" size="4" maxlength="1" stepFactor="0.25" />
+                    <h:outputLabel value="Fecha de caducidad" />
+                    <p:calendar value="#{matriculaParvularia.alumno$fechaNacimiento}" showOn="button" pattern="dd/MM/yyyy" navigator="true" />                    
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="Egresos">
+                <h:outputLabel value="Alimento seleccionado:  "/>
+                <p:inputText id="egresos" value="Frijoles" size="10" disabled="true" style="font-size: 15pt !important;" />
+
+                <br/><br/>
+
+                <p:fieldset legend="Egresos">
+                    <h:panelGrid columns="3" cellspacing="8">
+                        <h:outputLabel value="Por deterioro:"/>
+                        <p:spinner min="0" size="4" maxlength="1" stepFactor="0.25" />
+                        <h:outputLabel value="Kg"/>
+
+                        <h:outputLabel value="Por robo/hurto:"/>
+                        <p:spinner min="0" size="4" maxlength="1" stepFactor="0.25" />
+                        <h:outputLabel value="Kg"/>
+
+                        <h:outputLabel value="Por otras razones:"/>
+                        <p:spinner min="0" size="4" maxlength="1" stepFactor="0.25" />
+                        <h:outputLabel value="Kg"/>
+                    </h:panelGrid>
+                </p:fieldset>
+            </p:tab>
+
+        </p:accordionPanel>
+    </ui:define>
+
+    <ui:define name="dialogos">
+        <p:dialog id="buscarEstudianteDialog" widgetVar="buscarEstudianteDialog" header="Nuevo Alimento" modal="true" resizable="false" width="300" closable="true" draggable="true">
+            <h:outputLabel value="Nuevo alimento: "/>
+            <p:inputText maxlength="30" id="alimento"  size="25" required="true"  requiredMessage="Escribir el nuevo alimento" />
+            <table align="center" border="0" >
+                <tr>
+                    <td align="center">
+                        <p:commandButton id="buscarAlumno" value="Guardar" icon="ui-icon-circle-check" style="alignment-adjust: central" />
+                    </td>
+                </tr>
+            </table>
+        </p:dialog>
+    </ui:define>
+</ui:composition>

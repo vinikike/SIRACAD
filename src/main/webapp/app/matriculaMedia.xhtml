@@ -4,14 +4,15 @@
                 template="/plantillas/default.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
     <ui:define name="titulo">
         <h:outputText value="Matricula Educaci&oacute;n M&eacute;dia"/>
     </ui:define>
-    <ui:define name="dialogos"/>
     <ui:define name="acciones">      
-        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">
+            <p:menuitem value="Buscar estudiante" icon="ui-icon-search" oncomplete="buscarEstudianteDialog.show();"/>
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{matriculaMedia.guardarAlumno$action}"/>  
             <p:menuitem value="Cancelar" icon="ui-icon-trash" />
             <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
             <p:menuitem value="Matricula B&aacute;sica" action="matriculaBasica?faces-redirect=true" icon="ui-icon-contact" />            
@@ -20,95 +21,281 @@
             <p:menuitem value="Imprimir" icon="ui-icon-print" /> 
         </p:submenu>      
     </ui:define>
+
     <ui:define name="contenido">
         <h2 align="center">Ficha de inscripcion de Educaci&oacute;n M&eacute;dia</h2>
-        <br/>
+        <h3 align="center">Periodo de Estudio 2013</h3>
         <h2>Ficha No. </h2>
-        <h:panelGrid columns="4" cellspacing="25">
-            <h:outputLabel value="Nombre del Estudiante:   " />
-            <p:inputText id="nombre" size="40" required="true"  requiredMessage="Escribir el Nombre del Estudiante" />
 
-            <h:outputLabel value="NIE:  " />
-            <p:inputText id="nie" size="8" required="true"  requiredMessage="Escribir el NIE del Estudiante" />
+        <p:accordionPanel>
+            <p:tab title="Datos del alumno">
+                <h:panelGrid columns="6" cellspacing="4">
+                    <h:outputLabel value="NIE:"/>
+                    <p:inputText id="nie" maxlength="8" value="#{matriculaMedia.alumno$nie}" size="8" required="true"  requiredMessage="Escribir el NIE del Estudiante" />
 
-        </h:panelGrid>
+                    <h:outputLabel value="&nbsp;&nbsp;Nombre:" />
+                    <p:inputText id="AluNombre" value="#{matriculaMedia.alumno$nombre}" size="40" required="true"  requiredMessage="Escribir el Nombre del Estudiante" />
 
-        <h:panelGrid columns="2" cellspacing="10">
-            <h:outputLabel value="Lugar y Fecha de Nacimiento:  " />
-            <p:inputText id="Nacimiento" size="80" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-        </h:panelGrid>
-        <h:panelGrid columns="10" cellspacing="10">
-            <h:outputLabel value=" Edad: Años:  " />
-            <p:inputText id="años" size="2" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Grado a estudiar:  " />
-            <p:inputText id="Grado_actual" size="5" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Opción:  " />
-            <p:inputText id="Opcion" size="5" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-
-            <h:outputLabel value="Sección:  " />
-            <p:inputText id="seccion" size="2" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-        </h:panelGrid>
-        <h:panelGrid columns="2" cellspacing="10">
-            <h:outputText value="Repite Grado: " />  
-            <p:selectOneRadio id="sino1" value="#{formBean.number}">  
-                <f:selectItem itemLabel="SI" itemValue="1" />  
-                <f:selectItem itemLabel="NO" itemValue="2" />  
-            </p:selectOneRadio> 
-            <h:outputText value="Turno: " />  
-            <p:selectOneRadio id="turno1" value="#{formBean.number}">  
-                <f:selectItem itemLabel="Mañana" itemValue="1" />  
-                <f:selectItem itemLabel="Tarde" itemValue="2" />  
-            </p:selectOneRadio> 
-        </h:panelGrid>        
-        <h:panelGrid columns="4" cellspacing="10">
-            <h:outputLabel value="Nombre del Padre:  " />
-            <p:inputText id="Nom_Padre" size="60" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Telefono:  " />
-            <p:inputText id="Telefono_p" size="10" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Nombre de la Madre:  " />
-            <p:inputText id="Nom_Madre" size="60" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Telefono:  " />
-            <p:inputText id="Telefono_m" size="10" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Nombre del Responsable ante la Insititución:  " />
-            <p:inputText id="responsable" size="60" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Telefono:  " />
-            <p:inputText id="telefono_r" size="10" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-        </h:panelGrid>
-        <h:panelGrid columns="2" cellspacing="10">
-            <h:outputLabel value="Nº de DUI de responsable ante la institución:   " />
-            <p:inputText id="DUI_res" size="10" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Dirección donde reside el/la Estudiante:   " />
-            <p:inputText id="Direccion" size="80" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Nombre del Centro Escolar donde estudio, el año anterior:   " />
-            <p:inputText id="Centro_Escolar" size="80" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-        </h:panelGrid>
-        <h:form>  
-            <p:growl id="growl" showDetail="true"/>  
-            <p:panel header="Autorización">  
-                <h:outputText value="Autorizo a mi hijo/a de que vaya solo/a: " />  
-                <p:selectOneRadio id="Autorizacion1" value="#{formBean.number}">  
-                    <f:selectItem itemLabel="SI" itemValue="1" />  
-                    <f:selectItem itemLabel="NO" itemValue="2" />  
-                </p:selectOneRadio>  
-                <h:panelGrid columns="2" cellspacing="10">
-                    <h:outputLabel value="Nombre de la Persona autorizada:   " />
-                    <p:inputText id="persona_autorizada" size="60" required="false" requiredMessage="Escribir la Descripcion del Taller" />
+                    <h:outputLabel value="&nbsp;&nbsp;Apellido:" />
+                    <p:inputText id="AluApellido" value="#{matriculaMedia.alumno$apellido}" size="40" required="true"  requiredMessage="Escribir el Apellido del Estudiante" />
                 </h:panelGrid>
-                <h:panelGrid columns="4" cellspacing="10">
-                    <h:outputLabel value="Nº de DUI:   " />
-                    <p:inputText id="DUI_autorizada" size="10" required="false" requiredMessage="Escribir la Descripcion del Taller" />
-                    <h:outputLabel value="Telefono:   " />
-                    <p:inputText id="telefono_autorizada" size="10" required="false" requiredMessage="Escribir la Descripcion del Taller" />
+
+                <pe:keyFilter for="nie" mask="int"/>
+
+                <h:panelGrid columns="6" cellspacing="5">
+                    <h:outputLabel value="Edad en a&ntilde;os:" />
+                    <p:spinner value="#{matriculaMedia.alumno$edad$anios}" max="99"  min="10" maxlength="2" size="3" required="true" requiredMessage="Debe introducir la Edad del Estudiante" />
+
+                    <h:outputLabel value="Fecha de nacimiento" />
+                    <p:calendar showOn="button" value="#{matriculaMedia.alumno$fechaNacimiento}" pattern="dd/MM/yyyy" navigator="true" required="true" requiredMessage="Ingrese la fecha de nacimiento "/>
+
+                    <h:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sexo" />  
+                    <p:selectOneRadio layout="pageDirection" value="#{matriculaMedia.alumno$sexo}">  
+                        <f:selectItem itemLabel="Masculino" itemValue="M" />  
+                        <f:selectItem itemLabel="Femenino" itemValue="F" />  
+                    </p:selectOneRadio> 
                 </h:panelGrid>
-            </p:panel> 
-            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">   
-                <h:outputText value="DOCUMENTACIÓN PRESENTADA: " />  
-                <p:selectManyCheckbox value="#{formBean.selectedOptions}">  
-                    <f:selectItem itemLabel="Acta de nacimiento" itemValue="Option 1" />  
-                    <f:selectItem itemLabel="Certificado de grado anterior" itemValue="Option 2" />  
-                    <f:selectItem itemLabel="Ficha de inscripción" itemValue="Option 3" />  
-                </p:selectManyCheckbox>  
-            </h:panelGrid>
-        </h:form>
+
+                <h:panelGrid columns="2" cellspacing="5" >
+                    <h:outputLabel value="&nbsp;&nbsp;Lugar de nacimiento:" />
+                    <p:inputText value="#{matriculaMedia.alumno$lugarNacimiento}" size="60" required="true" requiredMessage="Escribir el lugar de nacimiento" />
+
+                    <h:outputLabel value="&nbsp;&nbsp;Direcci&oacute;n del Alumno/a:" />
+                    <p:inputText value="#{matriculaMedia.alumno$direccion}" size="60" required="true" requiredMessage="Escribir la Direccion del estudiante" />
+
+                    <h:outputLabel value="Centro Escolar donde estudi&oacute; el a&ntilde;o anterior:   " />
+                    <p:inputText value="#{matriculaMedia.alumno$escuelaAnterior}" size="60" required="true" requiredMessage="Escriba el nombre del Centro Educativo donde estudio el a&ntilde;o anterior" />
+                </h:panelGrid>
+            </p:tab>
+
+            <p:tab title="Estudio">
+                <h:panelGrid columns="8" cellspacing="10">
+                    <h:outputLabel value="Grado a estudiar:  " />
+                    <p:selectOneMenu value="#{matriculaMedia.alumno$gradoEstudio}" style="width: 150px">
+                        <f:selectItem itemLabel="Primer a&ntilde;o" itemValue="1" />
+                        <f:selectItem itemLabel="Segundo a&ntilde;o" itemValue="2" />
+                        <f:selectItem itemLabel="Tercer a&ntilde;o" itemValue="3" />
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="Opcion:" />
+                    <p:selectOneMenu value="#{matriculaMedia.alumno$opcionEstudio}" style="width: 100px">
+                        <f:selectItem itemLabel="General" itemValue="G" />
+                        <f:selectItem itemLabel="Contador" itemValue="C" />
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="Sección:" />
+                    <p:selectOneMenu value="#{matriculaMedia.alumno$seccion}" style="width: 50px">
+                        <f:selectItem itemLabel="A" itemValue="A" />
+                        <f:selectItem itemLabel="B" itemValue="B" />
+                        <f:selectItem itemLabel="C" itemValue="C" />
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Turno: " />
+                    <h:outputText value="Mañana" style="font-size: 15pt !important;" />
+                </h:panelGrid>
+
+                <h:panelGrid columns="6" cellspacing="10" width="45%">
+                    <h:outputText value="Repite Grado:" />  
+                    <p:selectOneRadio value="#{matriculaMedia.alumno$repiteGrado}" layout="pageDirection" >  
+                        <f:selectItem itemLabel="No" itemValue="No" />  
+                        <f:selectItem itemLabel="Si" itemValue="Si" />  
+                    </p:selectOneRadio> 
+
+                    <h:outputText value="&iquest;Estudio parvularia?:" />  
+                    <p:selectOneRadio value="#{matriculaMedia.alumno$estudioParvularia}" layout="pageDirection">  
+                        <f:selectItem itemLabel="Si" itemValue="Si" />  
+                        <f:selectItem itemLabel="No" itemValue="No" />  
+                    </p:selectOneRadio> 
+                </h:panelGrid> 
+            </p:tab>
+
+            <p:tab title="Estado familiar">
+                <h:panelGrid columns="6" cellspacing="10" width="100%">
+                    <h:outputLabel value="Nombre del Padre:" />
+                    <p:inputText id="Nom_Padre" value="#{matriculaMedia.padre$nombre}" size="30" />
+
+                    <h:outputLabel value="Apellido:" />
+                    <p:inputText id="Apell_Padre" value="#{matriculaMedia.padre$apellido}" size="30" />
+
+                    <h:outputLabel value="Telefono:" />
+                    <p:inputText id="TelPadre" value="#{matriculaMedia.padre$telefono}" size="8" maxlength="8" />
+
+                    <h:outputLabel value="Nombre de la Madre:" />
+                    <p:inputText id="Nom_Madre" value="#{matriculaMedia.madre$nombre}" size="30" />
+
+                    <h:outputLabel value="Apellido:" />
+                    <p:inputText id="Apell_Madre" value="#{matriculaMedia.madre$apellido}" size="30" />
+
+                    <h:outputLabel value="Telefono:" />
+                    <p:inputText id="TelMadre" value="#{matriculaMedia.madre$telefono}" size="8" maxlength="8" />
+                </h:panelGrid>
+
+                <pe:keyFilter for="TelPadre" mask="int"/>
+                <pe:keyFilter for="TelMadre" mask="int"/>
+
+                <p:fieldset legend="Persona Responsable ante la Instituci&oacute;n">
+                    <h:panelGrid columns="6" cellspacing="10">
+                        <h:outputLabel value="Nombre:" />
+                        <p:inputText id="Nombresponsable" value="#{matriculaMedia.responsable$nombre}" size="30" required="true" requiredMessage="Escribir el Nombre del representante ante la instituci&oacute;n" />
+
+                        <h:outputLabel value="Apellido:" />
+                        <p:inputText id="Apellresponsable" value="#{matriculaMedia.responsable$apellido}" size="30" required="true" requiredMessage="Escribir el Apellido del representante ante la instituci&oacute;n" />
+
+                        <h:outputLabel value="Telefono:" />
+                        <p:inputText id="TelRepresentante" value="#{matriculaMedia.responsable$telefono}" required="true" requiredMessage="Introduzca el n&uacute;mero de Tel&eacute;fono del Responsable" size="7" maxlength="8" />
+                    </h:panelGrid>
+
+                    <pe:keyFilter for="TelRepresentante" mask="int"/>
+
+                    <h:panelGrid columns="4" cellspacing="10">
+                        <h:outputLabel value="Nº de DUI de responsable:   " />
+                        <p:inputText id="DUIRepresentante" maxlength="9" value="#{matriculaMedia.responsable$DUI}" required="true" requiredMessage="Introduzca el n&uacute;mero de DUI" size="9" style="font-size: 13pt !important;" />
+
+                        <p:commandButton icon="ui-icon-search" immediate="true" oncomplete="buscarRepresentanteDialog.show();"/>
+                        <p:commandButton icon="ui-icon-circle-close" immediate="true" action="#{matriculaParvularia.deseleccionarRepresentante$action}" update="@form"/>
+                    </h:panelGrid>
+                    <pe:keyFilter for="DUIRepresentante" mask="int"/>
+                </p:fieldset>
+
+                <br/>
+
+                <p:fieldset legend="Estado Familiar">
+                    <h:panelGrid cellspacing="10">
+                        <p:selectOneRadio id="Estado_Familiar" value="#{matriculaMedia.alumno$estadoFamiliar}">  
+                            <f:selectItem itemLabel="Vive solo con la Madre" itemValue="VSM" />  
+                            <f:selectItem itemLabel="Vive solo con el Padre" itemValue="VSP" /> 
+                            <f:selectItem itemLabel="Vive con Padre y Madre" itemValue="VPM" />  
+                            <f:selectItem itemLabel="Vive con familiares" itemValue="VCF" /> 
+                            <f:selectItem itemLabel="No vive con Familiares" itemValue="NVF" /> 
+                        </p:selectOneRadio> 
+                    </h:panelGrid>   
+                </p:fieldset>
+                <br/>
+            </p:tab>
+
+            <p:tab title="Otra Informaci&oacute;n">
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">   
+                    <h:outputText value="Documentos Presentados:" style="font-size: 13pt;" />  
+                    <p:selectManyCheckbox value="#{matriculaMedia.alumno$documentosPresentados}" required="true" requiredMessage="Se debe presentar del Documentacion Completa para realizar la matricula">  
+                        <f:selectItem itemLabel="Acta de nacimiento" itemValue="1" />  
+                        <f:selectItem itemLabel="Certificado de grado anterior" itemValue="2" />  
+                        <f:selectItem itemLabel="Ficha de inscripci&oacute;n" itemValue="3" />  
+                    </p:selectManyCheckbox>  
+                </h:panelGrid>
+
+                <p:fieldset legend="Partida de Nacimiento">
+                    <h:panelGrid columns="8" cellspacing="10">
+                        <h:outputLabel value="N&omicron;.:" />
+                        <p:inputText id="PartidaNum" maxlength="5" value="#{matriculaMedia.alumno$noPartida}" size="4" required="true" requiredMessage="Escribir el n&uacute;mero de Partida" />
+
+                        <h:outputLabel value="Folio" />
+                        <p:inputText id="PartidaFolio" maxlength="5" value="#{matriculaMedia.alumno$folioPartida}" size="4" required="true" requiredMessage="Debe escribir el Folio de la Partida" />
+
+                        <h:outputLabel value="Tomo" />
+                        <p:inputText id="PartidaTomo" maxlength="5" value="#{matriculaMedia.alumno$tomoPartida}" size="4" required="true" requiredMessage="Escriba el Tomo de la Partida" />
+
+                        <h:outputLabel value="Libro" />
+                        <p:inputText id="PartidaLibro" maxlength="5" value="#{matriculaMedia.alumno$libro}" size="4" required="true" requiredMessage="Escribir el Libro de la Partida" />
+                    </h:panelGrid>                
+
+                    <pe:keyFilter for="PartidaNum" mask="int"/>
+                    <pe:keyFilter for="PartidaFolio" mask="int"/>
+                    <pe:keyFilter for="PartidaTomo" mask="int"/>
+                    <pe:keyFilter for="PartidaLibro" mask="int"/>
+
+                </p:fieldset>
+
+                <br/>
+
+                <p:fieldset legend="Actividad Econ&oacute;mica del Estudiante">
+                    <h:panelGrid  columns="2" cellspacing="10">
+                        <h:outputLabel value="Actividad Econ&oacute;mica (Tabajo):" />
+                        <p:selectOneMenu value="#{matriculaMedia.alumno$actividadEconomica}" editable="false" style="width: 250px;" >
+                            <f:selectItem itemLabel="No trabaja" itemValue="NT" />
+                            <f:selectItem itemLabel="Ca&ntilde;a de Azucar" itemValue="CA" />
+                            <f:selectItem itemLabel="Pesca" itemValue="PE" />
+                            <f:selectItem itemLabel="Pepenador de basura (Basureros)" itemValue="PB" />
+                            <f:selectItem itemLabel="Trabajo dom&eacute;stico remunerado" itemValue="TD" />
+                            <f:selectItem itemLabel="Coheter&iacute;as" itemValue="CH" />
+                            <f:selectItem itemLabel="Caf&eacute;" itemValue="CC" />
+                            <f:selectItem itemLabel="Ventas (Ambulantes, Mercado, etc.)" itemValue="VM" />
+                            <f:selectItem itemLabel="Servicios (Limpia Autos, Limpia Botas, etc.)" itemValue="SV" />
+                            <f:selectItem itemLabel="Trabajo Agricola (Excepto Caf&eacute; y Ca&ntilde;a) " itemValue="TA" />
+                            <f:selectItem itemLabel="Otros trabajos remunerados" itemValue="OT" />
+                        </p:selectOneMenu>                        
+                    </h:panelGrid>                
+                </p:fieldset>
+                <br/>
+            </p:tab>
+
+            <p:tab title="Autorizaci&oacute;n">
+                <p:fieldset id="autorizacionFieldset" legend="Autorizaci&oacute;n">
+                    <h:panelGrid columns="2" >
+                        <h:outputText value="Por este medio autorizo a mi hijo de que se vaya solo/a: " />  
+                        <p:selectOneRadio value="#{matriculaMedia.autorizacion$vallaSolo}" layout="pageDirection">  
+                            <p:ajax event="valueChange" update="autorizacionFieldset"/>
+                            <f:selectItem itemLabel="Si" itemValue="Si" />  
+                            <f:selectItem itemLabel="No" itemValue="No" />  
+                        </p:selectOneRadio> 
+                    </h:panelGrid>
+
+
+                    <h:panelGrid columns="4" cellpadding="5">
+                        <h:outputLabel value="Si lo llega a recoger alguien ser&aacute;:" />
+                        <p:inputText value="#{matriculaMedia.autorizacion$nombre}" size="60" required="true" requiredMessage="Ingrese el DUI de la persona autorizada" disabled="#{matriculaMedia.autorizacion$vallaSolo eq 'Si'}" />
+
+                        <h:outputLabel value="Telefono: " />
+                        <p:inputText id="TelAutorizado" value="#{matriculaMedia.autorizacion$telefono}" required="true" requiredMessage="Introduzca el numero de telefono del autorizado" size="8" maxlength="8" disabled="#{matriculaMedia.autorizacion$vallaSolo eq 'Si'}" />    
+                    </h:panelGrid>
+
+                    <pe:keyFilter for="TelAutorizado" mask="int"/>
+
+                    <h:panelGrid columns="2" cellspacing="10">
+                        <h:outputLabel value="Nº de DUI" />
+                        <p:inputText id="DUIAutorizado" maxlength="9" value="#{matriculaMedia.autorizacion$DUI}" required="true" requiredMessage="Introduzca el n&uacute;mero de DUI" size="9" style="font-size: 11pt !important;" disabled="#{matriculaMedia.autorizacion$vallaSolo eq 'Si'}" />
+                    </h:panelGrid>
+                </p:fieldset>  
+            </p:tab>
+        </p:accordionPanel>
     </ui:define>
+
+    <ui:define name="dialogos">
+        <p:dialog widgetVar="buscarEstudianteDialog" header="Buscar estudiante" modal="true" resizable="false" width="500" closable="true" draggable="true">
+            <p:dataTable value="#{matriculaMedia.listaAlumnos}" var="alumno" filteredValue="#{matriculaParvularia.listaAlumnosFiltro}" paginator="true" paginatorAlwaysVisible="true" paginatorPosition="top" rows="7">
+                <p:column headerText="NIE" filterBy="#{alumno.alumnoPK.nie}">
+                    <h:outputText value="#{alumno.alumnoPK.nie}"/>
+                </p:column>
+                <p:column headerText="Nombres" filterBy="#{alumno.nombres}">
+                    <h:outputText value="#{alumno.nombres}"/>
+                </p:column>
+                <p:column headerText="Apellidos" filterBy="#{alumno.apellidos}">
+                    <h:outputText value="#{alumno.apellidos}"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton icon="ui-icon-circle-check" action="#{matriculaMedia.seleccionarAlumno$action}" update="@(form)" immediate="true">
+                        <f:setPropertyActionListener value="#{alumno}" target="#{matriculaMedia.alumnoSeleccionado}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </p:dialog>
+        <!-- **************************************************************** -->
+        <p:dialog widgetVar="buscarRepresentanteDialog" header="Buscar representante" modal="true" resizable="false" width="500" closable="true" draggable="true" showEffect="fold" hideEffect="fold">
+            <p:dataTable value="#{matriculaMedia.listaRepresentantes}" var="representante" filteredValue="#{matriculaMedia.listaRepresentantesFiltro}">
+                <p:column headerText="DUI" filterBy="#{representante.representantePK.dui}" filterMatchMode="contains">
+                    <h:outputText value="#{representante.representantePK.dui}"/>
+                </p:column>                
+                <p:column headerText="Nombre" filterBy="#{representante.nombre}" filterMatchMode="contains">
+                    <h:outputText value="#{representante.nombre}"/>
+                </p:column>
+                <p:column headerText="Aprellido" filterBy="#{representante.apellido}" filterMatchMode="contains">
+                    <h:outputText value="#{representante.apellido}"/>
+                </p:column>                
+                <p:column style="width: 24px;"> 
+                    <p:commandButton icon="ui-icon-circle-check" action="#{matriculaMedia.seleccionarRepresentante$action}" update="@(form)" immediate="true">
+                        <f:setPropertyActionListener value="#{representante}" target="#{matriculaMedia.representante}"/>
+                    </p:commandButton>
+                </p:column>                
+            </p:dataTable>    
+        </p:dialog>
+    </ui:define>    
 </ui:composition>

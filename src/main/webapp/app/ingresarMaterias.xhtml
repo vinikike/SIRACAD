@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="titulo">
+        <h:outputText value="Nueva Materia"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" />
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+        <h2>Añadir Nueva Materia</h2>
+        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">   
+            <h:outputText value="NIVEL: " />  
+            <p:selectManyCheckbox value="#{formBean.selectedOptions}">  
+                <f:selectItem itemLabel="Parvularia" itemValue="Option 1" />  
+                <f:selectItem itemLabel="Basica" itemValue="Option 2" />  
+                <f:selectItem itemLabel="Media" itemValue="Option 3" />
+                <f:selectItem itemLabel="Nocturna" itemValue="Option 4" />
+            </p:selectManyCheckbox>  
+           </h:panelGrid>
+        <h:panelGrid columns="2" cellspacing="10">            
+            <h:outputLabel value="Nombre de la Materia:  " />
+            <p:inputText id="nombremaretia" size="30" required="true" requiredMessage="Escribir el nombre de la materia" />
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
+

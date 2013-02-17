@@ -36,10 +36,10 @@ public class PeriodoEscolar implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Size(max = 200)
-    @Column(name = "descripcion", length = 200)
+    @Column(name = "descripcion")
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar1")
     private List<Empleado> empleadoList;

@@ -36,10 +36,10 @@ public class Compania implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Size(max = 100)
-    @Column(name = "nombre", length = 100)
+    @Column(name = "nombre")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "compania")
     private List<Usuario> usuarioList;

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
 <glassfish-web-app error-url="">
-    <security-role-mapping>
-        <role-name>administrador</role-name>
-        <group-name>administrador</group-name>
-    </security-role-mapping>
-    <security-role-mapping>
-        <role-name>director</role-name>
-        <group-name>director</group-name>
-    </security-role-mapping>
-    <security-role-mapping>
-        <role-name>subdirector</role-name>
-        <group-name>subdirector</group-name>
-    </security-role-mapping>
-    <security-role-mapping>
-        <role-name>docente</role-name>
-        <group-name>docente</group-name>
-    </security-role-mapping>    
-    <security-role-mapping>
-        <role-name>bibliotecario</role-name>
-        <group-name>bibliotecario</group-name>
-    </security-role-mapping>
-    <security-role-mapping>
-        <role-name>academico</role-name>
-        <group-name>academico</group-name>
-    </security-role-mapping>  
-    <security-role-mapping>
-        <role-name>estudiante</role-name>
-        <group-name>estudiante</group-name>
-    </security-role-mapping>        
-    <!-- ============================ -->
-    <!--security-role-mapping>
+  <security-role-mapping>
+    <role-name>administrador</role-name>
+    <group-name>administrador</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>director</role-name>
+    <group-name>director</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>subdirector</role-name>
+    <group-name>subdirector</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>docente</role-name>
+    <group-name>docente</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>bibliotecario</role-name>
+    <group-name>bibliotecario</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>academico</role-name>
+    <group-name>academico</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>estudiante</role-name>
+    <group-name>estudiante</group-name>
+  </security-role-mapping>
+  <!-- ============================ -->
+  <!--security-role-mapping>
         <role-name>gerente</role-name>
         <group-name>gerentes</group-name>
     </security-role-mapping>
@@ -46,9 +46,9 @@
         <role-name>brocker</role-name>
         <group-name>brockers</group-name>
     </security-role-mapping-->
-    <!-- =================================================================== -->
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-    </servlet>
-    <!-- =================================================================== -->
+  <!-- =================================================================== -->
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+  </servlet>
+  <!-- =================================================================== -->
 </glassfish-web-app>

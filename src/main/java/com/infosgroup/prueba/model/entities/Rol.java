@@ -38,10 +38,10 @@ public class Rol implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id")
     private String id;
     @Size(max = 500)
-    @Column(name = "descripcion", length = 500)
+    @Column(name = "descripcion")
     private String descripcion;
     @ManyToMany(mappedBy = "rolList")
     private List<Menu> menuList;

@@ -40,7 +40,7 @@ public class Usuario implements Serializable {
     @EmbeddedId
     protected UsuarioPK usuarioPK;
     @Size(max = 500)
-    @Column(name = "descripcion", length = 500)
+    @Column(name = "descripcion")
     private String descripcion;
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,15 +48,15 @@ public class Usuario implements Serializable {
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
-    @JoinColumn(name = "rol", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "rol", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Rol rol;
     @JoinColumns({
-        @JoinColumn(name = "periodo_escolar", referencedColumnName = "periodo_escolar", nullable = false, insertable = false, updatable = false),
-        @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)})
+        @JoinColumn(name = "periodo_escolar", referencedColumnName = "periodo_escolar", insertable = false, updatable = false),
+        @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)})
     @OneToOne(optional = false)
     private Empleado empleado;
-    @JoinColumn(name = "compania", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "compania", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Compania compania;
 

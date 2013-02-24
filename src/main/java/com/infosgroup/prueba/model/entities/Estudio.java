@@ -39,26 +39,26 @@ public class Estudio implements Serializable {
     @EmbeddedId
     protected EstudioPK estudioPK;
     @Size(max = 50)
-    @Column(name = "gradoestudio")
+    @Column(name = "gradoestudio", length = 50)
     private String gradoestudio;
     @Size(max = 50)
-    @Column(name = "opcionestudio")
+    @Column(name = "opcionestudio", length = 50)
     private String opcionestudio;
     @Size(max = 50)
-    @Column(name = "seccionestudio")
+    @Column(name = "seccionestudio", length = 50)
     private String seccionestudio;
     @Size(max = 50)
-    @Column(name = "repitegrado")
+    @Column(name = "repitegrado", length = 50)
     private String repitegrado;
     @Size(max = 50)
-    @Column(name = "estudioparvularia")
+    @Column(name = "estudioparvularia", length = 50)
     private String estudioparvularia;
     @Size(max = 10)
-    @Column(name = "nivel")
+    @Column(name = "nivel", length = 10)
     private String nivel;
     @JoinColumns({
-        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
-        @JoinColumn(name = "nie", referencedColumnName = "nie", insertable = false, updatable = false)})
+        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", nullable = false, insertable = false, updatable = false),
+        @JoinColumn(name = "nie", referencedColumnName = "nie", nullable = false, insertable = false, updatable = false)})
     @OneToOne(optional = false)
     private Alumno alumno;
 

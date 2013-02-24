@@ -41,15 +41,15 @@ public class Representante implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "apellido")
+    @Column(name = "apellido", nullable = false, length = 100)
     private String apellido;
     @Size(max = 30)
-    @Column(name = "telefono")
+    @Column(name = "telefono", length = 30)
     private String telefono;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "representante")
     private List<Alumno> alumnoList;

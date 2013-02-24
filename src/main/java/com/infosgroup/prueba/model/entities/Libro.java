@@ -38,25 +38,25 @@ public class Libro implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
     @Size(max = 50)
-    @Column(name = "titulo")
+    @Column(name = "titulo", length = 50)
     private String titulo;
     @Size(max = 100)
-    @Column(name = "autor")
+    @Column(name = "autor", length = 100)
     private String autor;
     @Size(max = 100)
-    @Column(name = "editorial")
+    @Column(name = "editorial", length = 100)
     private String editorial;
     @Size(max = 50)
-    @Column(name = "edicion")
+    @Column(name = "edicion", length = 50)
     private String edicion;
     @Size(max = 50)
-    @Column(name = "tipo")
+    @Column(name = "tipo", length = 50)
     private String tipo;
     @Size(max = 50)
-    @Column(name = "pais")
+    @Column(name = "pais", length = 50)
     private String pais;
     @Column(name = "cantidad")
     private Integer cantidad;

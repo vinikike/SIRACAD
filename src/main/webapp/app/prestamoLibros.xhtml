@@ -4,7 +4,8 @@
                 template="/plantillas/default.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:define name="titulo">
         <h:outputText value="Préstamos de Libros"/>
@@ -13,7 +14,9 @@
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
             <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
-            <p:menuitem value="Cancelar" icon="ui-icon-trash" />
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
+                <pe:resetInput for="@(#contenidoForm)"/>
+            </p:menuitem>
             <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
         </p:submenu>      
     </ui:define>
@@ -40,17 +43,17 @@
             <h:outputLabel value="Codigo:  " />
             <p:inputText id="codigo" size="10" required="true"  requiredMessage="Escribir la Descripcion del Taller" />
         </h:panelGrid> 
-        
+
         <h:panelGrid columns="2" cellspacing="10">         
             <h:outputLabel value="Nombre del Libro:  " />
             <p:inputTextarea id="NombreLibro" cols="50" rows="5" required="true" requiredMessage="Escribir la Descripcion del Taller" />
         </h:panelGrid>   
-        
-                <h:panelGrid columns="2" cellspacing="10">         
+
+        <h:panelGrid columns="2" cellspacing="10">         
             <h:outputLabel value="Cantidad de Libros:  " />
             <p:inputText id="cantidadPrestamolibro" size="2" required="true"  requiredMessage="Escribir la Descripcion del Taller" />
         </h:panelGrid> 
-        
+
         <h:panelGrid columns="2" cellspacing="10">            
             <h:outputLabel value="Fecha de salida (Libro):   " />
             <p:calendar mode="inline" />

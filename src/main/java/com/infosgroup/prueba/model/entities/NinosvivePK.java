@@ -19,12 +19,12 @@ import javax.validation.constraints.Size;
 public class NinosvivePK implements Serializable {
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_periodo_escolar")
+    @Column(name = "id_periodo_escolar", nullable = false)
     private int idPeriodoEscolar;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "nie")
+    @Column(name = "nie", nullable = false, length = 50)
     private String nie;
 
     public NinosvivePK() {

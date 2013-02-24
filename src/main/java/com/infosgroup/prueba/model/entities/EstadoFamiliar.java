@@ -39,26 +39,26 @@ public class EstadoFamiliar implements Serializable {
     @EmbeddedId
     protected EstadoFamiliarPK estadoFamiliarPK;
     @Size(max = 50)
-    @Column(name = "padrenombre")
+    @Column(name = "padrenombre", length = 50)
     private String padrenombre;
     @Size(max = 50)
-    @Column(name = "padreapellido")
+    @Column(name = "padreapellido", length = 50)
     private String padreapellido;
     @Size(max = 50)
-    @Column(name = "padretelefono")
+    @Column(name = "padretelefono", length = 50)
     private String padretelefono;
     @Size(max = 50)
-    @Column(name = "madrenombre")
+    @Column(name = "madrenombre", length = 50)
     private String madrenombre;
     @Size(max = 50)
-    @Column(name = "madreapellido")
+    @Column(name = "madreapellido", length = 50)
     private String madreapellido;
     @Size(max = 50)
-    @Column(name = "madretelefono")
+    @Column(name = "madretelefono", length = 50)
     private String madretelefono;
     @JoinColumns({
-        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
-        @JoinColumn(name = "nie", referencedColumnName = "nie", insertable = false, updatable = false)})
+        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", nullable = false, insertable = false, updatable = false),
+        @JoinColumn(name = "nie", referencedColumnName = "nie", nullable = false, insertable = false, updatable = false)})
     @OneToOne(optional = false)
     private Alumno alumno;
 

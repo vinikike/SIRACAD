@@ -38,8 +38,8 @@ public class FichaAlumno implements Serializable {
     @Column(name = "cant_hnos_grado_sup")
     private Integer cantHnosGradoSup;
     @JoinColumns({
-        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
-        @JoinColumn(name = "nie", referencedColumnName = "nie")})
+        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", nullable = false, insertable = false, updatable = false),
+        @JoinColumn(name = "nie", referencedColumnName = "nie", nullable = false)})
     @ManyToOne(optional = false)
     private Alumno alumno;
 

@@ -36,17 +36,17 @@ public class PeriodoEscolar implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
     @Size(max = 200)
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", length = 200)
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar1")
-    private List<Empleado> empleadoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar")
     private List<Alumno> alumnoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar")
     private List<Periodo> periodoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar1")
+    private List<Empleado> empleadoList;
 
     public PeriodoEscolar() {
     }
@@ -72,15 +72,6 @@ public class PeriodoEscolar implements Serializable {
     }
 
     @XmlTransient
-    public List<Empleado> getEmpleadoList() {
-        return empleadoList;
-    }
-
-    public void setEmpleadoList(List<Empleado> empleadoList) {
-        this.empleadoList = empleadoList;
-    }
-
-    @XmlTransient
     public List<Alumno> getAlumnoList() {
         return alumnoList;
     }
@@ -96,6 +87,15 @@ public class PeriodoEscolar implements Serializable {
 
     public void setPeriodoList(List<Periodo> periodoList) {
         this.periodoList = periodoList;
+    }
+
+    @XmlTransient
+    public List<Empleado> getEmpleadoList() {
+        return empleadoList;
+    }
+
+    public void setEmpleadoList(List<Empleado> empleadoList) {
+        this.empleadoList = empleadoList;
     }
 
     @Override

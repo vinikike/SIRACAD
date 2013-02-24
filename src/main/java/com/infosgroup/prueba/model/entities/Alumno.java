@@ -55,70 +55,70 @@ public class Alumno implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "nombres")
+    @Column(name = "nombres", nullable = false, length = 50)
     private String nombres;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "apellidos")
+    @Column(name = "apellidos", nullable = false, length = 50)
     private String apellidos;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "lugar_nacimiento")
+    @Column(name = "lugar_nacimiento", nullable = false, length = 50)
     private String lugarNacimiento;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "edad")
+    @Column(name = "edad", nullable = false)
     private int edad;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 300)
-    @Column(name = "direccion")
+    @Column(name = "direccion", nullable = false, length = 300)
     private String direccion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "id_estado_familiar")
+    @Column(name = "id_estado_familiar", nullable = false, length = 50)
     private String idEstadoFamiliar;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fecha_nacimiento")
+    @Column(name = "fecha_nacimiento", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
     @Column(name = "meses")
     private Integer meses;
     @Size(max = 100)
-    @Column(name = "escuelaanterior")
+    @Column(name = "escuelaanterior", length = 100)
     private String escuelaanterior;
     @Size(max = 50)
-    @Column(name = "sexo")
+    @Column(name = "sexo", length = 50)
     private String sexo;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
-    private EstadoFamiliar estadoFamiliar;
     @JoinColumn(name = "id_zona_residencia", referencedColumnName = "id")
     @ManyToOne
     private ZonaResidencia idZonaResidencia;
     @JoinColumns({
-        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
+        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", nullable = false, insertable = false, updatable = false),
         @JoinColumn(name = "representante", referencedColumnName = "dui")})
     @ManyToOne(optional = false)
     private Representante representante;
-    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PeriodoEscolar periodoEscolar;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
     private Salud salud;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "alumno")
-    private List<FichaAlumno> fichaAlumnoList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
     private Ninosvive ninosvive;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
-    private Estudio estudio;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
     private Autorizacion autorizacion;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
     private Tallas tallas;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private EstadoFamiliar estadoFamiliar;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private List<FichaAlumno> fichaAlumnoList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
+    private Estudio estudio;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "alumno")
     private Otrainformacion otrainformacion;
 
@@ -232,14 +232,6 @@ public class Alumno implements Serializable {
         this.sexo = sexo;
     }
 
-    public EstadoFamiliar getEstadoFamiliar() {
-        return estadoFamiliar;
-    }
-
-    public void setEstadoFamiliar(EstadoFamiliar estadoFamiliar) {
-        this.estadoFamiliar = estadoFamiliar;
-    }
-
     public ZonaResidencia getIdZonaResidencia() {
         return idZonaResidencia;
     }
@@ -272,29 +264,12 @@ public class Alumno implements Serializable {
         this.salud = salud;
     }
 
-    @XmlTransient
-    public List<FichaAlumno> getFichaAlumnoList() {
-        return fichaAlumnoList;
-    }
-
-    public void setFichaAlumnoList(List<FichaAlumno> fichaAlumnoList) {
-        this.fichaAlumnoList = fichaAlumnoList;
-    }
-
     public Ninosvive getNinosvive() {
         return ninosvive;
     }
 
     public void setNinosvive(Ninosvive ninosvive) {
         this.ninosvive = ninosvive;
-    }
-
-    public Estudio getEstudio() {
-        return estudio;
-    }
-
-    public void setEstudio(Estudio estudio) {
-        this.estudio = estudio;
     }
 
     public Autorizacion getAutorizacion() {
@@ -311,6 +286,31 @@ public class Alumno implements Serializable {
 
     public void setTallas(Tallas tallas) {
         this.tallas = tallas;
+    }
+
+    public EstadoFamiliar getEstadoFamiliar() {
+        return estadoFamiliar;
+    }
+
+    public void setEstadoFamiliar(EstadoFamiliar estadoFamiliar) {
+        this.estadoFamiliar = estadoFamiliar;
+    }
+
+    @XmlTransient
+    public List<FichaAlumno> getFichaAlumnoList() {
+        return fichaAlumnoList;
+    }
+
+    public void setFichaAlumnoList(List<FichaAlumno> fichaAlumnoList) {
+        this.fichaAlumnoList = fichaAlumnoList;
+    }
+
+    public Estudio getEstudio() {
+        return estudio;
+    }
+
+    public void setEstudio(Estudio estudio) {
+        this.estudio = estudio;
     }
 
     public Otrainformacion getOtrainformacion() {

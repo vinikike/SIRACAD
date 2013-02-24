@@ -6,6 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:pe="http://primefaces.org/ui/extensions">
+
     <ui:define name="titulo">
         <h:outputText value="Matricula B&aacute;sica"/>
     </ui:define>
@@ -13,7 +14,9 @@
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">
             <p:menuitem value="Buscar estudiante" icon="ui-icon-search" oncomplete="buscarEstudianteDialog.show();"/>
             <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{matriculaBasica.guardarAlumno$action}"/>  
-            <p:menuitem value="Cancelar" icon="ui-icon-trash" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
+                <pe:resetInput for="@(#contenidoForm)"/>
+            </p:menuitem>
             <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
             <p:menuitem value="Matr&iacute;cula Media" action="matriculaMedia?faces-redirect=true" icon="ui-icon-contact" />            
             <p:menuitem value="Matr&iacute;cula Nocturna" action="matriculaNocturna?faces-redirect=true" icon="ui-icon-contact" />            
@@ -57,10 +60,10 @@
                 <h:panelGrid columns="2" cellspacing="5" >
                     <h:outputLabel value="Lugar de nacimiento:" />
                     <p:inputText size="60" required="true" value="#{matriculaBasica.alumno$lugarNacimiento}" requiredMessage="Escribir el lugar de nacimiento" />
-                
+
                     <h:outputLabel value="&nbsp;&nbsp;Direcci&oacute;n del Alumno/a:" />
                     <p:inputText size="60" value="#{matriculaBasica.alumno$direccion}" required="true" requiredMessage="Escribir la Direccion del estudiante" />
-                
+
                     <h:outputLabel value="Centro Escolar donde estudi&oacute; el a&ntilde;o anterior:   " />
                     <p:inputText size="75" value="#{matriculaBasica.alumno$escuelaAnterior}" required="true" requiredMessage="Escriba el nombre del Centro Educativo donde estudio el a&ntilde;o anterior" />
                 </h:panelGrid>
@@ -150,7 +153,7 @@
                     <h:panelGrid columns="4" cellspacing="10">
                         <h:outputLabel value="Nº de DUI de responsable:   " />
                         <p:inputText id="DUIRepresentante" maxlength="9" value="#{matriculaBasica.responsable$DUI}" required="true" requiredMessage="Introduzca el n&uacute;mero de DUI" size="7" style="font-size: 13pt !important;" />
-                    
+
                         <p:commandButton icon="ui-icon-search" immediate="true" oncomplete="buscarRepresentanteDialog.show();"/>
                         <p:commandButton icon="ui-icon-circle-close" immediate="true" action="#{matriculaBasica.deseleccionarRepresentante$action}" update="@form"/>                    
                     </h:panelGrid>
@@ -279,7 +282,7 @@
             </p:tab>
         </p:accordionPanel>
     </ui:define>
-    
+
     <ui:define name="dialogos">
         <p:dialog id="buscarEstudianteDialog" widgetVar="buscarEstudianteDialog" header="Buscar estudiante" modal="true" resizable="false" width="500" closable="true" draggable="true">
             <p:dataTable value="#{matriculaBasica.listaAlumnos}" var="alumno" filteredValue="#{matriculaBasica.listaAlumnosFiltro}" paginator="true" paginatorAlwaysVisible="true" paginatorPosition="top" rows="7">

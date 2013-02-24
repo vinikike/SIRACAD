@@ -37,20 +37,20 @@ public class Autorizacion implements Serializable {
     @EmbeddedId
     protected AutorizacionPK autorizacionPK;
     @Size(max = 50)
-    @Column(name = "autorizacionsolo")
+    @Column(name = "autorizacionsolo", length = 50)
     private String autorizacionsolo;
     @Size(max = 100)
-    @Column(name = "personarecogernombre")
+    @Column(name = "personarecogernombre", length = 100)
     private String personarecogernombre;
     @Size(max = 50)
-    @Column(name = "personarecogertelefono")
+    @Column(name = "personarecogertelefono", length = 50)
     private String personarecogertelefono;
     @Size(max = 50)
-    @Column(name = "personarecogerdui")
+    @Column(name = "personarecogerdui", length = 50)
     private String personarecogerdui;
     @JoinColumns({
-        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
-        @JoinColumn(name = "nie", referencedColumnName = "nie", insertable = false, updatable = false)})
+        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", nullable = false, insertable = false, updatable = false),
+        @JoinColumn(name = "nie", referencedColumnName = "nie", nullable = false, insertable = false, updatable = false)})
     @OneToOne(optional = false)
     private Alumno alumno;
 

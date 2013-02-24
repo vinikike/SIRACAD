@@ -52,13 +52,13 @@ public class Otrainformacion implements Serializable {
     @Column(name = "presentaboletadenotas")
     private Boolean presentaboletadenotas;
     @Size(max = 50)
-    @Column(name = "recibeapoyo")
+    @Column(name = "recibeapoyo", length = 50)
     private String recibeapoyo;
     @Size(max = 50)
-    @Column(name = "tipodeapoyo")
+    @Column(name = "tipodeapoyo", length = 50)
     private String tipodeapoyo;
     @Size(max = 50)
-    @Column(name = "actividadeconomica")
+    @Column(name = "actividadeconomica", length = 50)
     private String actividadeconomica;
     @Column(name = "partidanumero")
     private Integer partidanumero;
@@ -69,8 +69,8 @@ public class Otrainformacion implements Serializable {
     @Column(name = "partidalibro")
     private Integer partidalibro;
     @JoinColumns({
-        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
-        @JoinColumn(name = "nie", referencedColumnName = "nie", insertable = false, updatable = false)})
+        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", nullable = false, insertable = false, updatable = false),
+        @JoinColumn(name = "nie", referencedColumnName = "nie", nullable = false, insertable = false, updatable = false)})
     @OneToOne(optional = false)
     private Alumno alumno;
 

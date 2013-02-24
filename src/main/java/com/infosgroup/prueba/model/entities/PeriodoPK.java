@@ -18,15 +18,15 @@ import javax.validation.constraints.NotNull;
 public class PeriodoPK implements Serializable {
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_periodo_escolar")
+    @Column(name = "id_periodo_escolar", nullable = false)
     private int idPeriodoEscolar;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_nivel")
+    @Column(name = "id_nivel", nullable = false)
     private int idNivel;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_periodo")
+    @Column(name = "id_periodo", nullable = false)
     private int idPeriodo;
 
     public PeriodoPK() {

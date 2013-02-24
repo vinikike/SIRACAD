@@ -19,12 +19,12 @@ import javax.validation.constraints.Size;
 public class RepresentantePK implements Serializable {
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_periodo_escolar")
+    @Column(name = "id_periodo_escolar", nullable = false)
     private int idPeriodoEscolar;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
-    @Column(name = "dui")
+    @Column(name = "dui", nullable = false, length = 10)
     private String dui;
 
     public RepresentantePK() {

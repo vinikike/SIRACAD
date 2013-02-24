@@ -485,7 +485,13 @@ public class MatriculaMediaJSFManagedBean extends AbstractJSFBean implements Ser
     public String seleccionarAlumno$action() {
         alumno$nie = alumnoSeleccionado.getAlumnoPK().getNie();
         alumno$nombre = alumnoSeleccionado.getNombres();
+        alumno$apellido = alumnoSeleccionado.getApellidos();
+        alumno$edad$anios = alumnoSeleccionado.getEdad();
         alumno$fechaNacimiento = alumnoSeleccionado.getFechaNacimiento();
+        alumno$sexo = alumnoSeleccionado.getSexo();
+        alumno$lugarNacimiento = alumnoSeleccionado.getLugarNacimiento();
+        alumno$direccion = alumnoSeleccionado.getDireccion();
+        alumno$escuelaAnterior = alumnoSeleccionado.getEscuelaanterior();
         return null;
     }
 
@@ -597,6 +603,44 @@ public class MatriculaMediaJSFManagedBean extends AbstractJSFBean implements Ser
         mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Alumno registrado exitosamente");
 
         listaAlumnos = alumnoFacade.findByNivel("M");
+
+        alumno$nie = "";
+        alumno$nombre = "";
+        alumno$apellido = "";
+        alumno$lugarNacimiento = "";
+        alumno$edad$anios = 13;
+        alumno$sexo = "M";
+        alumno$direccion = "";
+        alumno$escuelaAnterior = "";
+
+        alumno$gradoEstudio = "1";
+        alumno$opcionEstudio = "G";
+        alumno$seccion = "A";
+        alumno$repiteGrado = "No";
+        alumno$estudioParvularia = "Si";
+
+        padre$nombre = "";
+        padre$apellido = "";
+        padre$telefono = "";
+        madre$nombre = "";
+        madre$apellido = "";
+        madre$telefono = "";
+        responsable$nombre = "";
+        responsable$apellido = "";
+        responsable$telefono = "";
+        responsable$DUI = "";
+        alumno$estadoFamiliar = "VPM";
+
+        alumno$noPartida = 0;
+        alumno$folioPartida = 0;
+        alumno$tomoPartida = 0;
+        alumno$libro = 0;
+        alumno$actividadEconomica = "NT";
+
+        autorizacion$vallaSolo = "Si";
+        autorizacion$nombre = "";
+        autorizacion$telefono = "";
+        autorizacion$DUI = "";
         return null;
     }
 //    public String imprimirReporte$action() {

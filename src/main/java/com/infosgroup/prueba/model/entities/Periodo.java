@@ -36,10 +36,10 @@ public class Periodo implements Serializable {
     protected PeriodoPK periodoPK;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodo")
     private List<Ponderaciones> ponderacionesList;
-    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PeriodoEscolar periodoEscolar;
-    @JoinColumn(name = "id_nivel", referencedColumnName = "id_nivel", insertable = false, updatable = false)
+    @JoinColumn(name = "id_nivel", referencedColumnName = "id_nivel", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Nivel nivel;
 

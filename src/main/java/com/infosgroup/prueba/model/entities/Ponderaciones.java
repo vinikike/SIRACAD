@@ -35,12 +35,12 @@ public class Ponderaciones implements Serializable {
     @EmbeddedId
     protected PonderacionesPK ponderacionesPK;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "porcentaje")
+    @Column(name = "porcentaje", precision = 17, scale = 17)
     private Double porcentaje;
     @JoinColumns({
-        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
-        @JoinColumn(name = "id_nivel", referencedColumnName = "id_nivel", insertable = false, updatable = false),
-        @JoinColumn(name = "id_periodo", referencedColumnName = "id_periodo", insertable = false, updatable = false)})
+        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", nullable = false, insertable = false, updatable = false),
+        @JoinColumn(name = "id_nivel", referencedColumnName = "id_nivel", nullable = false, insertable = false, updatable = false),
+        @JoinColumn(name = "id_periodo", referencedColumnName = "id_periodo", nullable = false, insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Periodo periodo;
 

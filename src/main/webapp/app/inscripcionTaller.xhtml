@@ -6,6 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:pe="http://primefaces.org/ui/extensions">
+    
     <ui:define name="titulo">
         <h:outputText value="Inscripcion de Talleres"/>
     </ui:define>
@@ -13,7 +14,9 @@
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
             <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
-            <p:menuitem value="Cancelar" icon="ui-icon-trash" />
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
+            <pe:resetInput for="@(#contenidoForm)"/>
+            </p:menuitem>
             <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />            
             <p:menuitem value="Editar Talleres" action="editarTaller?faces-redirect=true" icon="ui-icon-pencil" />            
             <p:menuitem value="Nuevo Taller" action="nuevoTaller?faces-redirect=true" icon="ui-icon-plusthick" />            

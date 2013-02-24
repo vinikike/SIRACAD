@@ -36,10 +36,10 @@ public class ZonaResidencia implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 50)
     private String id;
     @Size(max = 50)
-    @Column(name = "nombre")
+    @Column(name = "nombre", length = 50)
     private String nombre;
     @OneToMany(mappedBy = "idZonaResidencia")
     private List<Alumno> alumnoList;

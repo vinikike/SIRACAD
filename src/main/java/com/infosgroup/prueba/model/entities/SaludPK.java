@@ -19,12 +19,12 @@ import javax.validation.constraints.Size;
 public class SaludPK implements Serializable {
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_periodoescolar")
+    @Column(name = "id_periodoescolar", nullable = false)
     private int idPeriodoescolar;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
-    @Column(name = "nie")
+    @Column(name = "nie", nullable = false, length = 2147483647)
     private String nie;
 
     public SaludPK() {

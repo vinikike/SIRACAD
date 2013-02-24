@@ -57,72 +57,72 @@ public class Empleado implements Serializable {
     @EmbeddedId
     protected EmpleadoPK empleadoPK;
     @Size(max = 500)
-    @Column(name = "apartado_email")
+    @Column(name = "apartado_email", length = 500)
     private String apartadoEmail;
     @Size(max = 100)
-    @Column(name = "apellido_casada")
+    @Column(name = "apellido_casada", length = 100)
     private String apellidoCasada;
     @Size(max = 255)
-    @Column(name = "celular")
+    @Column(name = "celular", length = 255)
     private String celular;
     @Size(max = 1000)
-    @Column(name = "direccion")
+    @Column(name = "direccion", length = 1000)
     private String direccion;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Correo electrónico no válido")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 255)
-    @Column(name = "email")
+    @Column(name = "email", length = 255)
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "estado")
+    @Column(name = "estado", nullable = false)
     private int estado;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "estado_civil")
+    @Column(name = "estado_civil", nullable = false)
     private int estadoCivil;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "externo")
+    @Column(name = "externo", nullable = false)
     private boolean externo;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fecha_ingreso")
+    @Column(name = "fecha_ingreso", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaIngreso;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "apellidos")
+    @Column(name = "apellidos", nullable = false, length = 100)
     private String apellidos;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "nombres")
+    @Column(name = "nombres", nullable = false, length = 100)
     private String nombres;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "sexo")
+    @Column(name = "sexo", nullable = false)
     private int sexo;
     @Size(max = 255)
-    @Column(name = "telefono")
+    @Column(name = "telefono", length = 255)
     private String telefono;
     @Size(max = 255)
-    @Column(name = "telefono_celular")
+    @Column(name = "telefono_celular", length = 255)
     private String telefonoCelular;
     @Size(max = 255)
-    @Column(name = "tipo_sangre")
+    @Column(name = "tipo_sangre", length = 255)
     private String tipoSangre;
     @Size(max = 255)
-    @Column(name = "especialidad")
+    @Column(name = "especialidad", length = 255)
     private String especialidad;
     @Column(name = "cargo")
     private Integer cargo;
     @Size(max = 50)
-    @Column(name = "jefe")
+    @Column(name = "jefe", length = 50)
     private String jefe;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "empleado")
     private Usuario usuario;
-    @JoinColumn(name = "periodo_escolar", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "periodo_escolar", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PeriodoEscolar periodoEscolar1;
 

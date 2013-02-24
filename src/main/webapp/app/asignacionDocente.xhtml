@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:define name="titulo">
+        <h:outputText value="Asignacion de Docentes"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
+            <pe:resetInput for="@(#contenidoForm)"/>
+            </p:menuitem>          
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+        <h:panelGrid columns="3" cellspacing="20">
+            <h:outputLabel value="NIP:  " /> 
+            <p:inputText id="NIP" size="7" maxlength="7" required="true" requiredMessage="Escriba el NIP del Docente" />
+            <p:commandButton type="submit" id="buscarAlumno" value="Buscar" icon="ui-icon-search" style="alignment-adjust: central" />
+        </h:panelGrid>
+        <h:panelGrid columns="2" cellspacing="20">
+            <h:outputLabel value="Nombre Docente:  " />
+            <p:inputText id="nombreDocente" size="40" disabled="true"/>
+            <h:outputText value="Materia: " /> 
+            <p:selectOneMenu value="#{buttonBean.number}">  
+                <f:selectItem itemLabel="Seleccione una materia" itemValue="" />  
+                <f:selectItem itemLabel=" " itemValue="1" />  
+                <f:selectItem itemLabel=" " itemValue="2" />  
+                <f:selectItem itemLabel=" " itemValue="3" />  
+            </p:selectOneMenu>
+        </h:panelGrid>
+        <h:panelGrid columns="3" cellspacing="20">
+            <h:outputText value="Nivel: " />  
+            <p:selectOneMenu value="#{buttonBean.number}">  
+                <f:selectItem itemLabel="Seleccione un Nivel" itemValue="" />  
+                <f:selectItem itemLabel="Parvularia" itemValue="1" />  
+                <f:selectItem itemLabel="Basica" itemValue="2" />  
+                <f:selectItem itemLabel="Media" itemValue="3" />  
+                <f:selectItem itemLabel="Nocturna" itemValue="4" />  
+            </p:selectOneMenu> 
+            <p:commandButton type="submit" id="Cargar" value="Cargar" icon="ui-icon-search" style="alignment-adjust: central" />
+
+        </h:panelGrid>
+        <h:form>  
+                  
+    <p:growl id="msg" showDetail="true" escape="false" />  
+  
+    <h3 style="margin-top:0">Basic PickList</h3> 
+    <h:panelGrid columns="2">
+        <p:pickList id="pickList" value="#{PickListBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city}"/>
+  
+ <p:commandButton id="citySubmit" value="Submit" style="margin-top:5px"/> 
+    </h:panelGrid>
+</h:form>  
+        
+    </ui:define>
+</ui:composition>
+

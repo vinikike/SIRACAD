@@ -37,20 +37,20 @@ public class Salud implements Serializable {
     @EmbeddedId
     protected SaludPK saludPK;
     @Size(max = 50)
-    @Column(name = "poseediscapacidad")
+    @Column(name = "poseediscapacidad", length = 50)
     private String poseediscapacidad;
     @Size(max = 100)
-    @Column(name = "tipodediscapacidad")
+    @Column(name = "tipodediscapacidad", length = 100)
     private String tipodediscapacidad;
     @Size(max = 50)
-    @Column(name = "vacunascompletas")
+    @Column(name = "vacunascompletas", length = 50)
     private String vacunascompletas;
     @Size(max = 100)
-    @Column(name = "problemadesalud")
+    @Column(name = "problemadesalud", length = 100)
     private String problemadesalud;
     @JoinColumns({
-        @JoinColumn(name = "id_periodoescolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
-        @JoinColumn(name = "nie", referencedColumnName = "nie", insertable = false, updatable = false)})
+        @JoinColumn(name = "id_periodoescolar", referencedColumnName = "id_periodo_escolar", nullable = false, insertable = false, updatable = false),
+        @JoinColumn(name = "nie", referencedColumnName = "nie", nullable = false, insertable = false, updatable = false)})
     @OneToOne(optional = false)
     private Alumno alumno;
 

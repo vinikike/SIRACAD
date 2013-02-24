@@ -477,17 +477,23 @@ public class MatriculaBasicaJSFManagedBean extends AbstractJSFBean implements Se
     public String seleccionarAlumno$action() {
         alumno$nie = alumnoSeleccionado.getAlumnoPK().getNie();
         alumno$nombre = alumnoSeleccionado.getNombres();
+        alumno$apellido = alumnoSeleccionado.getApellidos();
+        alumno$edad$anios = alumnoSeleccionado.getEdad();
         alumno$fechaNacimiento = alumnoSeleccionado.getFechaNacimiento();
+        alumno$sexo = alumnoSeleccionado.getSexo();
+        alumno$lugarNacimiento = alumnoSeleccionado.getLugarNacimiento();
+        alumno$direccion = alumnoSeleccionado.getDireccion();
+        alumno$escuelaAnterior = alumnoSeleccionado.getEscuelaanterior();
         return null;
     }
 
     public String guardarAlumno$action() {
 
-//        Alumno alumnoBuscar = alumnoFacade.find(new AlumnoPK(2013, alumno$nie));
-//        if (alumnoBuscar != null) {
-//            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe registro del alumno en el periodo escolar");
-//            return null;
-//        }
+        Alumno alumnoBuscar = alumnoFacade.find(new AlumnoPK(2013, alumno$nie));
+        if (alumnoBuscar != null) {
+            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe registro del alumno en el periodo escolar");
+            return null;
+        }
 
         AlumnoPK alumnoPK = new AlumnoPK();
         alumnoPK.setIdPeriodoEscolar(2013);
@@ -588,6 +594,49 @@ public class MatriculaBasicaJSFManagedBean extends AbstractJSFBean implements Se
         mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Alumno registrado exitosamente");
 
         listaAlumnos = alumnoFacade.findByNivel("B");
+        
+        alumno$nie = "";
+        alumno$nombre = "";
+        alumno$apellido = "";
+        alumno$lugarNacimiento = "";
+        alumno$edad$anios = 7;
+        alumno$sexo = "M";
+        alumno$direccion = "";
+        alumno$escuelaAnterior = "";
+        
+        alumno$gradoEstudio = "1";
+        alumno$seccion = "A";
+        alumno$repiteGrado = "No";
+        alumno$estudioParvularia = "Si";
+        
+        padre$nombre = "";
+        padre$apellido = "";
+        padre$telefono = "";
+        madre$nombre = "";
+        madre$apellido = "";
+        madre$telefono = "";
+        responsable$nombre = "";
+        responsable$apellido = "";
+        responsable$telefono = "";
+        responsable$DUI = "";
+        alumno$estadoFamiliar = "VPM";
+
+        alumno$documentosPresentados = null;
+        alumno$noPartida = 0;
+        alumno$folioPartida = 0;
+        alumno$tomoPartida = 0;
+        alumno$libro = 0;
+        
+        alumno$actividadEconomica = "NT";
+        
+        alumno$tallaSupuerior = "";
+        alumno$tallaInferior = "";
+        alumno$tallaCalzado = 0;
+        
+        autorizacion$vallaSolo = "Si";
+        autorizacion$nombre = "";
+        autorizacion$telefono = "";
+        autorizacion$DUI = "";
         return null;
     }
 

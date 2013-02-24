@@ -36,16 +36,16 @@ public class Tallas implements Serializable {
     @EmbeddedId
     protected TallasPK tallasPK;
     @Size(max = 2147483647)
-    @Column(name = "tallasuperior")
+    @Column(name = "tallasuperior", length = 2147483647)
     private String tallasuperior;
     @Size(max = 2147483647)
-    @Column(name = "tallainferior")
+    @Column(name = "tallainferior", length = 2147483647)
     private String tallainferior;
     @Column(name = "tallacalzado")
     private Integer tallacalzado;
     @JoinColumns({
-        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
-        @JoinColumn(name = "nie", referencedColumnName = "nie", insertable = false, updatable = false)})
+        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", nullable = false, insertable = false, updatable = false),
+        @JoinColumn(name = "nie", referencedColumnName = "nie", nullable = false, insertable = false, updatable = false)})
     @OneToOne(optional = false)
     private Alumno alumno;
 

@@ -30,19 +30,25 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Nivel.findAll", query = "SELECT n FROM Nivel n"),
     @NamedQuery(name = "Nivel.findByIdNivel", query = "SELECT n FROM Nivel n WHERE n.idNivel = :idNivel"),
-    @NamedQuery(name = "Nivel.findByDescripcion", query = "SELECT n FROM Nivel n WHERE n.descripcion = :descripcion")})
+    @NamedQuery(name = "Nivel.findByDescripcion", query = "SELECT n FROM Nivel n WHERE n.descripcion = :descripcion"),
+    @NamedQuery(name = "Nivel.findByNivel", query = "SELECT n FROM Nivel n WHERE n.nivel = :nivel")})
 public class Nivel implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_nivel")
+    @Column(name = "id_nivel", nullable = false)
     private Integer idNivel;
     @Size(max = 50)
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", length = 50)
     private String descripcion;
+    @Size(max = 50)
+    @Column(name = "nivel", length = 50)
+    private String nivel;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nivel")
     private List<Periodo> periodoList;
+    @OneToMany(mappedBy = "nivel")
+    private List<ListaGrados> listaGradosList;
 
     public Nivel() {
     }
@@ -67,6 +73,14 @@ public class Nivel implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
+    }
+
     @XmlTransient
     public List<Periodo> getPeriodoList() {
         return periodoList;
@@ -74,6 +88,15 @@ public class Nivel implements Serializable {
 
     public void setPeriodoList(List<Periodo> periodoList) {
         this.periodoList = periodoList;
+    }
+
+    @XmlTransient
+    public List<ListaGrados> getListaGradosList() {
+        return listaGradosList;
+    }
+
+    public void setListaGradosList(List<ListaGrados> listaGradosList) {
+        this.listaGradosList = listaGradosList;
     }
 
     @Override

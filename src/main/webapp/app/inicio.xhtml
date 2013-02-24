@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="/plantillas/default.xhtml"
+                template="/plantillas/default_1.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
     
@@ -10,28 +10,17 @@
     </ui:define>
     
     <ui:define name="dialogos"/>
-    
-    <ui:define name="acciones">
-        <p:submenu label="Navegaci&oacute;n 1" icon="ui-icon-cancel">            
-            <p:menuitem value="Save" icon="ui-icon-disk" />  
-            <p:menuitem value="Update" icon="ui-icon-arrowrefresh-1-w" />            
-        </p:submenu>
-        <p:submenu label="Navegaci&oacute;n 2" icon="ui-icon-cancel">
-            <p:menuitem value="Save" icon="ui-icon-disk" />  
-            <p:menuitem value="Update" icon="ui-icon-arrowrefresh-1-w" />
-        </p:submenu> 
-    </ui:define>
-    
+
     <ui:define name="contenido">
         <table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="center">
-                    <p:carousel itemStyleClass="carItem" pageLinks="5" autoPlayInterval="7000" rows="1" effect="easeInStrong" circular="true">  
-                        <p:graphicImage value="/resources/imagenes/nature1.JPG" width="770" height="400"/>  
-                        <p:graphicImage value="/resources/imagenes/nature2.JPG" width="770" height="400"/>  
-                        <p:graphicImage value="/resources/imagenes/nature3.JPG" width="770" height="400"/>  
-                        <p:graphicImage value="/resources/imagenes/nature4.JPG" width="770" height="400"/>  
-                        <p:graphicImage value="/resources/imagenes/nature5.JPG" width="770" height="400"/>  
+                    <p:carousel itemStyleClass="carItem" pageLinks="5" autoPlayInterval="5000" rows="1" effect="easeInStrong" circular="true">  
+                        <p:graphicImage value="/resources/imagenes/nature1.JPG" width="900" height="425"/>  
+                        <p:graphicImage value="/resources/imagenes/nature2.JPG" width="900" height="425"/>  
+                        <p:graphicImage value="/resources/imagenes/nature3.JPG" width="900" height="425"/>  
+                        <p:graphicImage value="/resources/imagenes/nature4.JPG" width="900" height="425"/>  
+                        <p:graphicImage value="/resources/imagenes/nature5.JPG" width="900" height="425"/>  
                     </p:carousel>
                 </td>
             </tr>

@@ -28,82 +28,66 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Estadistica.findByGrado", query = "SELECT e FROM Estadistica e WHERE e.estadisticaPK.grado = :grado"),
     @NamedQuery(name = "Estadistica.findByOpcion", query = "SELECT e FROM Estadistica e WHERE e.estadisticaPK.opcion = :opcion"),
     @NamedQuery(name = "Estadistica.findBySeccion", query = "SELECT e FROM Estadistica e WHERE e.estadisticaPK.seccion = :seccion"),
-    @NamedQuery(name = "Estadistica.findByMatriculaInicialMasculino", query = "SELECT e FROM Estadistica e WHERE e.matriculaInicialMasculino = :matriculaInicialMasculino"),
-    @NamedQuery(name = "Estadistica.findByMatriculaInicialFemenino", query = "SELECT e FROM Estadistica e WHERE e.matriculaInicialFemenino = :matriculaInicialFemenino"),
-    @NamedQuery(name = "Estadistica.findByIngresosDelMesMasculino", query = "SELECT e FROM Estadistica e WHERE e.ingresosDelMesMasculino = :ingresosDelMesMasculino"),
-    @NamedQuery(name = "Estadistica.findByIngresosDelMesFemenino", query = "SELECT e FROM Estadistica e WHERE e.ingresosDelMesFemenino = :ingresosDelMesFemenino"),
-    @NamedQuery(name = "Estadistica.findByEgresosDelMesMasculino", query = "SELECT e FROM Estadistica e WHERE e.egresosDelMesMasculino = :egresosDelMesMasculino"),
-    @NamedQuery(name = "Estadistica.findByEgresosDelMesFemenino", query = "SELECT e FROM Estadistica e WHERE e.egresosDelMesFemenino = :egresosDelMesFemenino"),
-    @NamedQuery(name = "Estadistica.findByMatriculaEfectivaDelMesMasculino", query = "SELECT e FROM Estadistica e WHERE e.matriculaEfectivaDelMesMasculino = :matriculaEfectivaDelMesMasculino"),
-    @NamedQuery(name = "Estadistica.findByMatriculaEfectivaDelMesFemenino", query = "SELECT e FROM Estadistica e WHERE e.matriculaEfectivaDelMesFemenino = :matriculaEfectivaDelMesFemenino"),
-    @NamedQuery(name = "Estadistica.findByAsistenciaMediaMasculino", query = "SELECT e FROM Estadistica e WHERE e.asistenciaMediaMasculino = :asistenciaMediaMasculino"),
-    @NamedQuery(name = "Estadistica.findByAsistenciaMediaFemenino", query = "SELECT e FROM Estadistica e WHERE e.asistenciaMediaFemenino = :asistenciaMediaFemenino"),
-    @NamedQuery(name = "Estadistica.findByInasistenciaMediaMasculino", query = "SELECT e FROM Estadistica e WHERE e.inasistenciaMediaMasculino = :inasistenciaMediaMasculino"),
-    @NamedQuery(name = "Estadistica.findByInasistenciaMediaFemenino", query = "SELECT e FROM Estadistica e WHERE e.inasistenciaMediaFemenino = :inasistenciaMediaFemenino"),
-    @NamedQuery(name = "Estadistica.findBySobreEdadMasculino", query = "SELECT e FROM Estadistica e WHERE e.sobreEdadMasculino = :sobreEdadMasculino"),
-    @NamedQuery(name = "Estadistica.findBySobreEdadFemenino", query = "SELECT e FROM Estadistica e WHERE e.sobreEdadFemenino = :sobreEdadFemenino"),
+    @NamedQuery(name = "Estadistica.findByMatriculainicialMasculino", query = "SELECT e FROM Estadistica e WHERE e.matriculainicialMasculino = :matriculainicialMasculino"),
+    @NamedQuery(name = "Estadistica.findByMatriculainicialFemenino", query = "SELECT e FROM Estadistica e WHERE e.matriculainicialFemenino = :matriculainicialFemenino"),
+    @NamedQuery(name = "Estadistica.findByIngresosMasculino", query = "SELECT e FROM Estadistica e WHERE e.ingresosMasculino = :ingresosMasculino"),
+    @NamedQuery(name = "Estadistica.findByIngresosFemenino", query = "SELECT e FROM Estadistica e WHERE e.ingresosFemenino = :ingresosFemenino"),
+    @NamedQuery(name = "Estadistica.findByEgresosMasculino", query = "SELECT e FROM Estadistica e WHERE e.egresosMasculino = :egresosMasculino"),
+    @NamedQuery(name = "Estadistica.findByEgresosFemenino", query = "SELECT e FROM Estadistica e WHERE e.egresosFemenino = :egresosFemenino"),
+    @NamedQuery(name = "Estadistica.findByMatriculaefectivaMasculino", query = "SELECT e FROM Estadistica e WHERE e.matriculaefectivaMasculino = :matriculaefectivaMasculino"),
+    @NamedQuery(name = "Estadistica.findByMatriculaefectivaFemenino", query = "SELECT e FROM Estadistica e WHERE e.matriculaefectivaFemenino = :matriculaefectivaFemenino"),
+    @NamedQuery(name = "Estadistica.findByAsistenciamediaMasculino", query = "SELECT e FROM Estadistica e WHERE e.asistenciamediaMasculino = :asistenciamediaMasculino"),
+    @NamedQuery(name = "Estadistica.findByAsistenciamediaFemenino", query = "SELECT e FROM Estadistica e WHERE e.asistenciamediaFemenino = :asistenciamediaFemenino"),
+    @NamedQuery(name = "Estadistica.findByInasistenciamediaMasculino", query = "SELECT e FROM Estadistica e WHERE e.inasistenciamediaMasculino = :inasistenciamediaMasculino"),
+    @NamedQuery(name = "Estadistica.findByInasistenciamediaFemenino", query = "SELECT e FROM Estadistica e WHERE e.inasistenciamediaFemenino = :inasistenciamediaFemenino"),
+    @NamedQuery(name = "Estadistica.findBySobreedadMasculino", query = "SELECT e FROM Estadistica e WHERE e.sobreedadMasculino = :sobreedadMasculino"),
+    @NamedQuery(name = "Estadistica.findBySobreedadFemenino", query = "SELECT e FROM Estadistica e WHERE e.sobreedadFemenino = :sobreedadFemenino"),
     @NamedQuery(name = "Estadistica.findByRepitenciaMasculino", query = "SELECT e FROM Estadistica e WHERE e.repitenciaMasculino = :repitenciaMasculino"),
     @NamedQuery(name = "Estadistica.findByRepitenciaFemenino", query = "SELECT e FROM Estadistica e WHERE e.repitenciaFemenino = :repitenciaFemenino"),
-    @NamedQuery(name = "Estadistica.findByDocenteDui", query = "SELECT e FROM Estadistica e WHERE e.docenteDui = :docenteDui"),
-    @NamedQuery(name = "Estadistica.findByMes", query = "SELECT e FROM Estadistica e WHERE e.mes = :mes")})
+    @NamedQuery(name = "Estadistica.findByMes", query = "SELECT e FROM Estadistica e WHERE e.mes = :mes"),
+    @NamedQuery(name = "Estadistica.findByDocenteDui", query = "SELECT e FROM Estadistica e WHERE e.docenteDui = :docenteDui")})
 public class Estadistica implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected EstadisticaPK estadisticaPK;
-    @Size(max = 2147483647)
-    @Column(name = "matricula_inicial_masculino", length = 2147483647)
-    private String matriculaInicialMasculino;
-    @Size(max = 2147483647)
-    @Column(name = "matricula_inicial_femenino", length = 2147483647)
-    private String matriculaInicialFemenino;
-    @Size(max = 2147483647)
-    @Column(name = "ingresos_del_mes_masculino", length = 2147483647)
-    private String ingresosDelMesMasculino;
-    @Size(max = 2147483647)
-    @Column(name = "ingresos_del_mes_femenino", length = 2147483647)
-    private String ingresosDelMesFemenino;
-    @Size(max = 2147483647)
-    @Column(name = "egresos_del_mes_masculino", length = 2147483647)
-    private String egresosDelMesMasculino;
-    @Size(max = 2147483647)
-    @Column(name = "egresos_del_mes_femenino", length = 2147483647)
-    private String egresosDelMesFemenino;
-    @Size(max = 2147483647)
-    @Column(name = "matricula_efectiva del_mes_masculino", length = 2147483647)
-    private String matriculaEfectivaDelMesMasculino;
-    @Size(max = 2147483647)
-    @Column(name = "matricula_efectiva del_mes_femenino", length = 2147483647)
-    private String matriculaEfectivaDelMesFemenino;
-    @Size(max = 2147483647)
-    @Column(name = "asistencia_media_masculino", length = 2147483647)
-    private String asistenciaMediaMasculino;
-    @Size(max = 2147483647)
-    @Column(name = "asistencia_media_femenino", length = 2147483647)
-    private String asistenciaMediaFemenino;
-    @Size(max = 2147483647)
-    @Column(name = "inasistencia_media_masculino", length = 2147483647)
-    private String inasistenciaMediaMasculino;
-    @Size(max = 2147483647)
-    @Column(name = "inasistencia_media_femenino", length = 2147483647)
-    private String inasistenciaMediaFemenino;
-    @Size(max = 2147483647)
-    @Column(name = "sobre_edad_masculino", length = 2147483647)
-    private String sobreEdadMasculino;
-    @Size(max = 2147483647)
-    @Column(name = "sobre_edad_femenino", length = 2147483647)
-    private String sobreEdadFemenino;
-    @Size(max = 2147483647)
-    @Column(name = "repitencia_masculino", length = 2147483647)
-    private String repitenciaMasculino;
-    @Size(max = 2147483647)
-    @Column(name = "repitencia_femenino", length = 2147483647)
-    private String repitenciaFemenino;
-    @Size(max = 2147483647)
-    @Column(name = "docente_dui", length = 2147483647)
-    private String docenteDui;
+    @Column(name = "matriculainicial_masculino")
+    private Integer matriculainicialMasculino;
+    @Column(name = "matriculainicial_femenino")
+    private Integer matriculainicialFemenino;
+    @Column(name = "ingresos_masculino")
+    private Integer ingresosMasculino;
+    @Column(name = "ingresos_femenino")
+    private Integer ingresosFemenino;
+    @Column(name = "egresos_masculino")
+    private Integer egresosMasculino;
+    @Column(name = "egresos_femenino")
+    private Integer egresosFemenino;
+    @Column(name = "matriculaefectiva_masculino")
+    private Integer matriculaefectivaMasculino;
+    @Column(name = "matriculaefectiva_femenino")
+    private Integer matriculaefectivaFemenino;
+    @Column(name = "asistenciamedia_masculino")
+    private Integer asistenciamediaMasculino;
+    @Column(name = "asistenciamedia_femenino")
+    private Integer asistenciamediaFemenino;
+    @Column(name = "inasistenciamedia_masculino")
+    private Integer inasistenciamediaMasculino;
+    @Column(name = "inasistenciamedia_femenino")
+    private Integer inasistenciamediaFemenino;
+    @Column(name = "sobreedad_masculino")
+    private Integer sobreedadMasculino;
+    @Column(name = "sobreedad_femenino")
+    private Integer sobreedadFemenino;
+    @Column(name = "repitencia_masculino")
+    private Integer repitenciaMasculino;
+    @Column(name = "repitencia_femenino")
+    private Integer repitenciaFemenino;
     @Size(max = 2147483647)
     @Column(name = "mes", length = 2147483647)
     private String mes;
+    @Size(max = 2147483647)
+    @Column(name = "docente_dui", length = 2147483647)
+    private String docenteDui;
 
     public Estadistica() {
     }
@@ -124,140 +108,132 @@ public class Estadistica implements Serializable {
         this.estadisticaPK = estadisticaPK;
     }
 
-    public String getMatriculaInicialMasculino() {
-        return matriculaInicialMasculino;
+    public Integer getMatriculainicialMasculino() {
+        return matriculainicialMasculino;
     }
 
-    public void setMatriculaInicialMasculino(String matriculaInicialMasculino) {
-        this.matriculaInicialMasculino = matriculaInicialMasculino;
+    public void setMatriculainicialMasculino(Integer matriculainicialMasculino) {
+        this.matriculainicialMasculino = matriculainicialMasculino;
     }
 
-    public String getMatriculaInicialFemenino() {
-        return matriculaInicialFemenino;
+    public Integer getMatriculainicialFemenino() {
+        return matriculainicialFemenino;
     }
 
-    public void setMatriculaInicialFemenino(String matriculaInicialFemenino) {
-        this.matriculaInicialFemenino = matriculaInicialFemenino;
+    public void setMatriculainicialFemenino(Integer matriculainicialFemenino) {
+        this.matriculainicialFemenino = matriculainicialFemenino;
     }
 
-    public String getIngresosDelMesMasculino() {
-        return ingresosDelMesMasculino;
+    public Integer getIngresosMasculino() {
+        return ingresosMasculino;
     }
 
-    public void setIngresosDelMesMasculino(String ingresosDelMesMasculino) {
-        this.ingresosDelMesMasculino = ingresosDelMesMasculino;
+    public void setIngresosMasculino(Integer ingresosMasculino) {
+        this.ingresosMasculino = ingresosMasculino;
     }
 
-    public String getIngresosDelMesFemenino() {
-        return ingresosDelMesFemenino;
+    public Integer getIngresosFemenino() {
+        return ingresosFemenino;
     }
 
-    public void setIngresosDelMesFemenino(String ingresosDelMesFemenino) {
-        this.ingresosDelMesFemenino = ingresosDelMesFemenino;
+    public void setIngresosFemenino(Integer ingresosFemenino) {
+        this.ingresosFemenino = ingresosFemenino;
     }
 
-    public String getEgresosDelMesMasculino() {
-        return egresosDelMesMasculino;
+    public Integer getEgresosMasculino() {
+        return egresosMasculino;
     }
 
-    public void setEgresosDelMesMasculino(String egresosDelMesMasculino) {
-        this.egresosDelMesMasculino = egresosDelMesMasculino;
+    public void setEgresosMasculino(Integer egresosMasculino) {
+        this.egresosMasculino = egresosMasculino;
     }
 
-    public String getEgresosDelMesFemenino() {
-        return egresosDelMesFemenino;
+    public Integer getEgresosFemenino() {
+        return egresosFemenino;
     }
 
-    public void setEgresosDelMesFemenino(String egresosDelMesFemenino) {
-        this.egresosDelMesFemenino = egresosDelMesFemenino;
+    public void setEgresosFemenino(Integer egresosFemenino) {
+        this.egresosFemenino = egresosFemenino;
     }
 
-    public String getMatriculaEfectivaDelMesMasculino() {
-        return matriculaEfectivaDelMesMasculino;
+    public Integer getMatriculaefectivaMasculino() {
+        return matriculaefectivaMasculino;
     }
 
-    public void setMatriculaEfectivaDelMesMasculino(String matriculaEfectivaDelMesMasculino) {
-        this.matriculaEfectivaDelMesMasculino = matriculaEfectivaDelMesMasculino;
+    public void setMatriculaefectivaMasculino(Integer matriculaefectivaMasculino) {
+        this.matriculaefectivaMasculino = matriculaefectivaMasculino;
     }
 
-    public String getMatriculaEfectivaDelMesFemenino() {
-        return matriculaEfectivaDelMesFemenino;
+    public Integer getMatriculaefectivaFemenino() {
+        return matriculaefectivaFemenino;
     }
 
-    public void setMatriculaEfectivaDelMesFemenino(String matriculaEfectivaDelMesFemenino) {
-        this.matriculaEfectivaDelMesFemenino = matriculaEfectivaDelMesFemenino;
+    public void setMatriculaefectivaFemenino(Integer matriculaefectivaFemenino) {
+        this.matriculaefectivaFemenino = matriculaefectivaFemenino;
     }
 
-    public String getAsistenciaMediaMasculino() {
-        return asistenciaMediaMasculino;
+    public Integer getAsistenciamediaMasculino() {
+        return asistenciamediaMasculino;
     }
 
-    public void setAsistenciaMediaMasculino(String asistenciaMediaMasculino) {
-        this.asistenciaMediaMasculino = asistenciaMediaMasculino;
+    public void setAsistenciamediaMasculino(Integer asistenciamediaMasculino) {
+        this.asistenciamediaMasculino = asistenciamediaMasculino;
     }
 
-    public String getAsistenciaMediaFemenino() {
-        return asistenciaMediaFemenino;
+    public Integer getAsistenciamediaFemenino() {
+        return asistenciamediaFemenino;
     }
 
-    public void setAsistenciaMediaFemenino(String asistenciaMediaFemenino) {
-        this.asistenciaMediaFemenino = asistenciaMediaFemenino;
+    public void setAsistenciamediaFemenino(Integer asistenciamediaFemenino) {
+        this.asistenciamediaFemenino = asistenciamediaFemenino;
     }
 
-    public String getInasistenciaMediaMasculino() {
-        return inasistenciaMediaMasculino;
+    public Integer getInasistenciamediaMasculino() {
+        return inasistenciamediaMasculino;
     }
 
-    public void setInasistenciaMediaMasculino(String inasistenciaMediaMasculino) {
-        this.inasistenciaMediaMasculino = inasistenciaMediaMasculino;
+    public void setInasistenciamediaMasculino(Integer inasistenciamediaMasculino) {
+        this.inasistenciamediaMasculino = inasistenciamediaMasculino;
     }
 
-    public String getInasistenciaMediaFemenino() {
-        return inasistenciaMediaFemenino;
+    public Integer getInasistenciamediaFemenino() {
+        return inasistenciamediaFemenino;
     }
 
-    public void setInasistenciaMediaFemenino(String inasistenciaMediaFemenino) {
-        this.inasistenciaMediaFemenino = inasistenciaMediaFemenino;
+    public void setInasistenciamediaFemenino(Integer inasistenciamediaFemenino) {
+        this.inasistenciamediaFemenino = inasistenciamediaFemenino;
     }
 
-    public String getSobreEdadMasculino() {
-        return sobreEdadMasculino;
+    public Integer getSobreedadMasculino() {
+        return sobreedadMasculino;
     }
 
-    public void setSobreEdadMasculino(String sobreEdadMasculino) {
-        this.sobreEdadMasculino = sobreEdadMasculino;
+    public void setSobreedadMasculino(Integer sobreedadMasculino) {
+        this.sobreedadMasculino = sobreedadMasculino;
     }
 
-    public String getSobreEdadFemenino() {
-        return sobreEdadFemenino;
+    public Integer getSobreedadFemenino() {
+        return sobreedadFemenino;
     }
 
-    public void setSobreEdadFemenino(String sobreEdadFemenino) {
-        this.sobreEdadFemenino = sobreEdadFemenino;
+    public void setSobreedadFemenino(Integer sobreedadFemenino) {
+        this.sobreedadFemenino = sobreedadFemenino;
     }
 
-    public String getRepitenciaMasculino() {
+    public Integer getRepitenciaMasculino() {
         return repitenciaMasculino;
     }
 
-    public void setRepitenciaMasculino(String repitenciaMasculino) {
+    public void setRepitenciaMasculino(Integer repitenciaMasculino) {
         this.repitenciaMasculino = repitenciaMasculino;
     }
 
-    public String getRepitenciaFemenino() {
+    public Integer getRepitenciaFemenino() {
         return repitenciaFemenino;
     }
 
-    public void setRepitenciaFemenino(String repitenciaFemenino) {
+    public void setRepitenciaFemenino(Integer repitenciaFemenino) {
         this.repitenciaFemenino = repitenciaFemenino;
-    }
-
-    public String getDocenteDui() {
-        return docenteDui;
-    }
-
-    public void setDocenteDui(String docenteDui) {
-        this.docenteDui = docenteDui;
     }
 
     public String getMes() {
@@ -266,6 +242,14 @@ public class Estadistica implements Serializable {
 
     public void setMes(String mes) {
         this.mes = mes;
+    }
+
+    public String getDocenteDui() {
+        return docenteDui;
+    }
+
+    public void setDocenteDui(String docenteDui) {
+        this.docenteDui = docenteDui;
     }
 
     @Override

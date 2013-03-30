@@ -5,15 +5,24 @@
 package com.infosgroup.prueba.model.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,8 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Docente.findAll", query = "SELECT d FROM Docente d"),
-    @NamedQuery(name = "Docente.findByIdPeriodoEscolar", query = "SELECT d FROM Docente d WHERE d.docentePK.idPeriodoEscolar = :idPeriodoEscolar"),
-    @NamedQuery(name = "Docente.findByDocenteDui", query = "SELECT d FROM Docente d WHERE d.docentePK.docenteDui = :docenteDui"),
+    @NamedQuery(name = "Docente.findById", query = "SELECT d FROM Docente d WHERE d.id = :id"),
     @NamedQuery(name = "Docente.findByDocenteNip", query = "SELECT d FROM Docente d WHERE d.docenteNip = :docenteNip"),
     @NamedQuery(name = "Docente.findByNombre", query = "SELECT d FROM Docente d WHERE d.nombre = :nombre"),
     @NamedQuery(name = "Docente.findByNivelEscalafon", query = "SELECT d FROM Docente d WHERE d.nivelEscalafon = :nivelEscalafon"),
@@ -39,8 +47,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Docente implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DocentePK docentePK;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "id", nullable = false, length = 2147483647)
+    private String id;
     @Size(max = 2147483647)
     @Column(name = "docente_nip", length = 2147483647)
     private String docenteNip;
@@ -71,24 +83,28 @@ public class Docente implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "jornadanocturno", length = 2147483647)
     private String jornadanocturno;
+    @OneToMany(mappedBy = "docenteId")
+    private List<Grado> gradoList;
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Usuario usuario;
+    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private PeriodoEscolar idPeriodoEscolar;
 
     public Docente() {
     }
 
-    public Docente(DocentePK docentePK) {
-        this.docentePK = docentePK;
+    public Docente(String id) {
+        this.id = id;
     }
 
-    public Docente(int idPeriodoEscolar, String docenteDui) {
-        this.docentePK = new DocentePK(idPeriodoEscolar, docenteDui);
+    public String getId() {
+        return id;
     }
 
-    public DocentePK getDocentePK() {
-        return docentePK;
-    }
-
-    public void setDocentePK(DocentePK docentePK) {
-        this.docentePK = docentePK;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDocenteNip() {
@@ -171,10 +187,35 @@ public class Docente implements Serializable {
         this.jornadanocturno = jornadanocturno;
     }
 
+    @XmlTransient
+    public List<Grado> getGradoList() {
+        return gradoList;
+    }
+
+    public void setGradoList(List<Grado> gradoList) {
+        this.gradoList = gradoList;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public PeriodoEscolar getIdPeriodoEscolar() {
+        return idPeriodoEscolar;
+    }
+
+    public void setIdPeriodoEscolar(PeriodoEscolar idPeriodoEscolar) {
+        this.idPeriodoEscolar = idPeriodoEscolar;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (docentePK != null ? docentePK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -185,7 +226,7 @@ public class Docente implements Serializable {
             return false;
         }
         Docente other = (Docente) object;
-        if ((this.docentePK == null && other.docentePK != null) || (this.docentePK != null && !this.docentePK.equals(other.docentePK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -193,7 +234,7 @@ public class Docente implements Serializable {
 
     @Override
     public String toString() {
-        return "com.infosgroup.prueba.model.entities.Docente[ docentePK=" + docentePK + " ]";
+        return "com.infosgroup.prueba.model.entities.Docente[ id=" + id + " ]";
     }
     // ===========================================
     @Transient

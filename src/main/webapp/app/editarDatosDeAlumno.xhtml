@@ -28,19 +28,22 @@
         <table align="center" border="0" >
             <tr>
                 <td colspan="2" align="center">
-                    <p:inputMask mask="99999999" maxlength="8" id="ingresarNIE" value="#{inicio.numero}" requiredMessage="Se nesesita un valor para el NIE para verificar los datos" required="true"  style="width: 200px; height: 30px; text-align: center; text-justify: distribute; font-size: 25pt !important; margin-left: auto; margin-right: auto;"/>
+                    <p:inputText maxlength="8" id="ingresarNIE" value="#{inicio.numero}" requiredMessage="Se nesesita un valor para el NIE para verificar los datos" required="true"  style="width: 200px; height: 30px; text-align: center; text-justify: distribute; font-size: 25pt !important; margin-left: auto; margin-right: auto;"/>
+                    <pe:keyFilter for="ingresarNIE" mask="int"/>
                 </td>
             </tr>
-            
+
             <tr>
                 <td align="center">
                     <p:commandButton id="buscarAlumno" value="Buscar" icon="ui-icon-search" style="alignment-adjust: central" partialSubmit="true" process="@(form)" update="@(form)" action="#{inicio.cambioPagina$action}"/>
                 </td>
                 <td align="center">
-                    <p:commandButton id="cancelaBuscar" value="Cancelar" icon="ui-icon-cancel" partialSubmit="true" process="@form" update="@form"/>
+                    <p:commandButton id="cancelaBuscar" value="Cancelar" update="ingresarNIE" icon="ui-icon-cancel" process="@this">
+                        <pe:resetInput for="ingresarNIE"/>                        
+                    </p:commandButton>
                 </td>
             </tr>
-            
+
         </table>
     </ui:define>
 </ui:composition>

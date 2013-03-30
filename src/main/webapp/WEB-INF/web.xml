@@ -100,7 +100,7 @@
     <!-- =================================================================== -->
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>SIRACAD_LDAP_Realm</realm-name>
+        <realm-name>SIRACAD_JDBC_Realm</realm-name>
         <form-login-config>
             <form-login-page>/faces/login/login.xhtml</form-login-page>
             <form-error-page>/faces/login/error.xhtml</form-error-page>

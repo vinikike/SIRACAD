@@ -9,8 +9,6 @@ import com.infosgroup.prueba.model.entities.Rol;
 import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 /**
@@ -19,36 +17,24 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class MenuFacade extends AbstractFacade<Menu, Integer> {
-    @PersistenceContext(unitName = "WebApplicationPFPU")
-    private EntityManager em;
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
 
     public MenuFacade() {
         super(Menu.class);
     }
-    
+
 // =========================================================================
-@PermitAll
-@SuppressWarnings("unchecked")
-public List<Integer> findAllNivel0(Rol rol)
-{
-    TypedQuery<Integer> q = (TypedQuery<Integer>) getEntityManager().createNativeQuery("select m.id from menu m, menu_rol mr where m.id = mr.menu and m.menu_padre is null and mr.rol = ?1 order by m.id");
-    q.setParameter(1, rol.getId());
-    return q.getResultList();
-}
+    @PermitAll
+    public List<Menu> findAllNivel0(Rol rol) {
+        TypedQuery<Menu> tq = getEntityManager().createQuery("SELECT m FROM Menu m INNER JOIN m.rolList r WHERE m.menuPadre IS NULL AND r = :rol ORDER BY m.id ASC", entityClass);
+        tq.setParameter("rol", rol);
+        return tq.getResultList();
+    }
 
-@PermitAll
-@SuppressWarnings("unchecked")
-public List<Integer> menusHijosPorRol(Menu menuPadre, Rol rol)
-{
-    TypedQuery<Integer> q = (TypedQuery<Integer>) getEntityManager().createNativeQuery("select m.id from menu m, menu_rol mr where m.id = mr.menu and m.menu_padre = ?1 and mr.rol = ?2 order by m.id");
-    q.setParameter(1, menuPadre.getId());
-    q.setParameter(2, rol.getId());
-    return q.getResultList();
-}
-
+    @PermitAll
+    public List<Menu> menusHijosPorRol(Menu menuPadre, Rol rol) {
+        TypedQuery<Menu> tq = getEntityManager().createQuery("SELECT m FROM Menu m INNER JOIN m.rolList r WHERE m.menuPadre = :menuPadre AND r = :rol ORDER BY m.id ASC", entityClass);
+        tq.setParameter("menuPadre", menuPadre);
+        tq.setParameter("rol", rol);
+        return tq.getResultList();
+    }
 }

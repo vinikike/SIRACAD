@@ -8,6 +8,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,8 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Grado.findByOpcion", query = "SELECT g FROM Grado g WHERE g.gradoPK.opcion = :opcion"),
     @NamedQuery(name = "Grado.findBySeccion", query = "SELECT g FROM Grado g WHERE g.gradoPK.seccion = :seccion"),
     @NamedQuery(name = "Grado.findByTurno", query = "SELECT g FROM Grado g WHERE g.turno = :turno"),
-    @NamedQuery(name = "Grado.findByNombreGrado", query = "SELECT g FROM Grado g WHERE g.nombreGrado = :nombreGrado"),
-    @NamedQuery(name = "Grado.findByDocenteDui", query = "SELECT g FROM Grado g WHERE g.docenteDui = :docenteDui")})
+    @NamedQuery(name = "Grado.findByNombreGrado", query = "SELECT g FROM Grado g WHERE g.nombreGrado = :nombreGrado")})
 public class Grado implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -41,9 +42,12 @@ public class Grado implements Serializable {
     @Size(max = 50)
     @Column(name = "nombre_grado", length = 50)
     private String nombreGrado;
-    @Size(max = 50)
-    @Column(name = "docente_dui", length = 50)
-    private String docenteDui;
+    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private PeriodoEscolar periodoEscolar;
+    @JoinColumn(name = "docente_id", referencedColumnName = "id")
+    @ManyToOne
+    private Docente docenteId;
 
     public Grado() {
     }
@@ -80,12 +84,20 @@ public class Grado implements Serializable {
         this.nombreGrado = nombreGrado;
     }
 
-    public String getDocenteDui() {
-        return docenteDui;
+    public PeriodoEscolar getPeriodoEscolar() {
+        return periodoEscolar;
     }
 
-    public void setDocenteDui(String docenteDui) {
-        this.docenteDui = docenteDui;
+    public void setPeriodoEscolar(PeriodoEscolar periodoEscolar) {
+        this.periodoEscolar = periodoEscolar;
+    }
+
+    public Docente getDocenteId() {
+        return docenteId;
+    }
+
+    public void setDocenteId(Docente docenteId) {
+        this.docenteId = docenteId;
     }
 
     @Override

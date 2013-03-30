@@ -6,11 +6,13 @@ package com.infosgroup.prueba.model.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -18,6 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,15 +33,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findByPeriodoEscolar", query = "SELECT u FROM Usuario u WHERE u.usuarioPK.periodoEscolar = :periodoEscolar"),
-    @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.usuarioPK.id = :id"),
+    @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id"),
     @NamedQuery(name = "Usuario.findByDescripcion", query = "SELECT u FROM Usuario u WHERE u.descripcion = :descripcion"),
     @NamedQuery(name = "Usuario.findByFechaFin", query = "SELECT u FROM Usuario u WHERE u.fechaFin = :fechaFin"),
-    @NamedQuery(name = "Usuario.findByFechaInicio", query = "SELECT u FROM Usuario u WHERE u.fechaInicio = :fechaInicio")})
+    @NamedQuery(name = "Usuario.findByFechaInicio", query = "SELECT u FROM Usuario u WHERE u.fechaInicio = :fechaInicio"),
+    @NamedQuery(name = "Usuario.findByPassw", query = "SELECT u FROM Usuario u WHERE u.passw = :passw")})
 public class Usuario implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected UsuarioPK usuarioPK;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "id", nullable = false, length = 50)
+    private String id;
     @Size(max = 500)
     @Column(name = "descripcion", length = 500)
     private String descripcion;
@@ -48,35 +56,31 @@ public class Usuario implements Serializable {
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
+    @Size(max = 50)
+    @Column(name = "passw", length = 50)
+    private String passw;
     @JoinColumn(name = "rol", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Rol rol;
-    @JoinColumns({
-        @JoinColumn(name = "periodo_escolar", referencedColumnName = "periodo_escolar", nullable = false, insertable = false, updatable = false),
-        @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)})
-    @OneToOne(optional = false)
-    private Empleado empleado;
     @JoinColumn(name = "compania", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Compania compania;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.EAGER)
+    private Docente docente;
 
     public Usuario() {
     }
 
-    public Usuario(UsuarioPK usuarioPK) {
-        this.usuarioPK = usuarioPK;
+    public Usuario(String id) {
+        this.id = id;
     }
 
-    public Usuario(int periodoEscolar, String id) {
-        this.usuarioPK = new UsuarioPK(periodoEscolar, id);
+    public String getId() {
+        return id;
     }
 
-    public UsuarioPK getUsuarioPK() {
-        return usuarioPK;
-    }
-
-    public void setUsuarioPK(UsuarioPK usuarioPK) {
-        this.usuarioPK = usuarioPK;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
@@ -103,20 +107,20 @@ public class Usuario implements Serializable {
         this.fechaInicio = fechaInicio;
     }
 
+    public String getPassw() {
+        return passw;
+    }
+
+    public void setPassw(String passw) {
+        this.passw = passw;
+    }
+
     public Rol getRol() {
         return rol;
     }
 
     public void setRol(Rol rol) {
         this.rol = rol;
-    }
-
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
     }
 
     public Compania getCompania() {
@@ -127,10 +131,18 @@ public class Usuario implements Serializable {
         this.compania = compania;
     }
 
+    public Docente getDocente() {
+        return docente;
+    }
+
+    public void setDocente(Docente docente) {
+        this.docente = docente;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (usuarioPK != null ? usuarioPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -141,7 +153,7 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.usuarioPK == null && other.usuarioPK != null) || (this.usuarioPK != null && !this.usuarioPK.equals(other.usuarioPK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -149,7 +161,6 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.infosgroup.prueba.model.entities.Usuario[ usuarioPK=" + usuarioPK + " ]";
+        return "com.infosgroup.prueba.model.entities.Usuario[ id=" + id + " ]";
     }
-    
 }

@@ -6,8 +6,6 @@ package com.infosgroup.prueba.model.facades;
 
 import com.infosgroup.prueba.model.entities.PeriodoEscolar;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -15,16 +13,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class PeriodoEscolarFacade extends AbstractFacade<PeriodoEscolar, Integer> {
-    @PersistenceContext(unitName = "WebApplicationPFPU")
-    private EntityManager em;
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
 
     public PeriodoEscolarFacade() {
         super(PeriodoEscolar.class);
     }
-    
 }

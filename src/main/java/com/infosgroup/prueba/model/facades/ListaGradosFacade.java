@@ -8,8 +8,6 @@ import com.infosgroup.prueba.model.entities.ListaGrados;
 import com.infosgroup.prueba.model.entities.Nivel;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 /**
@@ -18,14 +16,6 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class ListaGradosFacade extends AbstractFacade<ListaGrados, Integer> {
-
-    @PersistenceContext(unitName = "WebApplicationPFPU")
-    private EntityManager em;
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
 
     public ListaGradosFacade() {
         super(ListaGrados.class);

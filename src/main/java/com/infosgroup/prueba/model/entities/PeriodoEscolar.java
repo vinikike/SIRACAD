@@ -44,9 +44,19 @@ public class PeriodoEscolar implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar")
     private List<Alumno> alumnoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar")
+    private List<Libro> libroList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar")
+    private List<Talleres> talleresList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar")
     private List<Periodo> periodoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar1")
-    private List<Empleado> empleadoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar")
+    private List<Grado> gradoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar")
+    private List<Catalogolibros> catalogolibrosList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoEscolar")
+    private List<Representante> representanteList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPeriodoEscolar")
+    private List<Docente> docenteList;
 
     public PeriodoEscolar() {
     }
@@ -81,6 +91,24 @@ public class PeriodoEscolar implements Serializable {
     }
 
     @XmlTransient
+    public List<Libro> getLibroList() {
+        return libroList;
+    }
+
+    public void setLibroList(List<Libro> libroList) {
+        this.libroList = libroList;
+    }
+
+    @XmlTransient
+    public List<Talleres> getTalleresList() {
+        return talleresList;
+    }
+
+    public void setTalleresList(List<Talleres> talleresList) {
+        this.talleresList = talleresList;
+    }
+
+    @XmlTransient
     public List<Periodo> getPeriodoList() {
         return periodoList;
     }
@@ -90,12 +118,39 @@ public class PeriodoEscolar implements Serializable {
     }
 
     @XmlTransient
-    public List<Empleado> getEmpleadoList() {
-        return empleadoList;
+    public List<Grado> getGradoList() {
+        return gradoList;
     }
 
-    public void setEmpleadoList(List<Empleado> empleadoList) {
-        this.empleadoList = empleadoList;
+    public void setGradoList(List<Grado> gradoList) {
+        this.gradoList = gradoList;
+    }
+
+    @XmlTransient
+    public List<Catalogolibros> getCatalogolibrosList() {
+        return catalogolibrosList;
+    }
+
+    public void setCatalogolibrosList(List<Catalogolibros> catalogolibrosList) {
+        this.catalogolibrosList = catalogolibrosList;
+    }
+
+    @XmlTransient
+    public List<Representante> getRepresentanteList() {
+        return representanteList;
+    }
+
+    public void setRepresentanteList(List<Representante> representanteList) {
+        this.representanteList = representanteList;
+    }
+
+    @XmlTransient
+    public List<Docente> getDocenteList() {
+        return docenteList;
+    }
+
+    public void setDocenteList(List<Docente> docenteList) {
+        this.docenteList = docenteList;
     }
 
     @Override

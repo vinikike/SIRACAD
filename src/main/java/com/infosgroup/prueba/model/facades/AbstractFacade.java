@@ -6,19 +6,25 @@ package com.infosgroup.prueba.model.facades;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author Guille
  */
 public abstract class AbstractFacade<T, P> {
-    private Class<T> entityClass;
+
+    @PersistenceContext(unitName = "WebApplicationPFPU")
+    private EntityManager entityManager;
+    protected Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
-    protected abstract EntityManager getEntityManager();
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
 
     public void create(T entity) {
         getEntityManager().persist(entity);
@@ -58,5 +64,4 @@ public abstract class AbstractFacade<T, P> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
 }

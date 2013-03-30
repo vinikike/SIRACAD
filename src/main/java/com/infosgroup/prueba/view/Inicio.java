@@ -82,6 +82,7 @@ public class Inicio extends AbstractJSFBean implements Serializable {
     
     public String cambioPagina$action()
     {
+        
         if (numero == 1)
             return "editarDatosMedia?faces-redirect=true";
         else if (numero == 10)

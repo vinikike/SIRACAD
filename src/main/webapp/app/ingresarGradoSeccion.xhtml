@@ -8,12 +8,12 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:define name="titulo">
-        <h:outputText value="Nuevo Sección"/>
+        <h:outputText value="Nueva Sección"/>
     </ui:define>
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{ingresarDocente.guardarDocente$action()}"/>  
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{ingresarGradoSeccion.guardarGradoSeccion$action()}"/>  
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
                 <pe:resetInput for="@(#contenidoForm)"/>
             </p:menuitem>
@@ -24,38 +24,61 @@
         <h2>Añadir Secciónes</h2>
         <h:panelGrid columns="2" cellspacing="10">
             <h:outputLabel value="Nivel:" />
-            <p:selectOneMenu id="nivel" value="#{ingresarGradoSeccion.grado$nivel}" style="width: 150px" converter="defaultNivelConverter" valueChangeListener="#{ingresarGradoSeccion.nivel$valueChangeListener}">
-                <p:ajax event="valueChange" update="grado opcion" />
-                <f:selectItem itemValue="#{null}" itemLabel="Seleccione Nivel" itemDisabled="true"/>
-                <f:selectItems value="#{ingresarGradoSeccion.listaNiveles}" var="nivel" itemValue="#{nivel}" itemLabel="#{nivel.descripcion}"/>
+            <p:selectOneMenu id="nivel" value="#{ingresarGradoSeccion.grado$nivel}" style="width: 150px" valueChangeListener="#{ingresarGradoSeccion.nivel$valueChangeListener}">
+                <p:ajax event="valueChange" update="grado opcion turno" />
+                <f:selectItem itemLabel="Seleccione Nivel" itemValue="0" itemDisabled="true"/>
+                <f:selectItem itemLabel="Parvularia" itemValue="P"/>
+                <f:selectItem itemLabel="B&aacute;sica" itemValue="B"/>
+                <f:selectItem itemLabel="Media" itemValue="M"/>
+                <f:selectItem itemLabel="Nocturna" itemValue="N"/>
             </p:selectOneMenu> 
 
-
             <h:outputLabel value="Grado:" />
-
-            <p:selectOneMenu id="grado" value="#{ingresarGradoSeccion.grado$grado}" style="width: 150px" converter="defaultGradoConverter">
-                <p:ajax event="valueChange" update="opcion"/>
-                <f:selectItem itemValue="#{null}" itemLabel="Seleccione Grado" itemDisabled="true"/>
-                <f:selectItems value="#{ingresarGradoSeccion.listaGrados}" var="listaGrado" itemValue="#{listaGrado}" itemLabel="#{listaGrado.nombre}"/>
+            <p:selectOneMenu id="grado" value="#{ingresarGradoSeccion.grado$grado}" valueChangeListener="#{ingresarGradoSeccion.grado$valueChangeListener}" disabled="#{ingresarGradoSeccion.grado$nivel eq '0'}" style="width: 150px">
+                <p:ajax event="valueChange" update="opcion turno"/>
+                <f:selectItem itemLabel="Seleccione Grado" itemValue="0" />
+                <f:selectItems value="#{ingresarGradoSeccion.listaGradosSel}"/>
             </p:selectOneMenu>
 
 
             <h:outputLabel value="Opción:" />
-            <p:selectOneMenu id="opcion" value="#{ingresarGradoSeccion.grado$opcion}" style="width: 150px" disabled="#{(ingresarGradoSeccion.grado$grado eq null) or (ingresarGradoSeccion.grado$grado.opcion eq '0')}">
-                <f:selectItem itemLabel="General" itemValue="G" />  
-                <f:selectItem itemLabel="Contador" itemValue="C" />  
+            <p:selectOneMenu id="opcion" required="true" requiredMessage="Seleccionar la Opcion" value="#{ingresarGradoSeccion.grado$opcion}" disabled="#{ingresarGradoSeccion.grado$nivel eq 'B' or ingresarGradoSeccion.grado$nivel eq 'P' or ingresarGradoSeccion.grado$nivel eq '0' or ingresarGradoSeccion.grado$grado eq '0' or ingresarGradoSeccion.grado$grado eq '12' or ingresarGradoSeccion.grado$grado eq '34' or ingresarGradoSeccion.grado$grado eq '56' or ingresarGradoSeccion.grado$grado eq '7' or ingresarGradoSeccion.grado$grado eq '8' or ingresarGradoSeccion.grado$grado eq '9'}" style="width: 150px" >
+                <p:ajax event="valueChange" update="seccion1"/>
+                <f:selectItem itemLabel="Seleccione la Opcion" itemValue="0" />
+                <f:selectItems value="#{ingresarGradoSeccion.listaOpcionSel}"/>
             </p:selectOneMenu>
 
             <h:outputText value="Turno" />  
-            <p:selectOneRadio value="#{ingresarGradoSeccion.grado$turno}">  
-                <f:selectItem itemLabel="Matutino" itemValue="M" />  
-                <f:selectItem itemLabel="Vespertino" itemValue="T" />
-                <f:selectItem itemLabel="Nocturno" itemValue="N" />
-            </p:selectOneRadio> 
+            <p:selectOneMenu id="turno" required="true" requiredMessage="Seleccionar el Turno" value="# {ingresarGradoSeccion.grado$turno}" style="width: 150px" >
+                <f:selectItem itemLabel="Seleccione Turno" itemValue="0" />
+                <f:selectItems value="#{ingresarGradoSeccion.listaTurnoSel}"/>
+            </p:selectOneMenu>
 
             <h:outputLabel value="Sección:" />
-            <p:inputText id="seccion1" size="2" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <p:inputText  id="seccion1" size="2" maxlength="1" required="true" requiredMessage="Ingrese la Seccion" value="#{ingresarGradoSeccion.grado$seccion}" style="font-size: 18pt !important;" />
         </h:panelGrid>
+
+        <pe:keyFilter for="seccion1" mask="alpha"/>
+
+        <h2 align="center">Grados Existentes</h2>
+
+        <p:dataTable value="#{ingresarDocente.listaDocentes}" var="docente">
+            <p:column headerText="Nivel" filterMatchMode="contains" width="75">
+                <h:outputText value="#{docente.docenteNip}"/>
+            </p:column>
+            <p:column headerText="Grado" filterMatchMode="contains" width="150">
+                <h:outputText value="#{docente.nombre}"/>
+            </p:column>
+            <p:column headerText="Opcion" filterMatchMode="contains" width="75">
+                <h:outputText value="#{docente.especialidad}"/>
+            </p:column>                
+            <p:column headerText="Seccion" filterMatchMode="contains" width="75">
+                <h:outputText value="#{docente.jornadas}"/>
+            </p:column>
+            <p:column headerText="Turno" filterMatchMode="contains" width="75">
+                <h:outputText value="#{docente.nivelEscalafon}"/>
+            </p:column>
+        </p:dataTable>  
 
     </ui:define>
 </ui:composition>

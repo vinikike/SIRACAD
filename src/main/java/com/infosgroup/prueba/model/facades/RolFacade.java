@@ -6,8 +6,6 @@ package com.infosgroup.prueba.model.facades;
 
 import com.infosgroup.prueba.model.entities.Rol;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -15,16 +13,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class RolFacade extends AbstractFacade<Rol, String> {
-    @PersistenceContext(unitName = "WebApplicationPFPU")
-    private EntityManager em;
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
 
     public RolFacade() {
         super(Rol.class);
     }
-    
 }

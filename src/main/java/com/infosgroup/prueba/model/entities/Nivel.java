@@ -48,6 +48,8 @@ public class Nivel implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nivel")
     private List<Periodo> periodoList;
     @OneToMany(mappedBy = "nivel")
+    private List<Opcion> opcionList;
+    @OneToMany(mappedBy = "nivel")
     private List<ListaGrados> listaGradosList;
 
     public Nivel() {
@@ -88,6 +90,15 @@ public class Nivel implements Serializable {
 
     public void setPeriodoList(List<Periodo> periodoList) {
         this.periodoList = periodoList;
+    }
+
+    @XmlTransient
+    public List<Opcion> getOpcionList() {
+        return opcionList;
+    }
+
+    public void setOpcionList(List<Opcion> opcionList) {
+        this.opcionList = opcionList;
     }
 
     @XmlTransient

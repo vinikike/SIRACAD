@@ -22,8 +22,8 @@
                     <h:panelGrid columns="1" width="100%" cellpadding="0" cellspacing="0">
                         <h:panelGrid columns="2" width="100%" cellpadding="0" cellspacing="0">
                             <p:media player="flash" value="/resources/otros/banner2.swf" width="880" height="80"/>
-                            <p:splitButton value="#{(SessionBean.usuario ne null) ? SessionBean.usuario.usuarioPK.id : '[Cerrar sesi&oacute;n]'}" icon="ui-icon-unlocked" oncomplete="sesionDialog.show();" title="Cerrar sesi&oacute;n">
-                                <p:menuitem value="Informaci&oacute;n de #{SessionBean.usuario.usuarioPK.id}" icon="ui-icon-contact" oncomplete="usuarioDialog.show();" rendered="#{SessionBean.usuario ne null}"/>
+                            <p:splitButton value="#{(SessionBean.usuario ne null) ? SessionBean.usuario.id : '[Cerrar sesi&oacute;n]'}" icon="ui-icon-unlocked" oncomplete="sesionDialog.show();" title="Cerrar sesi&oacute;n">
+                                <p:menuitem value="Informaci&oacute;n de #{SessionBean.usuario.id}" icon="ui-icon-contact" oncomplete="usuarioDialog.show();" rendered="#{SessionBean.usuario ne null}"/>
                                 <p:separator rendered="#{SessionBean.usuario ne null}"/>
                                 <p:menuitem value="Opciones" icon="ui-icon-gear" oncomplete="opcionesDialog.show();"/>
                                 <p:separator rendered="#{SessionBean.usuario ne null}"/>
@@ -67,7 +67,7 @@
         <!-- ========================================================================================== -->
         <h:form>
             <!-- ============================================== -->
-            <p:dialog widgetVar="usuarioDialog" header="Informaci&oacute;n de #{SessionBean.usuario.usuarioPK.id}" closable="true" resizable="false" modal="true" draggable="true" width="500" showEffect="fold" hideEffect="fold">
+            <p:dialog widgetVar="usuarioDialog" header="Informaci&oacute;n de #{SessionBean.usuario.id}" closable="true" resizable="false" modal="true" draggable="true" width="500" showEffect="fold" hideEffect="fold">
                 <h:panelGrid columns="4">
                     <h:outputText value="Inicio de sesi&oacute;n" styleClass="texto_negrita"/>
                     <h:outputText value="#{SessionBean.fechaHoraInicioSesion}">
@@ -100,7 +100,7 @@
                 </h:panelGrid>
             </p:dialog>
             <!-- ============================================== -->
-            <p:dialog widgetVar="sesionDialog" header="Cerrar sesi&oacute;n #{(SessionBean.usuario ne null) ? SessionBean.usuario.usuarioPK.id : ''}" closable="true" resizable="false" modal="true" draggable="true" width="400" showEffect="fold" hideEffect="fold">
+            <p:dialog widgetVar="sesionDialog" header="Cerrar sesi&oacute;n #{(SessionBean.usuario ne null) ? SessionBean.usuario.id : ''}" closable="true" resizable="false" modal="true" draggable="true" width="400" showEffect="fold" hideEffect="fold">
                 <h:panelGrid columns="2">
                     <p:graphicImage value="/resources/imagenes/64/dialog-question.png" width="64" height="64"/>
                     <h:outputText value="&iquest;Confirma que desea cerrar la sesi&oacute;n?"/>

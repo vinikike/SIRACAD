@@ -15,37 +15,33 @@
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
             <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
-            <pe:resetInput for="@(#contenidoForm)"/>
+                <pe:resetInput for="@(#contenidoForm)"/>
             </p:menuitem>           
         </p:submenu>      
     </ui:define>
+
     <ui:define name="contenido">
         <h2>Añadir Usuario de Sistema</h2>
-        <h:panelGrid columns="2" cellspacing="10">
-            <h:outputLabel value="Nombre de Usuario:  " />
-            <p:inputText id="usuario" size="50" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Contraseña:  " />
-            <p:inputText id="contraseña" size="30" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            <h:outputLabel value="Repita Contraseña:  " />
-            <p:inputText id="libro" size="30" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+        <h:panelGrid columns="2" cellspacing="10" width="60%">
+            <h:outputLabel value="Nombre de Usuario:" />
 
-            <h:outputText value="Area: " />  
-            <p:selectOneMenu value="#{buttonBean.number}">  
-                <f:selectItem itemLabel="Seleccione uno" itemValue="" />  
-                <f:selectItem itemLabel="Administrador" itemValue="1" />  
-                <f:selectItem itemLabel="academica" itemValue="2" />  
-                <f:selectItem itemLabel="administrativo" itemValue="3" />  
-            </p:selectOneMenu>  
+            <p:selectOneMenu style="width: 300px" value="#{ingresarUsusarios.usuarios$nuevoUsuario}" converter="defaultDocenteConverter">
+                <p:ajax event="valueChange" update="contrasena"/>
+                <f:selectItems value="#{ingresarUsusarios.listaDocentes}" var="docente" itemValue="#{docente}" itemLabel="#{docente.nombre}" /> 
+            </p:selectOneMenu>
+
+            <h:outputLabel value="Contraseña:" />
+            <p:inputText id="contrasena" size="10" maxlength="10" value="#{docente.docentePK.docenteDui}" required="true" requiredMessage="Escribir la Descripcion del Taller" style="font-size: 13pt !important;" />
+
             <h:outputText value="Cargo: " />  
-            <p:selectOneMenu value="#{buttonBean.number}">  
-                <f:selectItem itemLabel="Seleccione uno" itemValue="" />  
-                <f:selectItem itemLabel="Docente" itemValue="1" />  
-                <f:selectItem itemLabel="Director/a" itemValue="2" />  
-                <f:selectItem itemLabel="Subdirector/a" itemValue="3" />
-                <f:selectItem itemLabel="Secretaria" itemValue="3" />
-            </p:selectOneMenu>  
+            <p:selectOneMenu value="#{ingresarUsusarios.usuarios$cargo}">  
+                <f:selectItem itemLabel="Docente" itemValue="Docente" />  
+                <f:selectItem itemLabel="Director/a" itemValue="Direcion" />  
+                <f:selectItem itemLabel="Subdirector/a" itemValue="Subdireccion" />
+                <f:selectItem itemLabel="Secretaria" itemValue="Secretaria" />
+                <f:selectItem itemLabel="Biblioteca" itemValue="Biblioteca" />
+            </p:selectOneMenu>
         </h:panelGrid>
-
 
     </ui:define>
 </ui:composition>

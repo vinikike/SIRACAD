@@ -5,11 +5,7 @@
 package com.infosgroup.prueba.view.beans;
 
 import com.infosgroup.prueba.view.AbstractJSFBean;
-import com.unboundid.ldap.sdk.LDAPConnection;
-import com.unboundid.ldap.sdk.LDAPException;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;

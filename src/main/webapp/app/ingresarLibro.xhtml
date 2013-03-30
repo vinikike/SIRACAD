@@ -13,54 +13,49 @@
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{ingresaLibros.guardarLibro$action}"/>
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
-            <pe:resetInput for="@(#contenidoForm)"/>
+                <pe:resetInput for="@(#contenidoForm)"/>
             </p:menuitem>
             <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
         </p:submenu>      
     </ui:define>
- 
-    <ui:define name="contenido">
-        <h:panelGrid columns="2" cellspacing="10">
-            <h:outputLabel value="Codigo del Libro:  " />
-            <p:inputText id="libro" size="20" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-        </h:panelGrid>
-        
-        <h:panelGrid columns="4" cellspacing="10">
-            <h:outputLabel value="Titulo:   " />
-            <p:inputTextarea id="descripcion" cols="50" rows="5" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-           
-            <h:outputLabel value="Autor:  " />
-            <p:inputText id="autor" size="50" required="true"  requiredMessage="Escribir la Descripcion del Taller" />
-           
-            <h:outputLabel value="Editorial:   " />
-            <p:inputText id="editorial" size="50" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            
-            <h:outputLabel value="Edición:  " />
-            <p:inputText id="edicion" size="20" required="true"  requiredMessage="Escribir la Descripcion del Taller" />
-            
-            <h:outputLabel value="Tipo:   " />
-            <p:inputText id="tipo" size="50" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-            
-            <h:outputLabel value="Pais:  " />
-            <p:inputText id="pais" size="50" required="true"  requiredMessage="Escribir la Descripcion del Taller" />
-             
-        </h:panelGrid>
-        
-        <h:panelGrid columns="2" cellspacing="10">
-            <h:outputLabel value="Cantidad:   " />
-            <p:inputText id="cantidad" size="20" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+
+    <ui:define name="contenido" >
+        <h:panelGrid columns="2" width="60%" cellspacing="10">
+
+            <h:outputLabel value="Categoria de Libro:" />
+            <p:selectOneMenu style="width: 250px;" value="#{ingresaLibros.libro$tipo}" >
+                <f:selectItems value="#{ingresaLibros.listaCatalogoLibros}" var="libro" itemLabel="#{libro.tipo}" itemValue="#{libro.catalogolibrosPK.codigolibro}" />
+            </p:selectOneMenu>
+
+            <h:outputLabel value="Titulo:" />
+            <p:inputText id="titulo" size="50" value="#{ingresaLibros.libro$titulo}" required="true" requiredMessage="Escribir el Titulo" />
+
+            <h:outputLabel value="Autor:" />
+            <p:inputText id="autor" size="50" value="#{ingresaLibros.libro$autor}" required="true"  requiredMessage="Ingrese el Autor" />
+
+            <h:outputLabel value="Editorial:" />
+            <p:inputText id="editorial" size="50" value="#{ingresaLibros.libro$editorial}" required="true" requiredMessage="Escribir la Editorial" />
+
+            <h:outputLabel value="Edición:" />
+            <p:inputText id="edicion" size="20" value="#{ingresaLibros.libro$edicion}" required="true"  requiredMessage="Escriba la Edicion" />
+
+            <h:outputLabel value="Pais:" />
+            <p:inputText id="pais" size="50" value="#{ingresaLibros.libro$pais}" required="true"  requiredMessage="Ingresar el Pais" />
+
+            <h:outputLabel value="Cantidad:" />
+            <p:spinner id="cantidad" value="#{ingresaLibros.libro$cantidad}" min="1" max="1500" size="5" required="true" requiredMessage="Ingrese la cantidad de Libros" />
 
             <h:outputText value="Adquirido por: " />  
-            <p:selectOneRadio id="options" value="#{formBean.number}">  
-                <f:selectItem itemLabel="Compra" itemValue="1" />  
-                <f:selectItem itemLabel="Donación" itemValue="2" />  
-                <f:selectItem itemLabel="Gestion" itemValue="3" />  
+            <p:selectOneRadio id="options" layout="pageDirection" value="#{ingresaLibros.libro$tipoAdquisicion}">  
+                <f:selectItem itemLabel="Compra" itemValue="Compra" />  
+                <f:selectItem itemLabel="Donación" itemValue="Donacion" />  
+                <f:selectItem itemLabel="Gestion" itemValue="Gestion" />  
             </p:selectOneRadio>  
 
-            <h:outputLabel value="Precio:  " />
-            <p:inputText id="precio" size="20" required="true"  requiredMessage="Escribir la Descripcion del Taller" />
+            <h:outputLabel value="Precio Unitario: $" />
+            <p:spinner id="precio" min="0" stepFactor="0.25" value="#{ingresaLibros.libro$precio}" size="6" required="true"  requiredMessage="Ingresar el Precio Unitario" />
         </h:panelGrid>
     </ui:define>
 </ui:composition>

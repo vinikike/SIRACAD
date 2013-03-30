@@ -6,15 +6,17 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:pe="http://primefaces.org/ui/extensions">
+
     <ui:define name="titulo">
         <h:outputText value="Ingreso de Estadistica por Secci&oacute;n"/>
     </ui:define>
+
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{ingresarEstadistica.guardarEstadistica$action()}"/>
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
-            <pe:resetInput for="@(#contenidoForm)"/>
+                <pe:resetInput for="@(#contenidoForm)"/>
             </p:menuitem>          
             <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
         </p:submenu> 
@@ -49,60 +51,139 @@
 
             <tr align="center" bgcolor="#DEEAF6" style="font-size: 11pt;">
                 <td align="left">Matricula Inicial</td>
-                <td><p:spinner size="5" min="0" value="0" label="Masculino"/></td>
-                <td><p:spinner size="5" min="0" value="0"/></td>
-                <td style="font-size: 12pt;">5</td>
+                <td>
+                    <p:spinner size="5" min="0" label="Masculino" id="matriculaInicialMasculino" value="#{ingresarEstadistica.estadistica$mariculaInicial_Masculino}">  
+                        <p:ajax update="totalMatriculaInicialMasculino" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td>
+                    <p:spinner size="5" min="0" label="Femenino" id="matriculaInicialFemenino" value="#{ingresarEstadistica.estadistica$mariculaInicial_Femenino}">  
+                        <p:ajax update="totalMatriculaInicialMasculino" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td style="font-size: 12pt;">
+                    <h:outputText id="totalMatriculaInicialMasculino" value="#{ingresarEstadistica.estadistica$mariculaInicial_Masculino + ingresarEstadistica.estadistica$mariculaInicial_Femenino}"/>  
+                </td>
             </tr>
 
             <tr align="center" style="font-size: 11pt;">
                 <td align="left">Ingresos del Mes</td>
-                <td><p:spinner size="5" min="0" value="0" label="Masculino"/></td>
-                <td><p:spinner size="5" min="0" value="0"/></td>
-                <td style="font-size: 12pt;">6</td>
+                <td>
+                    <p:spinner size="5" min="0" label="Masculino" id="ingresosDelMesMasculino" value="#{ingresarEstadistica.estadistica$ingresosDelMes_Masculino}">  
+                        <p:ajax update="ingresosDelMes" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td>
+                    <p:spinner size="5" min="0" label="Femenino" id="ingresosDelMesFemenino" value="#{ingresarEstadistica.estadistica$ingresosDelMes_Femenino}">  
+                        <p:ajax update="ingresosDelMes" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td style="font-size: 12pt;">
+                    <h:outputText id="ingresosDelMes" value="#{ingresarEstadistica.estadistica$ingresosDelMes_Masculino + ingresarEstadistica.estadistica$ingresosDelMes_Femenino}"/>  
+                </td>
             </tr>
 
             <tr align="center" bgcolor="#DEEAF6" style="font-size: 11pt;">
                 <td align="left">Egresos del Mes</td>
-                <td><p:spinner size="5" min="0" value="0" label="Masculino"/></td>
-                <td><p:spinner size="5" min="0" value="0"/></td>
-                <td style="font-size: 12pt;">8</td>
+                <td>
+                    <p:spinner size="5" min="0" label="Masculino" id="egresosDelMesMasculino" value="#{ingresarEstadistica.estadistica$egresosDelMes_Masculino}">  
+                        <p:ajax update="egresosDelMes" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td>
+                    <p:spinner size="5" min="0" label="Femenino" id="egresosDelMesFemenino" value="#{ingresarEstadistica.estadistica$egresosDelMes_Femenino}">  
+                        <p:ajax update="egresosDelMes" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td style="font-size: 12pt;">
+                    <h:outputText id="egresosDelMes" value="#{ingresarEstadistica.estadistica$egresosDelMes_Masculino + ingresarEstadistica.estadistica$egresosDelMes_Femenino}"/>  
+                </td>
             </tr>
 
             <tr align="center" style="font-size: 11pt;">
                 <td align="left">Matricula Efectiva del Mes</td>
-                <td><p:spinner size="5" min="0" value="0" label="Masculino"/></td>
-                <td><p:spinner size="5" min="0" value="0"/></td>
-                <td style="font-size: 12pt;">3</td>
+                <td>
+                    <p:spinner size="5" min="0" label="Masculino" id="matriculaEfectivaDelMesMasculino" value="#{ingresarEstadistica.estadistica$matriculEfectivaDelMes_Masculino}">  
+                        <p:ajax update="matriculaEfectivaDelMes" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td>
+                    <p:spinner size="5" min="0" label="Femenino" id="matriculaEfectivaDelMesFemenino" value="#{ingresarEstadistica.estadistica$matriculEfectivaDelMes_Femenino}">  
+                        <p:ajax update="matriculaEfectivaDelMes" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td style="font-size: 12pt;">
+                    <h:outputText id="matriculaEfectivaDelMes" value="#{ingresarEstadistica.estadistica$matriculEfectivaDelMes_Masculino + ingresarEstadistica.estadistica$matriculEfectivaDelMes_Femenino}"/>  
+                </td>
             </tr>
 
             <tr align="center" bgcolor="#DEEAF6" style="font-size: 11pt;">
                 <td align="left">Asistencia Media</td>
-                <td><p:spinner size="5" min="0" value="0" label="Masculino"/></td>
-                <td><p:spinner size="5" min="0" value="0"/></td>
-                <td style="font-size: 12pt;">7</td>
+                <td>
+                    <p:spinner size="5" min="0" label="Masculino" id="asistenciaMediaMasculino" value="#{ingresarEstadistica.estadistica$asistenciaMedia_Masculino}">  
+                        <p:ajax update="asistenciaMedia" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td>
+                    <p:spinner size="5" min="0" label="Femenino" id="asistenciaMediaFemenino" value="#{ingresarEstadistica.estadistica$asistenciaMedia_Femenino}">  
+                        <p:ajax update="asistenciaMedia" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td style="font-size: 12pt;">
+                    <h:outputText id="asistenciaMedia" value="#{ingresarEstadistica.estadistica$asistenciaMedia_Masculino + ingresarEstadistica.estadistica$asistenciaMedia_Femenino}"/>  
+                </td>
             </tr>
 
             <tr align="center" style="font-size: 11pt;">
                 <td align="left">Inasistencia Media</td>
-                <td><p:spinner size="5" min="0" value="0" label="Masculino"/></td>
-                <td><p:spinner size="5" min="0" value="0"/></td>
-                <td style="font-size: 12pt;">4</td>
+                <td>
+                    <p:spinner size="5" min="0" label="Masculino" id="inasistenciaMediaMasculino" value="#{ingresarEstadistica.estadistica$inasistenciaMedia_Masculino}">  
+                        <p:ajax update="inasistenciaMedia" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td>
+                    <p:spinner size="5" min="0" label="Femenino" id="inasistenciaMediaFemenino" value="#{ingresarEstadistica.estadistica$inasistenciaMedia_Femenino}">  
+                        <p:ajax update="inasistenciaMedia" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td style="font-size: 12pt;">
+                    <h:outputText id="inasistenciaMedia" value="#{ingresarEstadistica.estadistica$inasistenciaMedia_Masculino + ingresarEstadistica.estadistica$inasistenciaMedia_Femenino}"/>  
+                </td>
             </tr>
 
             <tr align="center" bgcolor="#DEEAF6" style="font-size: 11pt; bo">
                 <td align="left">Sobre Edad</td>
-                <td><p:spinner size="5" min="0" value="0" label="Masculino"/></td>
-                <td><p:spinner size="5" min="0" value="0"/></td>
-                <td style="font-size: 12pt;">5</td>
+                <td>
+                    <p:spinner size="5" min="0" label="Masculino" id="sobreEdadMasculino" value="#{ingresarEstadistica.estadistica$sobreEdad_Masculino}">  
+                        <p:ajax update="sobreEdad" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td>
+                    <p:spinner size="5" min="0" label="Femenino" id="sobreEdadFemenino" value="#{ingresarEstadistica.estadistica$sobreEdad_Femenino}">  
+                        <p:ajax update="sobreEdad" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td style="font-size: 12pt;">
+                    <h:outputText id="sobreEdad" value="#{ingresarEstadistica.estadistica$sobreEdad_Masculino + ingresarEstadistica.estadistica$sobreEdad_Femenino}"/>  
+                </td>
             </tr>
 
             <tr align="center" style="font-size: 11pt;">
                 <td align="left">Repitencia</td>
-                <td><p:spinner size="5" min="0" value="0" label="Masculino"/></td>
-                <td><p:spinner size="5" min="0" value="0"/></td>
-                <td style="font-size: 12pt;">4</td>
+                <td>
+                    <p:spinner size="5" min="0" label="Masculino" id="repitenciaMasculino" value="#{ingresarEstadistica.estadistica$repitencia_Masculino}">  
+                        <p:ajax update="repitencia" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td>
+                    <p:spinner size="5" min="0" label="Femenino" id="repitenciaFemenino" value="#{ingresarEstadistica.estadistica$repitencia_Femenino}">  
+                        <p:ajax update="repitencia" process="@this" />  
+                    </p:spinner>  
+                </td>
+                <td style="font-size: 12pt;">
+                    <h:outputText id="repitencia" value="#{ingresarEstadistica.estadistica$repitencia_Masculino + ingresarEstadistica.estadistica$repitencia_Femenino}"/>  
+                </td>
             </tr>
         </table>
-
     </ui:define>
 </ui:composition>

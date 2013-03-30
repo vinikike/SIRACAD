@@ -9,6 +9,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,8 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Opcion.findAll", query = "SELECT o FROM Opcion o"),
     @NamedQuery(name = "Opcion.findByIdOpcion", query = "SELECT o FROM Opcion o WHERE o.idOpcion = :idOpcion"),
     @NamedQuery(name = "Opcion.findByOpcion", query = "SELECT o FROM Opcion o WHERE o.opcion = :opcion"),
-    @NamedQuery(name = "Opcion.findByNombre", query = "SELECT o FROM Opcion o WHERE o.nombre = :nombre"),
-    @NamedQuery(name = "Opcion.findByNivel", query = "SELECT o FROM Opcion o WHERE o.nivel = :nivel")})
+    @NamedQuery(name = "Opcion.findByNombre", query = "SELECT o FROM Opcion o WHERE o.nombre = :nombre")})
 public class Opcion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,9 +43,9 @@ public class Opcion implements Serializable {
     @Size(max = 50)
     @Column(name = "nombre", length = 50)
     private String nombre;
-    @Size(max = 50)
-    @Column(name = "nivel", length = 50)
-    private String nivel;
+    @JoinColumn(name = "nivel", referencedColumnName = "id_nivel")
+    @ManyToOne
+    private Nivel nivel;
 
     public Opcion() {
     }
@@ -77,11 +78,11 @@ public class Opcion implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getNivel() {
+    public Nivel getNivel() {
         return nivel;
     }
 
-    public void setNivel(String nivel) {
+    public void setNivel(Nivel nivel) {
         this.nivel = nivel;
     }
 

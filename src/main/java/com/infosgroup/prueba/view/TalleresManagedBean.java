@@ -121,7 +121,7 @@ public class TalleresManagedBean extends AbstractJSFBean implements Serializable
 
         TalleresPK talleresPK = new TalleresPK();
         talleresPK.setIdPeriodoEscolar(2013);
-        //talleresPK.setCodigoTaller(1);
+        talleresPK.setCodigoTaller(talleresFacade.max(2013)+1);
 
         Talleres talleres = new Talleres();
         talleres.setTalleresPK(talleresPK);

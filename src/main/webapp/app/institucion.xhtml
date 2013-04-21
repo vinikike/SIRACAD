@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <ui:define name="titulo">
+        <h:outputText value="Datos de la Institución"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{datosDeInstitucion.guardarDatosInstitucion$action}"/>
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
+            <pe:resetInput for="@(#contenidoForm)"/>
+            </p:menuitem>
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+        </p:submenu>      
+    </ui:define>
+    
+    <ui:define name="contenido">
+        <h:panelGrid columns="2" cellspacing="10" >
+            <h:outputText value="Nombre de la Institución:" />
+            <p:inplace effect="fade" style="font-size: 12pt !important;">  
+                <p:inputText id="nombre" size="50" value="#{datosDeInstitucion.institucion$nombre}" required="true" requiredMessage="Ingrese el Nombre de la Institucion" />
+            </p:inplace>
+
+            <h:outputText value="Codigo:" />
+            <p:inplace effect="fade" style="font-size: 15pt !important;"> 
+                <p:inputText id="codigo" size="5" value="#{datosDeInstitucion.institucion$codigo}" maxlength="5" required="true" requiredMessage="Ingrese el Codigo de la Institucion" style="font-size: 13pt !important;" />
+            </p:inplace>
+
+            <h:outputText value="Distrito:" />
+            <p:inplace effect="fade" style="font-size: 15pt !important;"> 
+                <p:inputText id="distrito" size="5" value="#{datosDeInstitucion.institucion$distrito}" maxlength="5" required="true" requiredMessage="Ingrese el Distrito de la Institucion" style="font-size: 13pt !important;" />
+            </p:inplace>
+
+            <h:outputText value="Dirección:" />
+            <p:inplace effect="fade" style="font-size: 11pt !important;"> 
+                <p:inputText id="direccion" size="50" value="#{datosDeInstitucion.institucion$direccion}" required="true" requiredMessage="Ingrese la Ubicacion de la Institucion" />
+            </p:inplace>
+
+            <h:outputText value="Departamento:" />
+            <p:inplace effect="fade" style="font-size: 15pt !important;"> 
+                <p:inputText id="departamento" size="20" value="#{datosDeInstitucion.institucion$departamento}" required="true" requiredMessage="Ingrese el Departamento" />
+            </p:inplace>
+
+            <h:outputText value="Municipio:" />
+            <p:inplace effect="fade" style="font-size: 15pt !important;"> 
+                <p:inputText id="municipio" size="20" value="#{datosDeInstitucion.institucion$municipio}" required="true" requiredMessage="Ingrese el Municipio" />
+            </p:inplace>
+
+            <h:outputText value="Telefono:" />
+            <p:inplace effect="fade" style="font-size: 11pt !important;"> 
+                <p:inputText id="telefono" size="9" value="#{datosDeInstitucion.institucion$telefono}" maxlength="9" required="true" requiredMessage="Ingrese el Telefono de la Institucion" />
+            </p:inplace>
+
+            <h:outputText value="Año Lectivo:" />
+            <p:inplace effect="fade" style="font-size: 15pt !important;"> 
+                <p:inputText id="periodoEscolar" value="2013" size="2" maxlength="4" required="true" requiredMessage="Ingrese el Año Lectivo" disabled="true" style="font-size: 15pt !important;" />
+            </p:inplace>
+        </h:panelGrid>
+
+        <pe:keyFilter for="codigo" mask="int"/> 
+        <pe:keyFilter for="distrito" mask="int"/> 
+        <pe:keyFilter for="telefono" mask="int"/>
+
+    </ui:define>
+</ui:composition>

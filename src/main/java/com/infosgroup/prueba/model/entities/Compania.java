@@ -5,20 +5,16 @@
 package com.infosgroup.prueba.model.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,19 +26,41 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Compania.findAll", query = "SELECT c FROM Compania c"),
     @NamedQuery(name = "Compania.findById", query = "SELECT c FROM Compania c WHERE c.id = :id"),
-    @NamedQuery(name = "Compania.findByNombre", query = "SELECT c FROM Compania c WHERE c.nombre = :nombre")})
+    @NamedQuery(name = "Compania.findByNombre", query = "SELECT c FROM Compania c WHERE c.nombre = :nombre"),
+    @NamedQuery(name = "Compania.findByCodigo", query = "SELECT c FROM Compania c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "Compania.findByDistrito", query = "SELECT c FROM Compania c WHERE c.distrito = :distrito"),
+    @NamedQuery(name = "Compania.findByDireccion", query = "SELECT c FROM Compania c WHERE c.direccion = :direccion"),
+    @NamedQuery(name = "Compania.findByDepartamento", query = "SELECT c FROM Compania c WHERE c.departamento = :departamento"),
+    @NamedQuery(name = "Compania.findByMunicipio", query = "SELECT c FROM Compania c WHERE c.municipio = :municipio"),
+    @NamedQuery(name = "Compania.findByTelefono", query = "SELECT c FROM Compania c WHERE c.telefono = :telefono")})
 public class Compania implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Size(max = 100)
-    @Column(name = "nombre", length = 100)
+    @Column(name = "nombre")
     private String nombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compania")
-    private List<Usuario> usuarioList;
+    @Size(max = 2147483647)
+    @Column(name = "codigo")
+    private String codigo;
+    @Size(max = 2147483647)
+    @Column(name = "distrito")
+    private String distrito;
+    @Size(max = 2147483647)
+    @Column(name = "direccion")
+    private String direccion;
+    @Size(max = 2147483647)
+    @Column(name = "departamento")
+    private String departamento;
+    @Size(max = 2147483647)
+    @Column(name = "municipio")
+    private String municipio;
+    @Size(max = 2147483647)
+    @Column(name = "telefono")
+    private String telefono;
 
     public Compania() {
     }
@@ -67,13 +85,52 @@ public class Compania implements Serializable {
         this.nombre = nombre;
     }
 
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(String distrito) {
+        this.distrito = distrito;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     @Override

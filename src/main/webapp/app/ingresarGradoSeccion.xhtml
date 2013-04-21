@@ -49,7 +49,8 @@
             </p:selectOneMenu>
 
             <h:outputText value="Turno" />  
-            <p:selectOneMenu id="turno" required="true" requiredMessage="Seleccionar el Turno" value="# {ingresarGradoSeccion.grado$turno}" style="width: 150px" >
+            <p:selectOneMenu id="turno" required="true" requiredMessage="Seleccionar el Turno" value="#{ingresarGradoSeccion.grado$turno}" style="width: 150px" valueChangeListener="#{ingresarGradoSeccion.turno$valueChangeListener}">
+                <p:ajax event="valueChange" update="seccion1"/>
                 <f:selectItem itemLabel="Seleccione Turno" itemValue="0" />
                 <f:selectItems value="#{ingresarGradoSeccion.listaTurnoSel}"/>
             </p:selectOneMenu>

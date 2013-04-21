@@ -13,7 +13,7 @@
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{nuevoTaller.guardarTaller$action()}"/>
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{nuevoTaller.guardarTaller$action}"/>
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
             <pe:resetInput for="@(#contenidoForm)"/>
             </p:menuitem>
@@ -24,7 +24,7 @@
         </p:submenu>      
     </ui:define>
     <ui:define name="contenido">
-        <h:panelGrid columns="2" cellspacing="10" width="61%">
+        <h:panelGrid columns="2" cellspacing="10" width="62%">
             <h:outputLabel value="Nombre de Taller:  " />
             <p:inputText value="#{nuevoTaller.talleres$nombreTaller}" required="true" requiredMessage="Ingresse el Nombre del Taller"/>
             <h:outputLabel value="Descrpicion: " />

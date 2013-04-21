@@ -22,16 +22,18 @@
 
     <ui:define name="contenido">
         <h2>Añadir Usuario de Sistema</h2>
-        <h:panelGrid columns="2" cellspacing="10" width="60%">
-            <h:outputLabel value="Nombre de Usuario:" />
-
+        <h:panelGrid columns="2" cellspacing="10" width="62%">
+            <h:outputLabel value="Nombre de Docente:" />
             <p:selectOneMenu style="width: 300px" value="#{ingresarUsusarios.usuarios$nuevoUsuario}" converter="defaultDocenteConverter">
                 <p:ajax event="valueChange" update="contrasena"/>
                 <f:selectItems value="#{ingresarUsusarios.listaDocentes}" var="docente" itemValue="#{docente}" itemLabel="#{docente.nombre}" /> 
             </p:selectOneMenu>
+            
+<h:outputLabel value="Nombre de Usuario:" />
+<p:inputText id="nombreUsuario" size="15" maxlength="15" value="#{docente.id}" required="true" requiredMessage="Escribir la Descripcion del Taller" style="font-size: 13pt !important;" />
 
             <h:outputLabel value="Contraseña:" />
-            <p:inputText id="contrasena" size="10" maxlength="10" value="#{docente.docentePK.docenteDui}" required="true" requiredMessage="Escribir la Descripcion del Taller" style="font-size: 13pt !important;" />
+            <p:inputText id="contrasena" size="10" maxlength="10" value="#{docente.id}" required="true" requiredMessage="Escribir la Descripcion del Taller" style="font-size: 13pt !important;" />
 
             <h:outputText value="Cargo: " />  
             <p:selectOneMenu value="#{ingresarUsusarios.usuarios$cargo}">  

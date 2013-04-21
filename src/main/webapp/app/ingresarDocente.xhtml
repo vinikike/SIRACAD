@@ -27,7 +27,7 @@
             <p:inputText id="duiDocente" value="#{ingresarDocente.docente$DUI}" size="7" maxlength="9" required="true" requiredMessage="Escribir el DUI del Docente" style="font-size: 13pt !important;" />
 
             <h:outputLabel value="NIP:  " />
-            <p:inputText id="nipDocente" value="#{ingresarDocente.docente$NIP}" size="7" maxlength="9" required="true" requiredMessage="Escribir NIP del Docente" style="font-size: 13pt !important;" />
+            <p:inputText id="nipDocente" value="#{ingresarDocente.docente$NIP}" size="5" maxlength="7" required="true" requiredMessage="Escribir NIP del Docente" style="font-size: 13pt !important;" />
 
             <h:outputLabel value="Nombre:  " />
             <p:inputText id="nombreDocente" value="#{ingresarDocente.docente$nombre}" size="50" required="true" requiredMessage="Escribir el nombre completo del Docente" />
@@ -49,13 +49,13 @@
             </p:selectManyCheckbox>  
 
             <h:outputLabel value="Dirección:" />
-            <p:inputText id="Direccion" value="#{ingresarDocente.docente$direccion}" size="80" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <p:inputText id="Direccion" value="#{ingresarDocente.docente$direccion}" size="80" required="true" requiredMessage="Escribir la Direccion del Docente" />
 
             <h:outputLabel value="Telefono:  " />
-            <p:inputText id="telefono" value="#{ingresarDocente.docente$telefono}" size="7" maxlength="8" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <p:inputText id="telefono" value="#{ingresarDocente.docente$telefono}" size="7" maxlength="8" required="true" requiredMessage="Ingrese el Telefono del Docente" />
 
             <h:outputLabel value="Telefono Movil:  " />
-            <p:inputText id="telefonomovil" value="#{ingresarDocente.docente$telefonoMovil}" size="7" maxlength="8" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+            <p:inputText id="telefonomovil" value="#{ingresarDocente.docente$telefonoMovil}" size="7" maxlength="8" required="true" requiredMessage="Escriba el Celular del Docente" />
         </h:panelGrid>
 
         <pe:keyFilter for="duiDocente" mask="int"/>

@@ -7,7 +7,6 @@ package com.infosgroup.prueba.view;
 import com.infosgroup.prueba.model.entities.Docente;
 import com.infosgroup.prueba.model.facades.DocenteFacade;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -23,6 +22,9 @@ public class UsuariosManagedBean extends AbstractJSFBean implements Serializable
     private transient DocenteFacade docenteFacade;
     
     private Docente usuarios$nuevoUsuario;
+//    private Docente usuarios$nuevoUsuario;
+//    private Docente usuarios$nuevoUsuario;
+//    private Docente usuarios$nuevoUsuario;
     private String usuarios$contrasenia;
     private String usuarios$cargo;
             

@@ -155,7 +155,7 @@ public class IngresarGradoSeccionManagedBean extends AbstractJSFBean implements 
 
     public String guardarGradoSeccion$action() {
 //revisarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
-        Grado gradoBucar = gradoFacade.find(new GradoPK(2013, grado$nivel, grado$grado,((grado$opcion == null) ? "0" : grado$opcion), grado$seccion));
+        Grado gradoBucar = gradoFacade.find(new GradoPK(2013, grado$nivel, grado$grado, ((grado$opcion == null) ? "0" : grado$opcion), grado$seccion));
         if (gradoBucar != null) {
             mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe el registro este grado en el periodo escolar");
             return null;
@@ -167,9 +167,9 @@ public class IngresarGradoSeccionManagedBean extends AbstractJSFBean implements 
         } else if ("0".equals(grado$grado)) {
             mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Seleccione el grado a ingresar");
             return null;
-//        } else if ("0".equals(grado$opcion)) {
-//            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Debe seleccionar la opcion");
-//            return null;
+        } else if ((grado$opcion != null) && "0".equals(grado$opcion)) {
+            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Debe seleccionar la opcion");
+            return null;
         } else if ("0".equals(grado$turno)) {
             mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Seleccione el turno");
             return null;
@@ -190,7 +190,7 @@ public class IngresarGradoSeccionManagedBean extends AbstractJSFBean implements 
             gradoPK.setOpcion(grado$opcion);
         }
 
-        gradoPK.setSeccion(grado$seccion);
+        gradoPK.setSeccion(grado$seccion.toUpperCase());
 
         Grado grado = new Grado();
         grado.setGradoPK(gradoPK);
@@ -210,52 +210,51 @@ public class IngresarGradoSeccionManagedBean extends AbstractJSFBean implements 
 
     }
 
-
     public void nivel$valueChangeListener(ValueChangeEvent evt) {
         grado$grado = null;
         grado$opcion = null;
         String valor = (String) evt.getNewValue();
         listaGradosSel = new ArrayList<>();
         listaTurnoSel = new ArrayList<>();
-        if ("P".equals(valor)) {
-            listaGradosSel.add(new SelectItem(4, "Kinder 4"));
-            listaGradosSel.add(new SelectItem(5, "Kinder 5"));
-            listaGradosSel.add(new SelectItem(6, "Kinder 6"));
-
-            listaTurnoSel.add(new SelectItem("M", "Matutino"));
-            listaTurnoSel.add(new SelectItem("V", "Vespertino"));
-
-        } else if ("B".equals(valor)) {
-            listaGradosSel.add(new SelectItem(1, "Primero"));
-            listaGradosSel.add(new SelectItem(2, "Segundo"));
-            listaGradosSel.add(new SelectItem(3, "Tercero"));
-            listaGradosSel.add(new SelectItem(4, "Cuarto"));
-            listaGradosSel.add(new SelectItem(5, "Quinto"));
-            listaGradosSel.add(new SelectItem(6, "Sexto"));
-            listaGradosSel.add(new SelectItem(7, "Septimo"));
-            listaGradosSel.add(new SelectItem(8, "Octavo"));
-            listaGradosSel.add(new SelectItem(9, "Noveno"));
-
-            listaTurnoSel.add(new SelectItem("M", "Matutino"));
-            listaTurnoSel.add(new SelectItem("V", "Vespertino"));
-        } else if ("M".equals(valor)) {
-            listaGradosSel.add(new SelectItem(101, "Primer Año"));
-            listaGradosSel.add(new SelectItem(102, "Segundo Año"));
-            listaGradosSel.add(new SelectItem(103, "Tercer Año"));
-
-            listaTurnoSel.add(new SelectItem("M", "Matutino"));
-            listaTurnoSel.add(new SelectItem("V", "Vespertino"));
-        } else if ("N".equals(valor)) {
-            listaGradosSel.add(new SelectItem(12, "Nivel I"));
-            listaGradosSel.add(new SelectItem(34, "Nivel II"));
-            listaGradosSel.add(new SelectItem(56, "Nivel III"));
-            listaGradosSel.add(new SelectItem(7, "Septimo"));
-            listaGradosSel.add(new SelectItem(8, "Octavo"));
-            listaGradosSel.add(new SelectItem(9, "Noveno"));
-            listaGradosSel.add(new SelectItem(101, "Primer Año"));
-            listaGradosSel.add(new SelectItem(102, "Segundo Año"));
-
-            listaTurnoSel.add(new SelectItem("N", "Nocturno"));
+        switch (valor) {
+            case "P":
+                listaGradosSel.add(new SelectItem(4, "Kinder 4"));
+                listaGradosSel.add(new SelectItem(5, "Kinder 5"));
+                listaGradosSel.add(new SelectItem(6, "Kinder 6"));
+                listaTurnoSel.add(new SelectItem("M", "Matutino"));
+                listaTurnoSel.add(new SelectItem("V", "Vespertino"));
+                break;
+            case "B":
+                listaGradosSel.add(new SelectItem(1, "Primero"));
+                listaGradosSel.add(new SelectItem(2, "Segundo"));
+                listaGradosSel.add(new SelectItem(3, "Tercero"));
+                listaGradosSel.add(new SelectItem(4, "Cuarto"));
+                listaGradosSel.add(new SelectItem(5, "Quinto"));
+                listaGradosSel.add(new SelectItem(6, "Sexto"));
+                listaGradosSel.add(new SelectItem(7, "Septimo"));
+                listaGradosSel.add(new SelectItem(8, "Octavo"));
+                listaGradosSel.add(new SelectItem(9, "Noveno"));
+                listaTurnoSel.add(new SelectItem("M", "Matutino"));
+                listaTurnoSel.add(new SelectItem("V", "Vespertino"));
+                break;
+            case "M":
+                listaGradosSel.add(new SelectItem(101, "Primer Año"));
+                listaGradosSel.add(new SelectItem(102, "Segundo Año"));
+                listaGradosSel.add(new SelectItem(103, "Tercer Año"));
+                listaTurnoSel.add(new SelectItem("M", "Matutino"));
+                listaTurnoSel.add(new SelectItem("V", "Vespertino"));
+                break;
+            case "N":
+                listaGradosSel.add(new SelectItem(12, "Nivel I"));
+                listaGradosSel.add(new SelectItem(34, "Nivel II"));
+                listaGradosSel.add(new SelectItem(56, "Nivel III"));
+                listaGradosSel.add(new SelectItem(7, "Septimo"));
+                listaGradosSel.add(new SelectItem(8, "Octavo"));
+                listaGradosSel.add(new SelectItem(9, "Noveno"));
+                listaGradosSel.add(new SelectItem(101, "Primer Año"));
+                listaGradosSel.add(new SelectItem(102, "Segundo Año"));
+                listaTurnoSel.add(new SelectItem("N", "Nocturno"));
+                break;
         }
     }
 
@@ -267,16 +266,12 @@ public class IngresarGradoSeccionManagedBean extends AbstractJSFBean implements 
         if ("M".equals(grado$nivel) && ("101".equals(grado) || "102".equals(grado))) {
             listaOpcionSel.add(new SelectItem("G", "General"));
             listaOpcionSel.add(new SelectItem("C", "Contador"));
-        }
-         else if ("103".equals(grado)) {
+        } else if ("103".equals(grado)) {
             listaOpcionSel.add(new SelectItem("C", "Contador"));
-        } else if ( "N".equals(grado$nivel) && ("101".equals(grado) || "102".equals(grado)))
-        {
+        } else if ("N".equals(grado$nivel) && ("101".equals(grado) || "102".equals(grado))) {
             listaOpcionSel.add(new SelectItem("G", "General"));
         }
-
     }
-    
     private List<SelectItem> listaGradosSel;
     private List<SelectItem> listaTurnoSel;
     private List<SelectItem> listaOpcionSel;
@@ -303,5 +298,10 @@ public class IngresarGradoSeccionManagedBean extends AbstractJSFBean implements 
 
     public void setListaOpcionSel(List<SelectItem> listaOpcionSel) {
         this.listaOpcionSel = listaOpcionSel;
+    }
+
+    public void turno$valueChangeListener(ValueChangeEvent evt) {
+        String letra = gradoFacade.getSeccion(grado$nivel == null ? "0" : grado$nivel, grado$grado == null ? "0" : grado$grado, grado$opcion == null ? "0" : grado$opcion);
+        grado$seccion = (letra == null) ? "A" : ("" + (char) (letra.charAt(0) + 1));
     }
 }

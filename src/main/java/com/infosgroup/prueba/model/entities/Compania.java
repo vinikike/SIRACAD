@@ -5,16 +5,20 @@
 package com.infosgroup.prueba.model.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,29 +42,31 @@ public class Compania implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
     @Size(max = 100)
-    @Column(name = "nombre")
+    @Column(name = "nombre", length = 100)
     private String nombre;
     @Size(max = 2147483647)
-    @Column(name = "codigo")
+    @Column(name = "codigo", length = 2147483647)
     private String codigo;
     @Size(max = 2147483647)
-    @Column(name = "distrito")
+    @Column(name = "distrito", length = 2147483647)
     private String distrito;
     @Size(max = 2147483647)
-    @Column(name = "direccion")
+    @Column(name = "direccion", length = 2147483647)
     private String direccion;
     @Size(max = 2147483647)
-    @Column(name = "departamento")
+    @Column(name = "departamento", length = 2147483647)
     private String departamento;
     @Size(max = 2147483647)
-    @Column(name = "municipio")
+    @Column(name = "municipio", length = 2147483647)
     private String municipio;
     @Size(max = 2147483647)
-    @Column(name = "telefono")
+    @Column(name = "telefono", length = 2147483647)
     private String telefono;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compania")
+    private List<Usuario> usuarioList;
 
     public Compania() {
     }
@@ -131,6 +137,15 @@ public class Compania implements Serializable {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    @XmlTransient
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     @Override

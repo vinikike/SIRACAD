@@ -7,6 +7,7 @@ package com.infosgroup.prueba.model.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -83,11 +84,10 @@ public class Docente implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "jornadanocturno", length = 2147483647)
     private String jornadanocturno;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "docente")
+    private Usuario usuario;
     @OneToMany(mappedBy = "docenteId")
     private List<Grado> gradoList;
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Usuario usuario;
     @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private PeriodoEscolar idPeriodoEscolar;
@@ -187,6 +187,14 @@ public class Docente implements Serializable {
         this.jornadanocturno = jornadanocturno;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @XmlTransient
     public List<Grado> getGradoList() {
         return gradoList;
@@ -194,14 +202,6 @@ public class Docente implements Serializable {
 
     public void setGradoList(List<Grado> gradoList) {
         this.gradoList = gradoList;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public PeriodoEscolar getIdPeriodoEscolar() {

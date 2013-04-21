@@ -37,7 +37,7 @@ public class IngresoDeLibrosManagedBean extends AbstractJSFBean implements Seria
     private String libro$autor;
     private String libro$editorial;
     private String libro$edicion;
-    private String libro$tipo;
+    private Catalogolibros libro$tipo;
     private String libro$pais;
     private String libro$clave;
     private String libro$tipoAdquisicion;
@@ -101,11 +101,11 @@ public class IngresoDeLibrosManagedBean extends AbstractJSFBean implements Seria
         this.libro$edicion = libro$edicion;
     }
 
-    public String getLibro$tipo() {
+    public Catalogolibros getLibro$tipo() {
         return libro$tipo;
     }
 
-    public void setLibro$tipo(String libro$tipo) {
+    public void setLibro$tipo(Catalogolibros libro$tipo) {
         this.libro$tipo = libro$tipo;
     }
 
@@ -170,7 +170,7 @@ public class IngresoDeLibrosManagedBean extends AbstractJSFBean implements Seria
         
         LibroPK libroPK = new LibroPK();
         libroPK.setIdPeriodoEscolar(2013);
-        libroPK.setCodigo("12429-"+libro$codigo+"");
+        libroPK.setCodigo("12429-"+libro$tipo.getCatalogolibrosPK().getCodigolibro()+"");
         
         Libro libro = new Libro();
         libro.setLibroPK(libroPK);

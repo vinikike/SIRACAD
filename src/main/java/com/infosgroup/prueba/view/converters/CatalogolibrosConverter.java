@@ -4,14 +4,14 @@
  */
 package com.infosgroup.prueba.view.converters;
 
-import com.infosgroup.prueba.model.entities.Docente;
+import com.infosgroup.prueba.model.entities.Catalogolibros;
 import javax.faces.convert.FacesConverter;
 
 /**
  *
  * @author Guille
  */
-@FacesConverter(forClass = Docente.class)
-public class DocenteConverter extends AbstractSelectOneConverter<Docente> {
+@FacesConverter(forClass = Catalogolibros.class)
+public class CatalogolibrosConverter extends AbstractSelectOneConverter<Catalogolibros> {
 
 }

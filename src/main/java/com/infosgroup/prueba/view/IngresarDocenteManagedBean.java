@@ -168,7 +168,6 @@ public class IngresarDocenteManagedBean extends AbstractJSFBean implements Seria
 
         Docente docente = new Docente();
         docente.setId(docente$DUI);
-        docente.setUsuario(null);
 //        docente.setDocentePK(docentePK);
 
         docente.setIdPeriodoEscolar(getSessionBean().getPeriodoEscolar());

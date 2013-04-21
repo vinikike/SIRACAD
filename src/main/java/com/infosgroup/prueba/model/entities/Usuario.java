@@ -7,7 +7,6 @@ package com.infosgroup.prueba.model.entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -62,11 +61,12 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "rol", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Rol rol;
-    @JoinColumn(name = "compania", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Compania compania;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.EAGER)
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @OneToOne(optional = false)
     private Docente docente;
+    @JoinColumn(name = "compania", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private Compania compania;
 
     public Usuario() {
     }
@@ -123,20 +123,20 @@ public class Usuario implements Serializable {
         this.rol = rol;
     }
 
-    public Compania getCompania() {
-        return compania;
-    }
-
-    public void setCompania(Compania compania) {
-        this.compania = compania;
-    }
-
     public Docente getDocente() {
         return docente;
     }
 
     public void setDocente(Docente docente) {
         this.docente = docente;
+    }
+
+    public Compania getCompania() {
+        return compania;
+    }
+
+    public void setCompania(Compania compania) {
+        this.compania = compania;
     }
 
     @Override

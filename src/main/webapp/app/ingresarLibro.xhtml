@@ -25,8 +25,8 @@
         <h:panelGrid columns="2" width="60%" cellspacing="10">
 
             <h:outputLabel value="Categoria de Libro:" />
-            <p:selectOneMenu style="width: 250px;" value="#{ingresaLibros.libro$tipo}" >
-                <f:selectItems value="#{ingresaLibros.listaCatalogoLibros}" var="libro" itemLabel="#{libro.tipo}" itemValue="#{libro.catalogolibrosPK.codigolibro}" />
+            <p:selectOneMenu style="width: 250px;" value="#{ingresaLibros.libro$tipo}" filter="true" filterMatchMode="contains" height="200">
+                <f:selectItems value="#{ingresaLibros.listaCatalogoLibros}" var="libro" itemLabel="#{libro.tipo}" itemValue="#{libro}" />
             </p:selectOneMenu>
 
             <h:outputLabel value="Titulo:" />

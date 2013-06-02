@@ -4,7 +4,7 @@
  */
 package com.infosgroup.prueba.view.converters;
 
-import com.infosgroup.prueba.model.entities.Docente;
+import com.infosgroup.prueba.model.entities.Rol;
 import javax.faces.convert.FacesConverter;
 import org.omnifaces.converter.SelectItemsConverter;
 
@@ -12,6 +12,6 @@ import org.omnifaces.converter.SelectItemsConverter;
  *
  * @author Guille
  */
-@FacesConverter(forClass = Docente.class)
-public class DocenteConverter extends SelectItemsConverter {
+@FacesConverter(forClass = Rol.class)
+public class RolConverter extends SelectItemsConverter {
 }

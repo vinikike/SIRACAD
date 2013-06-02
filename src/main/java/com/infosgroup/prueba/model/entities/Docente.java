@@ -44,52 +44,53 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Docente.findByTelefono", query = "SELECT d FROM Docente d WHERE d.telefono = :telefono"),
     @NamedQuery(name = "Docente.findByCelular", query = "SELECT d FROM Docente d WHERE d.celular = :celular"),
     @NamedQuery(name = "Docente.findByJornadavespertino", query = "SELECT d FROM Docente d WHERE d.jornadavespertino = :jornadavespertino"),
-    @NamedQuery(name = "Docente.findByJornadanocturno", query = "SELECT d FROM Docente d WHERE d.jornadanocturno = :jornadanocturno")})
+    @NamedQuery(name = "Docente.findByJornadanocturno", query = "SELECT d FROM Docente d WHERE d.jornadanocturno = :jornadanocturno"),
+    @NamedQuery(name = "Docente.findByDui", query = "SELECT d FROM Docente d WHERE d.dui = :dui")})
 public class Docente implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
-    @Column(name = "id", nullable = false, length = 2147483647)
+    @Column(name = "id")
     private String id;
     @Size(max = 2147483647)
-    @Column(name = "docente_nip", length = 2147483647)
+    @Column(name = "docente_nip")
     private String docenteNip;
     @Size(max = 2147483647)
-    @Column(name = "nombre", length = 2147483647)
+    @Column(name = "nombre")
     private String nombre;
     @Size(max = 2147483647)
-    @Column(name = "nivel_escalafon", length = 2147483647)
+    @Column(name = "nivel_escalafon")
     private String nivelEscalafon;
     @Size(max = 2147483647)
-    @Column(name = "especialidad", length = 2147483647)
+    @Column(name = "especialidad")
     private String especialidad;
     @Size(max = 2147483647)
-    @Column(name = "jornadamatutino", length = 2147483647)
+    @Column(name = "jornadamatutino")
     private String jornadamatutino;
     @Size(max = 2147483647)
-    @Column(name = "direccion", length = 2147483647)
+    @Column(name = "direccion")
     private String direccion;
     @Size(max = 2147483647)
-    @Column(name = "telefono", length = 2147483647)
+    @Column(name = "telefono")
     private String telefono;
     @Size(max = 2147483647)
-    @Column(name = "celular", length = 2147483647)
+    @Column(name = "celular")
     private String celular;
     @Size(max = 2147483647)
-    @Column(name = "jornadavespertino", length = 2147483647)
+    @Column(name = "jornadavespertino")
     private String jornadavespertino;
     @Size(max = 2147483647)
-    @Column(name = "jornadanocturno", length = 2147483647)
+    @Column(name = "jornadanocturno")
     private String jornadanocturno;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "docente")
-    private Usuario usuario;
-    @OneToMany(mappedBy = "docenteId")
-    private List<Grado> gradoList;
-    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "dui")
+    private String dui;
+    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id")
+    @ManyToOne(optional = false)
     private PeriodoEscolar idPeriodoEscolar;
 
     public Docente() {
@@ -97,6 +98,11 @@ public class Docente implements Serializable {
 
     public Docente(String id) {
         this.id = id;
+    }
+
+    public Docente(String id, String dui) {
+        this.id = id;
+        this.dui = dui;
     }
 
     public String getId() {
@@ -187,21 +193,12 @@ public class Docente implements Serializable {
         this.jornadanocturno = jornadanocturno;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public String getDui() {
+        return dui;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    @XmlTransient
-    public List<Grado> getGradoList() {
-        return gradoList;
-    }
-
-    public void setGradoList(List<Grado> gradoList) {
-        this.gradoList = gradoList;
+    public void setDui(String dui) {
+        this.dui = dui;
     }
 
     public PeriodoEscolar getIdPeriodoEscolar() {
@@ -239,12 +236,12 @@ public class Docente implements Serializable {
     // ===========================================
     @Transient
     private String jornadas;
-
+    
     public String getJornadas() {
         jornadas = "";
         if (getJornadamatutino() != null) {
             jornadas += "Matutino ";
-        }
+}
         if (getJornadavespertino() != null) {
             jornadas += "Verpertino ";
         }

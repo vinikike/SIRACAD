@@ -5,6 +5,8 @@
 package com.infosgroup.prueba.model.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -12,9 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,9 +37,11 @@ public class Catalogolibros implements Serializable {
     @EmbeddedId
     protected CatalogolibrosPK catalogolibrosPK;
     @Size(max = 2147483647)
-    @Column(name = "tipo", length = 2147483647)
+    @Column(name = "tipo")
     private String tipo;
-    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "catalogolibros")
+    private Collection<Libro> libroCollection;
+    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PeriodoEscolar periodoEscolar;
 
@@ -64,6 +70,15 @@ public class Catalogolibros implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    @XmlTransient
+    public Collection<Libro> getLibroCollection() {
+        return libroCollection;
+    }
+
+    public void setLibroCollection(Collection<Libro> libroCollection) {
+        this.libroCollection = libroCollection;
     }
 
     public PeriodoEscolar getPeriodoEscolar() {

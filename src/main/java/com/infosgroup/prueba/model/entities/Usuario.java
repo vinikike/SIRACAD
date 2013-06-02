@@ -9,7 +9,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -38,7 +37,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findByFechaInicio", query = "SELECT u FROM Usuario u WHERE u.fechaInicio = :fechaInicio"),
     @NamedQuery(name = "Usuario.findByPassw", query = "SELECT u FROM Usuario u WHERE u.passw = :passw")})
 public class Usuario implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -59,7 +57,7 @@ public class Usuario implements Serializable {
     @Column(name = "passw", length = 50)
     private String passw;
     @JoinColumn(name = "rol", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Rol rol;
     @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
@@ -163,4 +161,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "com.infosgroup.prueba.model.entities.Usuario[ id=" + id + " ]";
     }
+    
 }

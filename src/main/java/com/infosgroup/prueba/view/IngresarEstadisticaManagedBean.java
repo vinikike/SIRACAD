@@ -9,12 +9,15 @@ import com.infosgroup.prueba.model.entities.GradoPK;
 import com.infosgroup.prueba.model.entities.Estadistica;
 import com.infosgroup.prueba.model.entities.EstadisticaPK;
 import com.infosgroup.prueba.model.facades.EstadisticaFacade;
+import com.infosgroup.prueba.view.beans.SessionBean;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 
 /**
  *
@@ -26,7 +29,19 @@ public class IngresarEstadisticaManagedBean extends AbstractJSFBean implements S
 
     @EJB
     private transient EstadisticaFacade estadisticaFacade;
-    //-------------------------------------------------
+    //-----------------------------------------------------------------
+    //@ManagedProperty(value = "#{SessionBean}")
+    @Inject
+    private SessionBean sessionBean;
+
+//    public SessionBean getSessionBean() {
+//        return sessionBean;
+//    }
+//
+//    public void setSessionBean(SessionBean sessionBean) {
+//        this.sessionBean = sessionBean;
+//    }
+    //-----------------------------------------------------------------
     private Integer grado$periodo_Escolar;
     private String grado$nivel;
     private String grado$grado;
@@ -51,6 +66,7 @@ public class IngresarEstadisticaManagedBean extends AbstractJSFBean implements S
     private Integer estadistica$repitencia_Femenino;
     private String estadistica$mes;
     private String docente$DUI;
+    private String docente$nombre;
 
     //=================Gets y Sets=================================
     public Integer getGrado$periodo_Escolar() {
@@ -237,6 +253,14 @@ public class IngresarEstadisticaManagedBean extends AbstractJSFBean implements S
         this.docente$DUI = docente$DUI;
     }
 
+    public String getDocente$nombre() {
+        return docente$nombre;
+    }
+
+    public void setDocente$nombre(String docente$nombre) {
+        this.docente$nombre = docente$nombre;
+    }
+
     //===============================================================
     @PostConstruct
     @Override
@@ -244,7 +268,9 @@ public class IngresarEstadisticaManagedBean extends AbstractJSFBean implements S
         super._init();
 
         estadistica$mes = "0";
-        docente$DUI = "0";
+        //grado$periodo_Escolar = sessionBean.getPeriodoEscolar();
+        docente$DUI = sessionBean.getUsuario().getId();
+        docente$nombre = sessionBean.getUsuario().getDocente().getNombre();
 
         estadistica$mariculaInicial_Masculino = 0;
         estadistica$mariculaInicial_Femenino = 0;
@@ -279,50 +305,50 @@ public class IngresarEstadisticaManagedBean extends AbstractJSFBean implements S
             mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe registro estadistico de este mes");
             return null;
         }
-        
+
         EstadisticaPK estadisticaPK = new EstadisticaPK();
         estadisticaPK.setIdPeriodoEscolar(2013);
         estadisticaPK.setNivel(grado$nivel);
         estadisticaPK.setGrado(grado$grado);
         estadisticaPK.setOpcion(grado$opcion);
         estadisticaPK.setSeccion(grado$seccion);
-        
+
         Estadistica estadistica = new Estadistica();
         estadistica.setEstadisticaPK(estadisticaPK);
-        
+
         estadistica.setMatriculainicialMasculino(estadistica$mariculaInicial_Masculino);
         estadistica.setMatriculainicialFemenino(estadistica$mariculaInicial_Femenino);
-        
+
         estadistica.setIngresosMasculino(estadistica$ingresosDelMes_Masculino);
         estadistica.setIngresosFemenino(estadistica$ingresosDelMes_Femenino);
-        
+
         estadistica.setEgresosMasculino(estadistica$egresosDelMes_Masculino);
         estadistica.setEgresosFemenino(estadistica$egresosDelMes_Femenino);
-        
+
         estadistica.setMatriculaefectivaMasculino(estadistica$matriculEfectivaDelMes_Masculino);
         estadistica.setMatriculaefectivaFemenino(estadistica$matriculEfectivaDelMes_Femenino);
-        
+
         estadistica.setAsistenciamediaMasculino(estadistica$asistenciaMedia_Masculino);
         estadistica.setAsistenciamediaFemenino(estadistica$asistenciaMedia_Femenino);
-        
+
         estadistica.setInasistenciamediaMasculino(estadistica$inasistenciaMedia_Masculino);
         estadistica.setInasistenciamediaFemenino(estadistica$inasistenciaMedia_Femenino);
-        
+
         estadistica.setSobreedadMasculino(estadistica$sobreEdad_Masculino);
         estadistica.setSobreedadFemenino(estadistica$sobreEdad_Femenino);
-        
+
         estadistica.setRepitenciaMasculino(estadistica$repitencia_Masculino);
         estadistica.setRepitenciaFemenino(estadistica$repitencia_Femenino);
-        
+
         //estadistica.setDocenteDui(docente$DUI);
-        
+
         //estadistica.setMes(estadistica$mes);
-        
-        
+
+
         estadisticaFacade.create(estadistica);
-        
+
         mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Estadistica registrada con exito");
-        
+
         return null;
     }
 }

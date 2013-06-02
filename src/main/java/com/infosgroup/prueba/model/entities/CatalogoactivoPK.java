@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  * @author Guille
  */
 @Embeddable
-public class CatalogolibrosPK implements Serializable {
+public class CatalogoactivoPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_periodo_escolar")
@@ -24,15 +24,15 @@ public class CatalogolibrosPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
-    @Column(name = "codigolibro")
-    private String codigolibro;
+    @Column(name = "codigoactivo")
+    private String codigoactivo;
 
-    public CatalogolibrosPK() {
+    public CatalogoactivoPK() {
     }
 
-    public CatalogolibrosPK(int idPeriodoEscolar, String codigolibro) {
+    public CatalogoactivoPK(int idPeriodoEscolar, String codigoactivo) {
         this.idPeriodoEscolar = idPeriodoEscolar;
-        this.codigolibro = codigolibro;
+        this.codigoactivo = codigoactivo;
     }
 
     public int getIdPeriodoEscolar() {
@@ -43,33 +43,33 @@ public class CatalogolibrosPK implements Serializable {
         this.idPeriodoEscolar = idPeriodoEscolar;
     }
 
-    public String getCodigolibro() {
-        return codigolibro;
+    public String getCodigoactivo() {
+        return codigoactivo;
     }
 
-    public void setCodigolibro(String codigolibro) {
-        this.codigolibro = codigolibro;
+    public void setCodigoactivo(String codigoactivo) {
+        this.codigoactivo = codigoactivo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) idPeriodoEscolar;
-        hash += (codigolibro != null ? codigolibro.hashCode() : 0);
+        hash += (codigoactivo != null ? codigoactivo.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CatalogolibrosPK)) {
+        if (!(object instanceof CatalogoactivoPK)) {
             return false;
         }
-        CatalogolibrosPK other = (CatalogolibrosPK) object;
+        CatalogoactivoPK other = (CatalogoactivoPK) object;
         if (this.idPeriodoEscolar != other.idPeriodoEscolar) {
             return false;
         }
-        if ((this.codigolibro == null && other.codigolibro != null) || (this.codigolibro != null && !this.codigolibro.equals(other.codigolibro))) {
+        if ((this.codigoactivo == null && other.codigoactivo != null) || (this.codigoactivo != null && !this.codigoactivo.equals(other.codigoactivo))) {
             return false;
         }
         return true;
@@ -77,7 +77,7 @@ public class CatalogolibrosPK implements Serializable {
 
     @Override
     public String toString() {
-        return "com.infosgroup.prueba.model.entities.CatalogolibrosPK[ idPeriodoEscolar=" + idPeriodoEscolar + ", codigolibro=" + codigolibro + " ]";
+        return "com.infosgroup.prueba.model.entities.CatalogoactivoPK[ idPeriodoEscolar=" + idPeriodoEscolar + ", codigoactivo=" + codigoactivo + " ]";
     }
     
 }

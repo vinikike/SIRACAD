@@ -21,12 +21,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 
-@ManagedBean(name = "ingresarUsusarios")
+@ManagedBean(name = "editarUsusarios")
 @ViewScoped
-public class UsuariosManagedBean extends AbstractJSFBean implements Serializable {
+public class EditarUsuariosManagedBean extends AbstractJSFBean implements Serializable {
 
     @EJB
     private transient DocenteFacade docenteFacade;
@@ -48,10 +47,13 @@ public class UsuariosManagedBean extends AbstractJSFBean implements Serializable
 //    }
     //-----------------------------------------------------------------
     private Docente usuario$docente;
-    private Rol usuario$rol;
+    //private Rol usuario$rol;
     private String usuario$id;
-    private String usuario$contrasenia;
-    private String usuario$cargo;
+    private String usuario$nombre;
+    private String usuario$contraseniaAnterior;
+    private String usuario$contrasenia1;
+    private String usuario$contrasenia2;
+    //private String usuario$cargo;
     private List<Docente> listaDocentes;
     private List<Rol> listaRol;
 
@@ -63,14 +65,6 @@ public class UsuariosManagedBean extends AbstractJSFBean implements Serializable
         this.usuario$docente = usuario$docente;
     }
 
-    public Rol getUsuario$rol() {
-        return usuario$rol;
-    }
-
-    public void setUsuario$rol(Rol usuario$rol) {
-        this.usuario$rol = usuario$rol;
-    }
-
     public String getUsuario$id() {
         return usuario$id;
     }
@@ -79,20 +73,36 @@ public class UsuariosManagedBean extends AbstractJSFBean implements Serializable
         this.usuario$id = usuario$id;
     }
 
-    public String getUsuario$contrasenia() {
-        return usuario$contrasenia;
+    public String getUsuario$nombre() {
+        return usuario$nombre;
     }
 
-    public void setUsuario$contrasenia(String usuario$contrasenia) {
-        this.usuario$contrasenia = usuario$contrasenia;
+    public void setUsuario$nombre(String usuario$nombre) {
+        this.usuario$nombre = usuario$nombre;
     }
 
-    public String getUsuario$cargo() {
-        return usuario$cargo;
+    public String getUsuario$contraseniaAnterior() {
+        return usuario$contraseniaAnterior;
     }
 
-    public void setUsuario$cargo(String usuario$cargo) {
-        this.usuario$cargo = usuario$cargo;
+    public void setUsuario$contraseniaAnterior(String usuario$contraseniaAnterior) {
+        this.usuario$contraseniaAnterior = usuario$contraseniaAnterior;
+    }
+
+    public String getUsuario$contrasenia1() {
+        return usuario$contrasenia1;
+    }
+
+    public void setUsuario$contrasenia1(String usuario$contrasenia1) {
+        this.usuario$contrasenia1 = usuario$contrasenia1;
+    }
+
+    public String getUsuario$contrasenia2() {
+        return usuario$contrasenia2;
+    }
+
+    public void setUsuario$contrasenia2(String usuario$contrasenia2) {
+        this.usuario$contrasenia2 = usuario$contrasenia2;
     }
 
     public List<Docente> getListaDocentes() {
@@ -115,27 +125,39 @@ public class UsuariosManagedBean extends AbstractJSFBean implements Serializable
     @Override
     public void _init() {
         super._init();
+
+        usuario$nombre = sessionBean.getUsuario().getDocente().getNombre();
+        usuario$id = sessionBean.getUsuario().getId();
         listaDocentes = docenteFacade.findAll();
         listaRol = rolFacade.findAll();
 
     }
 
-    public String guardarUsuario$action() {
-
-        
-        
-        Usuario usuarioBuscar = usuarioFacade.find(usuario$docente.getId());
-        if (usuarioBuscar != null) {
-            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe el registro de este usuario");
+    public String actualizarUsuario$action() {
+        Usuario u = sessionBean.getUsuario();
+        if (u == null) {
+            mostrarMensajeJSF(FacesMessage.SEVERITY_FATAL, "No hay ningun usuario en sesion");
             return null;
         }
+        if (!u.getPassw().equals(encriptarTexto(usuario$contraseniaAnterior))) {
+            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "La contrasena anterior no coincide");
+            return null;
+        }
+        u.setPassw(encriptarTexto(usuario$contrasenia1));
+        usuarioFacade.edit(u);
+        mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Contrasena cambiada exitosamente");
+        return null;
+    }
 
-        Usuario usuario = new Usuario();
-        usuario.setCompania(sessionBean.getCompania());
-        usuario.setId(usuario$docente.getId());
-
+//=====================================================================================================
+//    public void usuario$valueChangeListener(ValueChangeEvent e) {
+//        Docente d = (Docente) e.getNewValue();
+//        usuario$id = d.getId();
+//        //usuario$contrasenia = "";
+//        //usuario$cargo = "docente";
+//    }
+    private String encriptarTexto(String texto) {
         try {
-            String texto = usuario$contrasenia;
             final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.reset();
             messageDigest.update(texto.getBytes(Charset.forName("UTF8")));
@@ -145,29 +167,11 @@ public class UsuariosManagedBean extends AbstractJSFBean implements Serializable
                 s += Integer.toHexString((resultByte[i] >> 4) & 0xf);
                 s += Integer.toHexString(resultByte[i] & 0xf);
             }
-            usuario.setPassw(s);
             System.out.println("Resumen MD5: " + s);
+            return s;
         } catch (Exception excpt) {
             excpt.printStackTrace(System.err);
+            return null;
         }
-
-        usuario.setRol(usuario$rol);
-        usuario.setDocente(usuario$docente);
-
-        usuarioFacade.create(usuario);
-
-        mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Usuario registrado exitosamente");
-
-        usuario$id = "";
-        usuario$contrasenia = "";
- 
-        return null;
-    }
-
-    public void usuario$valueChangeListener(ValueChangeEvent e) {
-        Docente d = (Docente) e.getNewValue();
-        usuario$id = d.getId();
-        usuario$contrasenia = "";
-
     }
 }

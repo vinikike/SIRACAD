@@ -23,6 +23,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.menuitem.MenuItem;
@@ -44,16 +45,17 @@ public class LoginManager extends AbstractJSFBean implements Serializable {
     @EJB
     private transient MenuFacade menuFacade;
 //
-    @ManagedProperty(value = "#{SessionBean}")
+    //@ManagedProperty(value = "#{SessionBean}")
+    @Inject
     private SessionBean sessionBean;
     
-    public SessionBean getSessionBean() {
-        return sessionBean;
-    }
-    
-    public void setSessionBean(SessionBean sessionBean) {
-        this.sessionBean = sessionBean;
-    }
+//    public SessionBean getSessionBean() {
+//        return sessionBean;
+//    }
+//    
+//    public void setSessionBean(SessionBean sessionBean) {
+//        this.sessionBean = sessionBean;
+//    }
 //
     //
     private String usuario;
@@ -86,8 +88,8 @@ public class LoginManager extends AbstractJSFBean implements Serializable {
     public String iniciarSesion$action() {
         String navegacion = null;
         List<Object> objs = new ArrayList<>();
-        getSessionBean().setMenuBarModel(new DefaultMenuModel());
-        getSessionBean().getMenuBarModel().getContents().clear();
+        sessionBean.setMenuBarModel(new DefaultMenuModel());
+        sessionBean.getMenuBarModel().getContents().clear();
         try {
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.login(usuario, pass);
@@ -95,18 +97,18 @@ public class LoginManager extends AbstractJSFBean implements Serializable {
             
             Usuario u = usuarioFacade.find(usuario);
             
-            getSessionBean().setUsuario(u);
-            getSessionBean().setPeriodoEscolar((u.getDocente() != null) ? u.getDocente().getIdPeriodoEscolar() : null);
-            getSessionBean().setCompania(getSessionBean().getUsuario().getCompania());
-            getSessionBean().setRol(getSessionBean().getUsuario().getRol());
-            getSessionBean().setFechaHoraInicioSesion(GregorianCalendar.getInstance().getTime());
-            List<Menu> listaMenus0 = menuFacade.findAllNivel0(getSessionBean().getRol());
-            List<UIComponent> listaMenusGenerados = generarMenu(listaMenus0, getSessionBean().getRol());
+            sessionBean.setUsuario(u);
+            sessionBean.setPeriodoEscolar((u.getDocente() != null) ? u.getDocente().getIdPeriodoEscolar() : null);
+            sessionBean.setCompania(sessionBean.getUsuario().getCompania());
+            sessionBean.setRol(sessionBean.getUsuario().getRol());
+            sessionBean.setFechaHoraInicioSesion(GregorianCalendar.getInstance().getTime());
+            List<Menu> listaMenus0 = menuFacade.findAllNivel0(sessionBean.getRol());
+            List<UIComponent> listaMenusGenerados = generarMenu(listaMenus0, sessionBean.getRol());
             for (UIComponent objMenu : listaMenusGenerados) {
-                getSessionBean().getMenuBarModel().getContents().add(objMenu);
+                sessionBean.getMenuBarModel().getContents().add(objMenu);
             }
             objs.add(usuario != null ? usuario : "[Ninguno]");
-            objs.add(getSessionBean().getFechaHoraInicioSesion());
+            objs.add(sessionBean.getFechaHoraInicioSesion());
             logger.log(Level.INFO, "[Inicio de sesion del usuario {0}: {1}]", objs.toArray(new Object[0]));
             navegacion = inicio$action();
         } catch (Exception excpt) {

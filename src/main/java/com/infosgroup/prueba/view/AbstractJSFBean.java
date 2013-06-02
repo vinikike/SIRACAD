@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -32,8 +33,12 @@ public String inicio$action()
 
 public void mostrarMensajeJSF(FacesMessage.Severity severidad, String mensaje)
 {
-    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severidad, null, mensaje));   
+    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severidad, null, mensaje));    
 }
 
+public HttpServletRequest getRequest()
+{
+return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+}
 
 }

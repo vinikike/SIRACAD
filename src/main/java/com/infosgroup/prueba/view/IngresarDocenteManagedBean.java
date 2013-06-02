@@ -15,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 
 /**
  *
@@ -30,21 +31,24 @@ public class IngresarDocenteManagedBean extends AbstractJSFBean implements Seria
     private List<Docente> listaDocentes;
 //    private Docente docente;
     //-----------------------------------------------------------------
-    @ManagedProperty(value = "#{SessionBean}")
+    //@ManagedProperty(value = "#{SessionBean}")
+    @Inject
     private SessionBean sessionBean;
 
-    public SessionBean getSessionBean() {
-        return sessionBean;
-    }
-
-    public void setSessionBean(SessionBean sessionBean) {
-        this.sessionBean = sessionBean;
-    }
+//    public SessionBean getSessionBean() {
+//        return sessionBean;
+//    }
+//
+//    public void setSessionBean(SessionBean sessionBean) {
+//        this.sessionBean = sessionBean;
+//    }
     //-----------------------------------------------------------------
     //-----------------------------------------------------------------
     private Integer periodo$escolar;
     private String docente$DUI;
+    private String docente$ID;
     private String docente$NIP;
+    private String docente$tipoPersonal;
     private String docente$nombre;
     private String docente$nivelEscalafon;
     private String docente$especialidad;
@@ -70,12 +74,28 @@ public class IngresarDocenteManagedBean extends AbstractJSFBean implements Seria
         this.docente$DUI = docente$DUI;
     }
 
+    public String getDocente$ID() {
+        return docente$ID;
+    }
+
+    public void setDocente$ID(String docente$ID) {
+        this.docente$ID = docente$ID;
+    }
+
     public String getDocente$NIP() {
         return docente$NIP;
     }
 
     public void setDocente$NIP(String docente$NIP) {
         this.docente$NIP = docente$NIP;
+    }
+
+    public String getDocente$tipoPersonal() {
+        return docente$tipoPersonal;
+    }
+
+    public void setDocente$tipoPersonal(String docente$tipoPersonal) {
+        this.docente$tipoPersonal = docente$tipoPersonal;
     }
 
     public String getDocente$nombre() {
@@ -148,16 +168,18 @@ public class IngresarDocenteManagedBean extends AbstractJSFBean implements Seria
     @Override
     public void _init() {
         super._init();
-        docente$nivelEscalafon = "N1";
+        docente$tipoPersonal = "Docente";
+        //if(docente$tipoPersonal == 'Docente')
+        //docente$nivelEscalafon = "N1";
         docente$jornada = null;
         listaDocentes = docenteFacade.findAll();
     }
 
     public String guardarDocente$action() {
 
-        Docente docenteBuscar = docenteFacade.find(docente$DUI);
+        Docente docenteBuscar = docenteFacade.find(docente$ID);
         if (docenteBuscar != null) {
-            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe registro del Docente");
+            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe registro del Docente, cambie el identificador");
             return null;
         }
 
@@ -167,10 +189,13 @@ public class IngresarDocenteManagedBean extends AbstractJSFBean implements Seria
 //        docentePK.set(docente$DUI);
 
         Docente docente = new Docente();
-        docente.setId(docente$DUI);
-//        docente.setDocentePK(docentePK);
+        //if (docente$DUI.length() < 9) {
+        //    mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ingrese un numero de DUI valido");
+        //} else {
+            docente.setId(docente$ID);
+        //}
 
-        docente.setIdPeriodoEscolar(getSessionBean().getPeriodoEscolar());
+        docente.setIdPeriodoEscolar(sessionBean.getPeriodoEscolar());
         docente.setDocenteNip(docente$NIP);
         docente.setNombre(docente$nombre);
         docente.setDireccion(docente$direccion);
@@ -193,6 +218,7 @@ public class IngresarDocenteManagedBean extends AbstractJSFBean implements Seria
         docente.setNivelEscalafon(docente$nivelEscalafon);
         docente.setTelefono(docente$telefono);
         docente.setCelular(docente$telefonoMovil);
+        docente.setDui(docente$DUI);
         docenteFacade.create(docente);
 
         mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Docente registrado exitosamente");

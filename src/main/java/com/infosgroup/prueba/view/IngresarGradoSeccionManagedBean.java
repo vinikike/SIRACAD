@@ -191,9 +191,11 @@ public class IngresarGradoSeccionManagedBean extends AbstractJSFBean implements 
         }
 
         gradoPK.setSeccion(grado$seccion.toUpperCase());
+        
 
         Grado grado = new Grado();
         grado.setGradoPK(gradoPK);
+        grado.setTurno(grado$turno);
 
         gradoFacade.create(grado);
 

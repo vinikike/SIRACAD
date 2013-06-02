@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:define name="titulo">
+        <h:outputText value="Editar Usuario"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{editarUsusarios.actualizarUsuario$action}" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
+                <pe:resetInput for="@(#contenidoForm)"/>
+            </p:menuitem>
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+        </p:submenu>      
+    </ui:define>
+
+    <ui:define name="contenido">
+        <h2>Modificar Usuario del Sistema</h2>
+        <h:panelGrid columns="2" cellspacing="10" width="62%">
+            
+            <h:outputLabel value="Nombre de docente:" />
+            <h:outputLabel id="nombreDocente" value="#{editarUsusarios.usuario$nombre}" style="font-size: 13pt !important;" />
+            
+            <h:outputLabel value="Nombre de usuario:" />
+            <h:outputLabel id="nombreUsuario" value="#{editarUsusarios.usuario$id}" style="font-size: 13pt !important;" />            
+            
+            <h:outputLabel value="Contraseña actual:" />
+            <p:password id="contrasenaactual" value="#{editarUsusarios.usuario$contraseniaAnterior}" size="10" maxlength="15" required="true" requiredMessage="Ingrese la contrase&ntilde;a actual" style="font-size: 13pt !important;"/>
+            
+            <h:outputLabel value="Nueva contrase&ntilde;a:" />
+            <p:password id="nuevacontrasena"  value="#{editarUsusarios.usuario$contrasenia1}" size="10" maxlength="15" required="true" requiredMessage="Ingrese la contrase&ntilde;a nueva" style="font-size: 13pt !important;" feedback="true" match="confirmarcontrasena"/> 
+            
+            <h:outputLabel value="Confirmar contrase&ntilde;a:" />
+            <p:password id="confirmarcontrasena" value="#{editarUsusarios.usuario$contrasenia2}" size="10" maxlength="15" required="true" requiredMessage="Ingrese la confirmaci&oacute;n de contrase&ntilde;a" style="font-size: 13pt !important;" feedback="true"/>
+
+         </h:panelGrid>
+    </ui:define>
+</ui:composition>

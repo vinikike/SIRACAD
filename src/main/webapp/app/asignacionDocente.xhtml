@@ -6,60 +6,31 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:pe="http://primefaces.org/ui/extensions">
-
     <ui:define name="titulo">
-        <h:outputText value="Asignacion de Docentes"/>
+        <h:outputText value="Asignar docentes"/>
     </ui:define>
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
             <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
-            <pe:resetInput for="@(#contenidoForm)"/>
-            </p:menuitem>          
+                <pe:resetInput for="@(#contenidoForm)"/>
+            </p:menuitem>
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
         </p:submenu>      
     </ui:define>
     <ui:define name="contenido">
-        <h:panelGrid columns="3" cellspacing="20">
-            <h:outputLabel value="NIP:  " /> 
-            <p:inputText id="NIP" size="7" maxlength="7" required="true" requiredMessage="Escriba el NIP del Docente" />
-            <p:commandButton type="submit" id="buscarAlumno" value="Buscar" icon="ui-icon-search" style="alignment-adjust: central" />
-        </h:panelGrid>
-        <h:panelGrid columns="2" cellspacing="20">
-            <h:outputLabel value="Nombre Docente:  " />
-            <p:inputText id="nombreDocente" size="40" disabled="true"/>
-            <h:outputText value="Materia: " /> 
-            <p:selectOneMenu value="#{buttonBean.number}">  
-                <f:selectItem itemLabel="Seleccione una materia" itemValue="" />  
-                <f:selectItem itemLabel=" " itemValue="1" />  
-                <f:selectItem itemLabel=" " itemValue="2" />  
-                <f:selectItem itemLabel=" " itemValue="3" />  
+        <h2>Asignar docentes a secciones</h2>
+        <h:panelGrid columns="2" width="70%" cellpadding="10">
+            <h:outputText value="Docente:" style=""/>
+            <p:selectOneMenu height="200" filter="true" filterMatchMode="contains" style="width: 350px;" valueChangeListener="#{asignarDocente.docente$valueChangeListener}">
+                <f:selectItems value="#{asignarDocente.listaDocentes}" var="docente" itemValue="#{docente}" itemLabel="#{docente.nombre}"/>
+                <p:ajax event="valueChange" update="listaGrados"/>
             </p:selectOneMenu>
         </h:panelGrid>
-        <h:panelGrid columns="3" cellspacing="20">
-            <h:outputText value="Nivel: " />  
-            <p:selectOneMenu value="#{buttonBean.number}">  
-                <f:selectItem itemLabel="Seleccione un Nivel" itemValue="" />  
-                <f:selectItem itemLabel="Parvularia" itemValue="1" />  
-                <f:selectItem itemLabel="Basica" itemValue="2" />  
-                <f:selectItem itemLabel="Media" itemValue="3" />  
-                <f:selectItem itemLabel="Nocturna" itemValue="4" />  
-            </p:selectOneMenu> 
-            <p:commandButton type="submit" id="Cargar" value="Cargar" icon="ui-icon-search" style="alignment-adjust: central" />
-
-        </h:panelGrid>
-        <h:form>  
-                  
-    <p:growl id="msg" showDetail="true" escape="false" />  
-  
-    <h3 style="margin-top:0">Basic PickList</h3> 
-    <h:panelGrid columns="2">
-        <p:pickList id="pickList" value="#{PickListBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city}"/>
-  
- <p:commandButton id="citySubmit" value="Submit" style="margin-top:5px"/> 
-    </h:panelGrid>
-</h:form>  
-        
+        <p:pickList id="listaGrados" value="#{asignarDocente.listaGradosDisponibles}" var="grado" itemValue="#{grado}" itemLabel="[#{grado.gradoPK.idPeriodoEscolar}] - #{grado.gradoPK.grado} #{grado.gradoPK.seccion}">
+            <p:ajax event="transfer" listener="#{asignarDocente.pisklist$handleTransfer}"/>
+        </p:pickList>
     </ui:define>
 </ui:composition>
 

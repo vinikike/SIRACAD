@@ -5,14 +5,17 @@
 package com.infosgroup.prueba.model.entities;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -31,36 +34,58 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Libro.findByPais", query = "SELECT l FROM Libro l WHERE l.pais = :pais"),
     @NamedQuery(name = "Libro.findByCantidad", query = "SELECT l FROM Libro l WHERE l.cantidad = :cantidad"),
     @NamedQuery(name = "Libro.findByIdPeriodoEscolar", query = "SELECT l FROM Libro l WHERE l.libroPK.idPeriodoEscolar = :idPeriodoEscolar"),
-    @NamedQuery(name = "Libro.findByCodigo", query = "SELECT l FROM Libro l WHERE l.libroPK.codigo = :codigo"),
+    @NamedQuery(name = "Libro.findByCodigoCorrelativo", query = "SELECT l FROM Libro l WHERE l.libroPK.codigoCorrelativo = :codigoCorrelativo"),
     @NamedQuery(name = "Libro.findByPrecio", query = "SELECT l FROM Libro l WHERE l.precio = :precio"),
-    @NamedQuery(name = "Libro.findByClave", query = "SELECT l FROM Libro l WHERE l.clave = :clave")})
+    @NamedQuery(name = "Libro.findByClave", query = "SELECT l FROM Libro l WHERE l.clave = :clave"),
+    @NamedQuery(name = "Libro.findByCodigoCatalogo", query = "SELECT l FROM Libro l WHERE l.libroPK.codigoCatalogo = :codigoCatalogo"),
+    @NamedQuery(name = "Libro.findByCodigoInstitucion", query = "SELECT l FROM Libro l WHERE l.libroPK.codigoInstitucion = :codigoInstitucion")})
 public class Libro implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected LibroPK libroPK;
-    @Size(max = 200)
-    @Column(name = "titulo", length = 200)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "titulo")
     private String titulo;
-    @Size(max = 200)
-    @Column(name = "autor", length = 200)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "autor")
     private String autor;
-    @Size(max = 200)
-    @Column(name = "editorial", length = 200)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "editorial")
     private String editorial;
-    @Size(max = 200)
-    @Column(name = "pais", length = 200)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "pais")
     private String pais;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "cantidad")
-    private Integer cantidad;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "precio", precision = 17, scale = 17)
-    private Double precio;
-    @Size(max = 5)
-    @Column(name = "clave", length = 5)
+    private int cantidad;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "precio")
+    private double precio;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "clave")
     private String clave;
-    @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "inicio")
+    private Integer inicio;
+    @Column(name = "fin")
+    private Integer fin;
+    @JoinColumns({
+        @JoinColumn(name = "id_periodo_escolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
+        @JoinColumn(name = "codigo_catalogo", referencedColumnName = "codigolibro", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
-    private PeriodoEscolar periodoEscolar;
+    private Catalogolibros catalogolibros;
 
     public Libro() {
     }
@@ -69,8 +94,19 @@ public class Libro implements Serializable {
         this.libroPK = libroPK;
     }
 
-    public Libro(int idPeriodoEscolar, String codigo) {
-        this.libroPK = new LibroPK(idPeriodoEscolar, codigo);
+    public Libro(LibroPK libroPK, String titulo, String autor, String editorial, String pais, int cantidad, double precio, String clave) {
+        this.libroPK = libroPK;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.editorial = editorial;
+        this.pais = pais;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.clave = clave;
+    }
+
+    public Libro(int idPeriodoEscolar, String codigoCorrelativo, String codigoCatalogo, String codigoInstitucion) {
+        this.libroPK = new LibroPK(idPeriodoEscolar, codigoCorrelativo, codigoCatalogo, codigoInstitucion);
     }
 
     public LibroPK getLibroPK() {
@@ -113,19 +149,19 @@ public class Libro implements Serializable {
         this.pais = pais;
     }
 
-    public Integer getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
-    public Double getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
@@ -137,12 +173,28 @@ public class Libro implements Serializable {
         this.clave = clave;
     }
 
-    public PeriodoEscolar getPeriodoEscolar() {
-        return periodoEscolar;
+    public Catalogolibros getCatalogolibros() {
+        return catalogolibros;
     }
 
-    public void setPeriodoEscolar(PeriodoEscolar periodoEscolar) {
-        this.periodoEscolar = periodoEscolar;
+    public void setCatalogolibros(Catalogolibros catalogolibros) {
+        this.catalogolibros = catalogolibros;
+    }
+
+    public Integer getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(Integer inicio) {
+        this.inicio = inicio;
+    }
+
+    public Integer getFin() {
+        return fin;
+    }
+
+    public void setFin(Integer fin) {
+        this.fin = fin;
     }
 
     @Override
@@ -169,5 +221,4 @@ public class Libro implements Serializable {
     public String toString() {
         return "com.infosgroup.prueba.model.entities.Libro[ libroPK=" + libroPK + " ]";
     }
-    
 }

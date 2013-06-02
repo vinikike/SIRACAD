@@ -13,10 +13,11 @@
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{ingresarUsusarios.guardarUsuario$action}" />  
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
                 <pe:resetInput for="@(#contenidoForm)"/>
-            </p:menuitem>           
+            </p:menuitem>
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
         </p:submenu>      
     </ui:define>
 
@@ -24,24 +25,20 @@
         <h2>Añadir Usuario de Sistema</h2>
         <h:panelGrid columns="2" cellspacing="10" width="62%">
             <h:outputLabel value="Nombre de Docente:" />
-            <p:selectOneMenu style="width: 300px" value="#{ingresarUsusarios.usuarios$nuevoUsuario}" converter="defaultDocenteConverter">
-                <p:ajax event="valueChange" update="contrasena"/>
+            <p:selectOneMenu style="width: 300px" value="#{ingresarUsusarios.usuario$docente}" valueChangeListener="#{ingresarUsusarios.usuario$valueChangeListener}">
+                <p:ajax event="valueChange" update="nombreUsuario"/>
                 <f:selectItems value="#{ingresarUsusarios.listaDocentes}" var="docente" itemValue="#{docente}" itemLabel="#{docente.nombre}" /> 
             </p:selectOneMenu>
-            
-<h:outputLabel value="Nombre de Usuario:" />
-<p:inputText id="nombreUsuario" size="15" maxlength="15" value="#{docente.id}" required="true" requiredMessage="Escribir la Descripcion del Taller" style="font-size: 13pt !important;" />
+
+            <h:outputLabel value="Nombre de Usuario:" />
+            <p:inputText id="nombreUsuario" size="15" maxlength="15" value="#{ingresarUsusarios.usuario$id}" required="Debe ingresar el Nombre del Usuario" style="font-size: 13pt !important;" />
 
             <h:outputLabel value="Contraseña:" />
-            <p:inputText id="contrasena" size="10" maxlength="10" value="#{docente.id}" required="true" requiredMessage="Escribir la Descripcion del Taller" style="font-size: 13pt !important;" />
+            <p:password id="contrasena" size="10" maxlength="10" value="#{ingresarUsusarios.usuario$contrasenia}" required="true" requiredMessage="Ingrese la contraseña" style="font-size: 13pt !important;" />
 
             <h:outputText value="Cargo: " />  
-            <p:selectOneMenu value="#{ingresarUsusarios.usuarios$cargo}">  
-                <f:selectItem itemLabel="Docente" itemValue="Docente" />  
-                <f:selectItem itemLabel="Director/a" itemValue="Direcion" />  
-                <f:selectItem itemLabel="Subdirector/a" itemValue="Subdireccion" />
-                <f:selectItem itemLabel="Secretaria" itemValue="Secretaria" />
-                <f:selectItem itemLabel="Biblioteca" itemValue="Biblioteca" />
+            <p:selectOneMenu value="#{ingresarUsusarios.usuario$rol}">  
+                <f:selectItems value="#{ingresarUsusarios.listaRol}" var="roles" itemValue="#{rol}" itemLabel="#{roles.id}" /> 
             </p:selectOneMenu>
         </h:panelGrid>
 

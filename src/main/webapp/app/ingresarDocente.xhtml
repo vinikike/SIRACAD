@@ -8,7 +8,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:define name="titulo">
-        <h:outputText value="Ingresar Docente"/>
+        <h:outputText value="Ingresar Personal"/>
     </ui:define>
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
@@ -17,29 +17,40 @@
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
                 <pe:resetInput for="@(#contenidoForm)"/>
             </p:menuitem>
+            <p:menuitem value="Consultar Planta Docente" action="consultarDocente?faces-redirect=true" icon="ui-icon-contact" />
             <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
         </p:submenu>      
     </ui:define>
     <ui:define name="contenido">
         <h2 align="center">Añadir Nuevo Docente</h2>
         <h:panelGrid columns="2" cellspacing="15">
+            <h:outputLabel value="Ingresar:" />
+            <p:selectOneRadio id="TipoPersonal" value="#{ingresarDocente.docente$tipoPersonal}" required="true" requiredMessage="Seleccione el tipo de personal a ingresar">  
+                <p:ajax event="valueChange" update="nipDocente NivelEscalafon especialidad"/>
+                <f:selectItem itemLabel="Docente" itemValue="Docente" />  
+                <f:selectItem itemLabel="Administrativo" itemValue="Administrativo" />  
+            </p:selectOneRadio>  
+
             <h:outputLabel value="DUI:" />
-            <p:inputText id="duiDocente" value="#{ingresarDocente.docente$DUI}" size="7" maxlength="9" required="true" requiredMessage="Escribir el DUI del Docente" style="font-size: 13pt !important;" />
+            <p:inputText id="duiDocente" value="#{ingresarDocente.docente$DUI}" size="7" maxlength="9" required="true" requiredMessage="Escribir el DUI" style="font-size: 13pt !important;" />
 
             <h:outputLabel value="NIP:  " />
-            <p:inputText id="nipDocente" value="#{ingresarDocente.docente$NIP}" size="5" maxlength="7" required="true" requiredMessage="Escribir NIP del Docente" style="font-size: 13pt !important;" />
+            <p:inputText id="nipDocente" value="#{ingresarDocente.docente$NIP}" disabled="#{ingresarDocente.docente$tipoPersonal  ne 'Docente'}" size="5" maxlength="7" required="true" requiredMessage="Escribir NIP del Docente" style="font-size: 13pt !important;" />
 
             <h:outputLabel value="Nombre:  " />
-            <p:inputText id="nombreDocente" value="#{ingresarDocente.docente$nombre}" size="50" required="true" requiredMessage="Escribir el nombre completo del Docente" />
+            <p:inputText id="nombreDocente" value="#{ingresarDocente.docente$nombre}" size="50" required="true" requiredMessage="Escribir el nombre completo" />
+            
+            <h:outputLabel value="Usuario:  " />
+            <p:inputText id="nUsuario" value="#{ingresarDocente.docente$ID}" size="10" required="true" requiredMessage="Escribir el Identificador para el Usuario" style="font-size: 13pt !important;" />
 
             <h:outputText value="Nivel Escalafonario:" />  
-            <p:selectOneRadio id="NivelEscalafon" value="#{ingresarDocente.docente$nivelEscalafon}" layout="pageDirection" required="true" requiredMessage="Seleccione el Nivel de Escalafon">  
+            <p:selectOneRadio id="NivelEscalafon" value="#{ingresarDocente.docente$nivelEscalafon}" disabled="#{ingresarDocente.docente$tipoPersonal  ne 'Docente'}" layout="pageDirection" required="true" requiredMessage="Seleccione el Nivel de Escalafon">  
                 <f:selectItem itemLabel="N1" itemValue="N1" />  
                 <f:selectItem itemLabel="N2" itemValue="N2" />  
             </p:selectOneRadio>      
 
             <h:outputLabel value="Especilaidad:" />
-            <p:inputText id="especialidad" value="#{ingresarDocente.docente$especialidad}" size="50" required="true" requiredMessage="Escribir la especialidad del Docente" />
+            <p:inputText id="especialidad" value="#{ingresarDocente.docente$especialidad}" disabled="#{ingresarDocente.docente$tipoPersonal  ne 'Docente'}" size="50" required="true" requiredMessage="Escribir la especialidad del Docente" />
 
             <h:outputLabel value="Jornada en que Labora:" />
             <p:selectManyCheckbox id="jornada" value="#{ingresarDocente.docente$jornada}" required="true" requiredMessage="Debe seleccionar por lo menos un turno" >  
@@ -49,36 +60,18 @@
             </p:selectManyCheckbox>  
 
             <h:outputLabel value="Dirección:" />
-            <p:inputText id="Direccion" value="#{ingresarDocente.docente$direccion}" size="80" required="true" requiredMessage="Escribir la Direccion del Docente" />
+            <p:inputText id="Direccion" value="#{ingresarDocente.docente$direccion}" size="80" required="true" requiredMessage="Escribir la Direcci&oacute;n" />
 
             <h:outputLabel value="Telefono:  " />
-            <p:inputText id="telefono" value="#{ingresarDocente.docente$telefono}" size="7" maxlength="8" required="true" requiredMessage="Ingrese el Telefono del Docente" />
+            <p:inputText id="telefono" value="#{ingresarDocente.docente$telefono}" size="7" maxlength="8" required="true" requiredMessage="Ingrese el Telefono" />
 
             <h:outputLabel value="Telefono Movil:  " />
-            <p:inputText id="telefonomovil" value="#{ingresarDocente.docente$telefonoMovil}" size="7" maxlength="8" required="true" requiredMessage="Escriba el Celular del Docente" />
+            <p:inputText id="telefonomovil" value="#{ingresarDocente.docente$telefonoMovil}" size="7" maxlength="8" required="true" requiredMessage="Escriba el Celular" />
         </h:panelGrid>
 
         <pe:keyFilter for="duiDocente" mask="int"/>
         <pe:keyFilter for="telefono" mask="int"/>
         <pe:keyFilter for="telefonomovil" mask="int"/>
-
-        <h2 align="center">Planta Docente</h2>
-        
-        <p:dataTable value="#{ingresarDocente.listaDocentes}" var="docente">
-            <p:column headerText="NIP" filterMatchMode="contains">
-                <h:outputText value="#{docente.docenteNip}"/>
-            </p:column>
-            <p:column headerText="Nombre" filterMatchMode="contains">
-                <h:outputText value="#{docente.nombre}"/>
-            </p:column>
-            <p:column headerText="Especialidad" filterMatchMode="contains">
-                <h:outputText value="#{docente.especialidad}"/>
-            </p:column>                
-            <p:column headerText="Jornada" filterMatchMode="contains">
-                <h:outputText value="#{docente.jornadas}"/>
-            </p:column>
-        </p:dataTable>  
-
     </ui:define>
 </ui:composition>
 

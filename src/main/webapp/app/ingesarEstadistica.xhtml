@@ -24,7 +24,7 @@
     <ui:define name="contenido">
         <h1 align="center">Informe Estadistico</h1>
         <h2 align="center">Complejo Educativo Dr. Victoriano Rodriguez</h2>
-        <center style="font-weight: bold;">
+      <!--  <center style="font-weight: bold;">
             <h:panelGrid columns="1" cellpadding="0" cellspacing="5">
                 <h:outputLabel value="Informe Estadistico del mes de: " />
             </h:panelGrid>
@@ -35,12 +35,35 @@
                 <h:outputLabel value="Año: ___________" />  
             </h:panelGrid>
 
-            <h:panelGrid columns="1" cellpadding="0" cellspacing="5" style="text-align: center">
-                <h:outputLabel value="Profesor/a: ___________________________________________________________________" />
-                <h:outputLabel value="  " />
+            <h:panelGrid columns="2" cellpadding="0" cellspacing="5" style="text-align: center">
+                <h:outputLabel value="Profesor/a: " />
+                <h:outputLabel value="# {ingresarEstadistica.docente$nombre}" />
             </h:panelGrid>
 
-        </center>
+        </center> -->
+      <table border="0" align="center" style="font-size: 10.5pt;">
+          <tr align="left" style="font-size: 10.5pt;">
+                <td>
+                    <h:outputLabel value="Informe Estadistico del mes de: " />
+                </td>
+            </tr>
+            <tr align="left">
+                <td>
+                    <h:outputLabel value="Grado: _____________________" />
+                    <h:outputLabel value="Seccion: _________________" />
+                    <h:outputLabel value="Año: ___________" />  
+                </td>
+            </tr>
+            <tr align="left">
+                <td>
+                    <h:outputLabel value="Profesor/a: " />
+                    <h:outputLabel value="#{ingresarEstadistica.docente$nombre}" />
+                </td>
+            </tr>
+            <tr align="center">
+                <td>&nbsp;</td>
+            </tr>
+        </table>
         <table border="1" align="center" rules="rows" style="border-collapse:collapse; border-color:#9CC2E5;">
             <tr align="center" style="font-size: 12pt;" bgcolor="#5B9BD5">
                 <td width="300">Aspectos</td>

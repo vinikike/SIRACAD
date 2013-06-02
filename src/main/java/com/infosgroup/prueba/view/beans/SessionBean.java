@@ -13,15 +13,17 @@ import com.infosgroup.prueba.view.AbstractJSFBean;
 import java.io.Serializable;
 import java.util.Date;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import org.primefaces.model.DefaultMenuModel;
 
 /**
  *
  * @author root
  */
-@ManagedBean(name = "SessionBean")
+//@ManagedBean(name = "SessionBean")
+//@Stateless
+@Named(value = "SessionBean")
 @SessionScoped
 public class SessionBean extends AbstractJSFBean implements Serializable {
 

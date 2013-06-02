@@ -5,17 +5,22 @@
 package com.infosgroup.prueba.view;
 
 import com.infosgroup.prueba.model.entities.Catalogolibros;
+import com.infosgroup.prueba.model.entities.CatalogolibrosPK;
 import com.infosgroup.prueba.model.entities.Libro;
 import com.infosgroup.prueba.model.entities.LibroPK;
 import com.infosgroup.prueba.model.facades.CaltalogoLibrosFacade;
-import com.infosgroup.prueba.model.facades.InventarioDeLibrosFacade;
+import com.infosgroup.prueba.model.facades.LibroFacade;
+import com.infosgroup.prueba.view.beans.SessionBean;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
+import javax.inject.Inject;
 
 /**
  *
@@ -26,10 +31,13 @@ import javax.faces.bean.ViewScoped;
 public class IngresoDeLibrosManagedBean extends AbstractJSFBean implements Serializable {
 
     @EJB
-    private transient CaltalogoLibrosFacade caltalogoLibrosFacade;
+    private transient CaltalogoLibrosFacade catalogoLibrosFacade;
     @EJB
-    private transient InventarioDeLibrosFacade librosFacade;
-    
+    private transient LibroFacade libroFacade;
+    //-----------------------------------------------------------------
+    @Inject
+    private SessionBean sessionBean;
+    //-----------------------------------------------------------------
     private Integer grado$periodo_Escolar;
     private String libro$codigo;
     private Integer libro$cantidad;
@@ -37,14 +45,16 @@ public class IngresoDeLibrosManagedBean extends AbstractJSFBean implements Seria
     private String libro$autor;
     private String libro$editorial;
     private String libro$edicion;
-    private Catalogolibros libro$tipo;
+    private Catalogolibros libro$codigoCatalogo;
     private String libro$pais;
     private String libro$clave;
     private String libro$tipoAdquisicion;
     private Double libro$precio;
     private List<Catalogolibros> listaCatalogoLibros;
-
+    private Integer libro$inicio;
+    private Integer libro$fin;
 //--gets y sets-----------------------------------------------------------------
+
     public Integer getGrado$periodo_Escolar() {
         return grado$periodo_Escolar;
     }
@@ -101,12 +111,12 @@ public class IngresoDeLibrosManagedBean extends AbstractJSFBean implements Seria
         this.libro$edicion = libro$edicion;
     }
 
-    public Catalogolibros getLibro$tipo() {
-        return libro$tipo;
+    public Catalogolibros getLibro$codigoCatalogo() {
+        return libro$codigoCatalogo;
     }
 
-    public void setLibro$tipo(Catalogolibros libro$tipo) {
-        this.libro$tipo = libro$tipo;
+    public void setLibro$codigoCatalogo(Catalogolibros libro$codigoCatalogo) {
+        this.libro$codigoCatalogo = libro$codigoCatalogo;
     }
 
     public String getLibro$pais() {
@@ -149,39 +159,81 @@ public class IngresoDeLibrosManagedBean extends AbstractJSFBean implements Seria
         this.listaCatalogoLibros = listaCatalogoLibros;
     }
 
+    public Integer getLibro$inicio() {
+        return libro$inicio;
+    }
+
+    public void setLibro$inicio(Integer libro$inicio) {
+        this.libro$inicio = libro$inicio;
+    }
+
+    public Integer getLibro$fin() {
+        return libro$fin;
+    }
+
+    public void setLibro$fin(Integer libro$fin) {
+        this.libro$fin = libro$fin;
+    }
+
 //------------------------------------------------------------------------------
     @PostConstruct
     @Override
     public void _init() {
         super._init();
-        libro$cantidad = 1;
+        libro$cantidad = 0;
+        libro$inicio = 0;
         libro$tipoAdquisicion = "Donacion";
         libro$precio = 0.0;
-        listaCatalogoLibros = caltalogoLibrosFacade.findAll();
-
+        listaCatalogoLibros = catalogoLibrosFacade.findAll();
     }
 
     public String guardarLibro$action() {
-        Libro libroBuscar = new Libro(2013, libro$codigo);
-        if (libroBuscar != null) {
-            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe registro del Libro");
-            return null;
-        }
-        
-        LibroPK libroPK = new LibroPK();
-        libroPK.setIdPeriodoEscolar(2013);
-        libroPK.setCodigo("12429-"+libro$tipo.getCatalogolibrosPK().getCodigolibro()+"");
-        
-        Libro libro = new Libro();
-        libro.setLibroPK(libroPK);
-        libro.setTitulo(libro$titulo);
-        libro.setAutor(libro$autor);
-        libro.setEditorial(libro$editorial);
-        libro.setPais(libro$pais);
-        libro.setPrecio(libro$precio);
-        libro.setCantidad(libro$cantidad);
-        libro.setClave(libro$clave);
-        return null;
+//        Long ultimoLibro = libroFacade.cantidadLibros(libro$tipo);
+//        Libro libroBuscar = new Libro(2013, "" + ultimoLibro, libro$tipo.getCatalogolibrosPK().getCodigolibro());
+//        if (libroBuscar != null) {
+//            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe registro del Libro");
+//            return null;
+//        }
+        try {
+            libro$codigo = new StringBuilder().append(libro$inicio).append("/").append(libro$fin).toString();
 
+            LibroPK libroPK = new LibroPK();
+            libroPK.setIdPeriodoEscolar(sessionBean.getPeriodoEscolar().getId());
+            libroPK.setCodigoInstitucion(sessionBean.getCompania().getCodigo());
+            libroPK.setCodigoCatalogo(libro$codigoCatalogo.getCatalogolibrosPK().getCodigolibro());
+            libroPK.setCodigoCorrelativo(libro$codigo);
+
+            Libro libro = new Libro();
+            libro.setLibroPK(libroPK);
+            libro.setTitulo(libro$titulo);
+            libro.setAutor(libro$autor);
+            libro.setEditorial(libro$editorial);
+            libro.setPais(libro$pais);
+            libro.setPrecio(libro$precio);
+            libro.setCantidad(libro$cantidad);
+            libro.setClave(libro$clave);
+            libro.setCatalogolibros(libro$codigoCatalogo);
+            libro.setInicio(libro$inicio);
+            libro.setFin(libro$fin);
+
+            libroFacade.create(libro);
+            mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "");
+        } catch (Exception excpt) {
+            mostrarMensajeJSF(FacesMessage.SEVERITY_ERROR, "");
+            logger.log(Level.SEVERE, null, excpt);
+        }
+        return null;
+    }
+    
+    public void categoria$valueChangeListener(ValueChangeEvent evt)
+    {
+        Catalogolibros c = (Catalogolibros) evt.getNewValue();
+        libro$inicio = (c == null) ? 0 : libroFacade.cantidadLibros(sessionBean.getPeriodoEscolar(), sessionBean.getCompania(), c);
+    }
+    
+    public void cantidad$valueChangeListener(ValueChangeEvent evt)
+    {
+        Integer n = (Integer) evt.getNewValue();
+        libro$fin = libro$inicio + n;
     }
 }

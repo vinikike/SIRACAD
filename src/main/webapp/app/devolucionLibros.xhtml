@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:define name="titulo">
+        <h:outputText value="Devoluci&oacute;n de Libros"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+            <p:menuitem value="Busqueda" action="buscarLibro?faces-redirect=true" icon="ui-icon-search" />
+            <p:menuitem value="Ingresar Nuevo" action="ingresarLibroBiblioteca?faces-redirect=true" icon="ui-icon-copy" />
+            <p:menuitem value="Catalogo" action="catalogoLibros?faces-redirect=true" icon="ui-icon-note" />
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
+                <pe:resetInput for="@(#contenidoForm)"/>
+            </p:menuitem>
+
+        </p:submenu>      
+    </ui:define>
+
+    <ui:define name="contenido">
+        <h2 align="center">Ingresar libros al inventario</h2>
+        <p:dataTable id="devolucion" value="#{devolucionLibrosManagedBean.listaPrestamolibros}" var="busquedaLibro">
+            <p:column headerText="Titulo" style="width: 200px;">
+                <h:outputText value="#{busquedaLibro.nombrelibro}"/>
+            </p:column>
+            <p:column headerText="Cantidad" style="width: 50px;">
+                <h:outputText value="#{busquedaLibro.cantidad}"/>
+            </p:column>
+            <p:column headerText="Prestamista"  style="width: 200px;">
+                <h:outputText value="#{busquedaLibro.nombre}"/>
+            </p:column>
+            <p:column headerText="Tipo"  style="width: 50px;">
+                <h:outputText value="#{busquedaLibro.tipopresona}"/>
+            </p:column>
+            <p:column headerText="Fecha de Prestamo"  style="width: 30px;">
+                <h:outputText value="#{busquedaLibro.fechaprestamo}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" type="date"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Estado" style="width: 50px;">
+                <p:commandButton value="Devoluci&oacute;n" action="#{devolucionLibrosManagedBean.devolverLibro$action}" update="devolucion">
+                    <f:setPropertyActionListener value="#{busquedaLibro}" target="#{devolucionLibrosManagedBean.prestamoLibroSeleccionado}"/>
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+
+    </ui:define>
+</ui:composition>
+

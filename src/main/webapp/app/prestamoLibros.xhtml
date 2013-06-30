@@ -13,7 +13,7 @@
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Realizar Prestamo" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{prestamoLibrosManagedBean.prestarLibro$action}"/>
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
                 <pe:resetInput for="@(#contenidoForm)"/>
             </p:menuitem>
@@ -22,48 +22,45 @@
     </ui:define>
 
     <ui:define name="contenido">
-
-        <h:panelGrid columns="2" cellspacing="10">
-            <h:outputText value="Realizado Por: " />  
-            <p:selectOneRadio id="options" value="#{formBean.number}">  
-                <f:selectItem itemLabel="Docente" itemValue="1" />  
-                <f:selectItem itemLabel="Estudiantes" itemValue="2" />  
-            </p:selectOneRadio>  
+        <h2 align="center">Prestamos y Devoluciones</h2>
+        <h:panelGrid columns="2" cellspacing="15"> 
+            <h:outputLabel value="Nombre del Libro:" />
+            <p:inputText id="nombrelibro" value="#{prestamoLibrosManagedBean.prestamo$nombreLibro}" size="60" readonly="true" required="true" requiredMessage="El nombre del libro no puede quedar vacio" />
         </h:panelGrid>
 
-        <h:panelGrid columns="2" cellspacing="10">         
-            <h:outputLabel value="Nombre:  " />
-            <p:inputText id="nombrePrestamo" size="80" required="true"  requiredMessage="Escribir la Descripcion del Taller" />
-        </h:panelGrid>    
+            <p:tab title="Datos del Préstamo">
+                <h:panelGrid columns="2" cellspacing="15">         
+                    <h:outputLabel value="Nombre de Usuario:" />
+                    <p:inputText id="nombrePrestamo" value="#{prestamoLibrosManagedBean.prestamo$nombrePrestamista}" size="60" required="true"  requiredMessage="Ingresa el nombre del Estudiante/Docente" />
+                    
+                    <h:outputText value="Realizado Por:" />  
+                    <p:selectOneRadio id="options" value="#{prestamoLibrosManagedBean.prestamo$tipoPrestamista}">  
+                        <f:selectItem itemLabel="Estudiante" itemValue="Estudiante" />  
+                        <f:selectItem itemLabel="Docente" itemValue="Docente" />
+                        <p:ajax event="valueChange" update="grado"/>
+                    </p:selectOneRadio>  
+                </h:panelGrid>
+                
+                <h:panelGrid columns="6" cellspacing="15">            
+                    <h:outputLabel value="Grado:" />
+                    <p:selectOneMenu id="grado" disabled="#{prestamoLibrosManagedBean.prestamo$tipoPrestamista eq 'Docente'}" value="# {listaGradosDisponibles}" valueChangeListener="# {listaGradosDisponibles.grado$valueChangeListener}" required="true" requiredMessage="Seleccione el grado del estudiante" style="width: 150px">
+                    </p:selectOneMenu>
 
-        <h:panelGrid columns="4" cellspacing="10">            
-            <h:outputLabel value="Grado:   " />
-            <p:inputText id="grado" size="20" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+                    <h:outputLabel value="Codigo:" />
+                    <p:inputText id="codigo" size="10" value="#{prestamoLibrosManagedBean.prestamo$codigo}" required="true"  requiredMessage="Escribir el codigo" />
 
-            <h:outputLabel value="Codigo:  " />
-            <p:inputText id="codigo" size="10" required="true"  requiredMessage="Escribir la Descripcion del Taller" />
-        </h:panelGrid> 
+                    <h:outputLabel value="Cantidad:" />
+                    <p:spinner id="cantidadPrestamolibro" value="#{prestamoLibrosManagedBean.prestamo$cantidadLibro}" min="1" size="3" required="true"  requiredMessage="Ingresar la cantidad de libros" />
+                </h:panelGrid> 
 
-        <h:panelGrid columns="2" cellspacing="10">         
-            <h:outputLabel value="Nombre del Libro:  " />
-            <p:inputTextarea id="NombreLibro" cols="50" rows="5" required="true" requiredMessage="Escribir la Descripcion del Taller" />
-        </h:panelGrid>   
-
-        <h:panelGrid columns="2" cellspacing="10">         
-            <h:outputLabel value="Cantidad de Libros:  " />
-            <p:inputText id="cantidadPrestamolibro" size="2" required="true"  requiredMessage="Escribir la Descripcion del Taller" />
-        </h:panelGrid> 
-
-        <h:panelGrid columns="2" cellspacing="10">            
-            <h:outputLabel value="Fecha de salida (Libro):   " />
-            <p:calendar mode="inline" />
-            <h:outputText value="" />  
-        </h:panelGrid>  
-        <h:panelGrid columns="2" cellspacing="10">              
-            <h:outputLabel value="Fecha de entrada (Libro):  " />
-            <p:calendar mode="inline" />
-            <h:outputText value="" />     
-        </h:panelGrid>  
+                <h:panelGrid columns="4" cellspacing="15">            
+                    <h:outputLabel value="Fecha de préstamo:" />
+                    <p:calendar showOn="button" value="#{prestamoLibrosManagedBean.prestamo$fechaPrestamo}" pattern="dd/MM/yyyy" navigator="true" required="true" requiredMessage="Seleccione la fecha de Prestamo" />                    
+ 
+                    <h:outputLabel value="Fecha de devolucion:" />
+                    <p:calendar showOn="button" value="#{prestamoLibrosManagedBean.prestamo$fechaDevolucion}" pattern="dd/MM/yyyy" navigator="true" required="true" requiredMessage="Seleccione la fecha de Devoluci&oacute;n" />                      
+                </h:panelGrid>  
+            </p:tab>
 
     </ui:define>
 </ui:composition>

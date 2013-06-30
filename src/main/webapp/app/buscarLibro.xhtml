@@ -11,12 +11,11 @@
     </ui:define>
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
-        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
-            <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
-            <pe:resetInput for="@(#contenidoForm)"/>
-            </p:menuitem>
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel"> 
             <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
+                <pe:resetInput for="@(#contenidoForm)"/>
+            </p:menuitem>
         </p:submenu>      
     </ui:define>
     <ui:define name="contenido">
@@ -25,11 +24,9 @@
             <tr>
                 <td align="center">
                     <h:panelGrid columns="1">
-                        <p:selectOneRadio>
-                            <f:selectItem itemLabel="Todos" escapeItem="true"/>
-                            <f:selectItem itemLabel="Titulo"/>
-                            <f:selectItem itemLabel="Autor"/>
-                            <f:selectItem itemLabel="Palabra Clave"/>
+                        <p:selectOneRadio value="#{buscarLibroManagedBean.busqueda$tipo}">
+                            <f:selectItem itemLabel="Titulo" itemValue="Titulo" escapeItem="true"/>
+                            <f:selectItem itemLabel="Autor" itemValue="Autor"/>
                         </p:selectOneRadio>
                     </h:panelGrid>
                 </td>
@@ -37,15 +34,14 @@
 
             <tr>
                 <td align="center">
-                    <p:inputText id="busqueda" size="50" />
+                    <p:inputText id="busqueda" value="#{buscarLibroManagedBean.busqueda$libroAutor}" required="true" requiredMessage="Introduzca un elemento de busqueda" size="50" />
                 </td>
             </tr>
 
             <tr>
                 <td align="center">
                     <h:panelGrid columns="2">
-                        <p:commandButton id="Aceptar" value="Aceptar" icon="ui-icon-circle-check"/>
-                        <p:commandButton id="Cancelar" value="Cancelar" icon="ui-icon-circle-close"/>
+                        <p:commandButton id="Aceptar" value="Buscar" actionListener="#{buscarLibroManagedBean.BuscarLibroAutor$action}" process="@(form)" update="@(form)" icon="ui-icon-circle-check"/>
                     </h:panelGrid>
                 </td>
             </tr>
@@ -53,24 +49,26 @@
 
         <h2 align="center">Resultados de la Busqueda</h2>
 
-        <p:dataTable value="tttttttttttt" var="dato">
-            <p:column headerText="Codigo">
-                <h:outputText value="304-001-005"/>
-            </p:column>
+        <p:dataTable  value="#{buscarLibroManagedBean.listaLibros}" var="busquedaLibro">
             <p:column headerText="Titulo">
-                <h:outputText value="Contabilidad Financiera I"/>
+                <h:outputText value="#{busquedaLibro.titulo}"/>
             </p:column>
             <p:column headerText="Autor">
-                <h:outputText value="MCS Jose Noel Argueta"/>
+                <h:outputText value="#{busquedaLibro.autor}"/>
             </p:column>
             <p:column headerText="Editorial">
-                <h:outputText value="Independiente"/>
+                <h:outputText value="#{busquedaLibro.editorial}"/>
             </p:column>
             <p:column headerText="Pais">
-                <h:outputText value="El Salvador"/>
+                <h:outputText value="#{busquedaLibro.pais}"/>
             </p:column>
-            <p:column headerText="Ejemplares">
-                <h:outputText value="5"/>
+            <p:column headerText="Ejemplares" style="width: 75px; text-align: center">
+                <h:outputText value="#{busquedaLibro.cantidad}"/>
+            </p:column>
+            <p:column headerText="Prestamo" style="width: 50px;">
+                <p:commandButton value="Prestar" action="prestamoLibros?faces-redirect=true" immediate="true" >
+                    <f:setPropertyActionListener value="#{busquedaLibro}" target="#{SessionBean.bibliotecaSeleccionada}"/>
+                </p:commandButton>
             </p:column>
         </p:dataTable>
 

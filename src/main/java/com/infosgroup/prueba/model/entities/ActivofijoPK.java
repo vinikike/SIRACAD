@@ -20,71 +20,72 @@ public class ActivofijoPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
-    @Column(name = "codigo_institucion")
-    private String codigoInstitucion;
+    @Column(name = "codigoinstitucion")
+    private String codigoinstitucion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idperiodoescolar")
+    private int idperiodoescolar;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
-    @Column(name = "id_periodod_escolar")
-    private String idPeriododEscolar;
+    @Column(name = "codigocatalogo")
+    private String codigocatalogo;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "codigo_catalogo")
-    private int codigoCatalogo;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "codigo_correlativo")
-    private int codigoCorrelativo;
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "codigocorrelativo")
+    private String codigocorrelativo;
 
     public ActivofijoPK() {
     }
 
-    public ActivofijoPK(String codigoInstitucion, String idPeriododEscolar, int codigoCatalogo, int codigoCorrelativo) {
-        this.codigoInstitucion = codigoInstitucion;
-        this.idPeriododEscolar = idPeriododEscolar;
-        this.codigoCatalogo = codigoCatalogo;
-        this.codigoCorrelativo = codigoCorrelativo;
+    public ActivofijoPK(String codigoinstitucion, int idperiodoescolar, String codigocatalogo, String codigocorrelativo) {
+        this.codigoinstitucion = codigoinstitucion;
+        this.idperiodoescolar = idperiodoescolar;
+        this.codigocatalogo = codigocatalogo;
+        this.codigocorrelativo = codigocorrelativo;
     }
 
-    public String getCodigoInstitucion() {
-        return codigoInstitucion;
+    public String getCodigoinstitucion() {
+        return codigoinstitucion;
     }
 
-    public void setCodigoInstitucion(String codigoInstitucion) {
-        this.codigoInstitucion = codigoInstitucion;
+    public void setCodigoinstitucion(String codigoinstitucion) {
+        this.codigoinstitucion = codigoinstitucion;
     }
 
-    public String getIdPeriododEscolar() {
-        return idPeriododEscolar;
+    public int getIdperiodoescolar() {
+        return idperiodoescolar;
     }
 
-    public void setIdPeriododEscolar(String idPeriododEscolar) {
-        this.idPeriododEscolar = idPeriododEscolar;
+    public void setIdperiodoescolar(int idperiodoescolar) {
+        this.idperiodoescolar = idperiodoescolar;
     }
 
-    public int getCodigoCatalogo() {
-        return codigoCatalogo;
+    public String getCodigocatalogo() {
+        return codigocatalogo;
     }
 
-    public void setCodigoCatalogo(int codigoCatalogo) {
-        this.codigoCatalogo = codigoCatalogo;
+    public void setCodigocatalogo(String codigocatalogo) {
+        this.codigocatalogo = codigocatalogo;
     }
 
-    public int getCodigoCorrelativo() {
-        return codigoCorrelativo;
+    public String getCodigocorrelativo() {
+        return codigocorrelativo;
     }
 
-    public void setCodigoCorrelativo(int codigoCorrelativo) {
-        this.codigoCorrelativo = codigoCorrelativo;
+    public void setCodigocorrelativo(String codigocorrelativo) {
+        this.codigocorrelativo = codigocorrelativo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigoInstitucion != null ? codigoInstitucion.hashCode() : 0);
-        hash += (idPeriododEscolar != null ? idPeriododEscolar.hashCode() : 0);
-        hash += (int) codigoCatalogo;
-        hash += (int) codigoCorrelativo;
+        hash += (codigoinstitucion != null ? codigoinstitucion.hashCode() : 0);
+        hash += (int) idperiodoescolar;
+        hash += (codigocatalogo != null ? codigocatalogo.hashCode() : 0);
+        hash += (codigocorrelativo != null ? codigocorrelativo.hashCode() : 0);
         return hash;
     }
 
@@ -95,16 +96,16 @@ public class ActivofijoPK implements Serializable {
             return false;
         }
         ActivofijoPK other = (ActivofijoPK) object;
-        if ((this.codigoInstitucion == null && other.codigoInstitucion != null) || (this.codigoInstitucion != null && !this.codigoInstitucion.equals(other.codigoInstitucion))) {
+        if ((this.codigoinstitucion == null && other.codigoinstitucion != null) || (this.codigoinstitucion != null && !this.codigoinstitucion.equals(other.codigoinstitucion))) {
             return false;
         }
-        if ((this.idPeriododEscolar == null && other.idPeriododEscolar != null) || (this.idPeriododEscolar != null && !this.idPeriododEscolar.equals(other.idPeriododEscolar))) {
+        if (this.idperiodoescolar != other.idperiodoescolar) {
             return false;
         }
-        if (this.codigoCatalogo != other.codigoCatalogo) {
+        if ((this.codigocatalogo == null && other.codigocatalogo != null) || (this.codigocatalogo != null && !this.codigocatalogo.equals(other.codigocatalogo))) {
             return false;
         }
-        if (this.codigoCorrelativo != other.codigoCorrelativo) {
+        if ((this.codigocorrelativo == null && other.codigocorrelativo != null) || (this.codigocorrelativo != null && !this.codigocorrelativo.equals(other.codigocorrelativo))) {
             return false;
         }
         return true;
@@ -112,7 +113,7 @@ public class ActivofijoPK implements Serializable {
 
     @Override
     public String toString() {
-        return "com.infosgroup.prueba.model.entities.ActivofijoPK[ codigoInstitucion=" + codigoInstitucion + ", idPeriododEscolar=" + idPeriododEscolar + ", codigoCatalogo=" + codigoCatalogo + ", codigoCorrelativo=" + codigoCorrelativo + " ]";
+        return "com.infosgroup.prueba.model.entities.ActivofijoPK[ codigoinstitucion=" + codigoinstitucion + ", idperiodoescolar=" + idperiodoescolar + ", codigocatalogo=" + codigocatalogo + ", codigocorrelativo=" + codigocorrelativo + " ]";
     }
     
 }

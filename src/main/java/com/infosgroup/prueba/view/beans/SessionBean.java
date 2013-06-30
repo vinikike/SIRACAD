@@ -5,6 +5,7 @@
 package com.infosgroup.prueba.view.beans;
 
 import com.infosgroup.prueba.model.entities.Alumno;
+import com.infosgroup.prueba.model.entities.Biblioteca;
 import com.infosgroup.prueba.model.entities.Compania;
 import com.infosgroup.prueba.model.entities.PeriodoEscolar;
 import com.infosgroup.prueba.model.entities.Rol;
@@ -147,5 +148,14 @@ public class SessionBean extends AbstractJSFBean implements Serializable {
 
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
+    }
+    private Biblioteca bibliotecaSeleccionada;
+
+    public Biblioteca getBibliotecaSeleccionada() {
+        return bibliotecaSeleccionada;
+    }
+
+    public void setBibliotecaSeleccionada(Biblioteca bibliotecaSeleccionada) {
+        this.bibliotecaSeleccionada = bibliotecaSeleccionada;
     }
 }

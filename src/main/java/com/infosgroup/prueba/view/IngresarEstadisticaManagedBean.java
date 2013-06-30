@@ -299,7 +299,7 @@ public class IngresarEstadisticaManagedBean extends AbstractJSFBean implements S
     }
 
     public String guardarEstadistica$action() {
-
+//revisarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
         Estadistica estadisticaBuscar = new Estadistica(2013, grado$nivel, grado$nivel, grado$opcion, grado$seccion);
         if (estadisticaBuscar != null) {
             mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe registro estadistico de este mes");

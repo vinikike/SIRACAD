@@ -6,16 +6,17 @@ package com.infosgroup.prueba.model.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -28,59 +29,55 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Activofijo.findAll", query = "SELECT a FROM Activofijo a"),
-    @NamedQuery(name = "Activofijo.findByTipoCargo", query = "SELECT a FROM Activofijo a WHERE a.tipoCargo = :tipoCargo"),
-    @NamedQuery(name = "Activofijo.findByCodigoInstitucion", query = "SELECT a FROM Activofijo a WHERE a.activofijoPK.codigoInstitucion = :codigoInstitucion"),
-    @NamedQuery(name = "Activofijo.findByCaracteristica", query = "SELECT a FROM Activofijo a WHERE a.caracteristica = :caracteristica"),
-    @NamedQuery(name = "Activofijo.findByEstadoFisico", query = "SELECT a FROM Activofijo a WHERE a.estadoFisico = :estadoFisico"),
-    @NamedQuery(name = "Activofijo.findByFechaAquision", query = "SELECT a FROM Activofijo a WHERE a.fechaAquision = :fechaAquision"),
-    @NamedQuery(name = "Activofijo.findByValorUnitario", query = "SELECT a FROM Activofijo a WHERE a.valorUnitario = :valorUnitario"),
+    @NamedQuery(name = "Activofijo.findByTipocargo", query = "SELECT a FROM Activofijo a WHERE a.tipocargo = :tipocargo"),
+    @NamedQuery(name = "Activofijo.findByCodigoinstitucion", query = "SELECT a FROM Activofijo a WHERE a.activofijoPK.codigoinstitucion = :codigoinstitucion"),
+    @NamedQuery(name = "Activofijo.findByCaracteristicas", query = "SELECT a FROM Activofijo a WHERE a.caracteristicas = :caracteristicas"),
+    @NamedQuery(name = "Activofijo.findByEstadofisico", query = "SELECT a FROM Activofijo a WHERE a.estadofisico = :estadofisico"),
+    @NamedQuery(name = "Activofijo.findByFechaaquision", query = "SELECT a FROM Activofijo a WHERE a.fechaaquision = :fechaaquision"),
+    @NamedQuery(name = "Activofijo.findByValorunitario", query = "SELECT a FROM Activofijo a WHERE a.valorunitario = :valorunitario"),
     @NamedQuery(name = "Activofijo.findByCantidad", query = "SELECT a FROM Activofijo a WHERE a.cantidad = :cantidad"),
-    @NamedQuery(name = "Activofijo.findByValorTotal", query = "SELECT a FROM Activofijo a WHERE a.valorTotal = :valorTotal"),
+    @NamedQuery(name = "Activofijo.findByValortotal", query = "SELECT a FROM Activofijo a WHERE a.valortotal = :valortotal"),
     @NamedQuery(name = "Activofijo.findByClave", query = "SELECT a FROM Activofijo a WHERE a.clave = :clave"),
-    @NamedQuery(name = "Activofijo.findByIdPeriododEscolar", query = "SELECT a FROM Activofijo a WHERE a.activofijoPK.idPeriododEscolar = :idPeriododEscolar"),
-    @NamedQuery(name = "Activofijo.findByCodigoCatalogo", query = "SELECT a FROM Activofijo a WHERE a.activofijoPK.codigoCatalogo = :codigoCatalogo"),
-    @NamedQuery(name = "Activofijo.findByCodigoCorrelativo", query = "SELECT a FROM Activofijo a WHERE a.activofijoPK.codigoCorrelativo = :codigoCorrelativo")})
+    @NamedQuery(name = "Activofijo.findByIdperiodoescolar", query = "SELECT a FROM Activofijo a WHERE a.activofijoPK.idperiodoescolar = :idperiodoescolar"),
+    @NamedQuery(name = "Activofijo.findByCodigocatalogo", query = "SELECT a FROM Activofijo a WHERE a.activofijoPK.codigocatalogo = :codigocatalogo"),
+    @NamedQuery(name = "Activofijo.findByCodigocorrelativo", query = "SELECT a FROM Activofijo a WHERE a.activofijoPK.codigocorrelativo = :codigocorrelativo"),
+    @NamedQuery(name = "Activofijo.findByInicio", query = "SELECT a FROM Activofijo a WHERE a.inicio = :inicio"),
+    @NamedQuery(name = "Activofijo.findByFin", query = "SELECT a FROM Activofijo a WHERE a.fin = :fin")})
 public class Activofijo implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ActivofijoPK activofijoPK;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "tipo_cargo")
-    private String tipoCargo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "caracteristica")
-    private String caracteristica;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "estado_fisico")
-    private String estadoFisico;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "fecha_aquision")
+    @Size(max = 2147483647)
+    @Column(name = "tipocargo")
+    private String tipocargo;
+    @Size(max = 2147483647)
+    @Column(name = "caracteristicas")
+    private String caracteristicas;
+    @Size(max = 2147483647)
+    @Column(name = "estadofisico")
+    private String estadofisico;
+    @Column(name = "fechaaquision")
     @Temporal(TemporalType.DATE)
-    private Date fechaAquision;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "valor_unitario")
-    private int valorUnitario;
-    @Basic(optional = false)
-    @NotNull
+    private Date fechaaquision;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "valorunitario")
+    private Double valorunitario;
     @Column(name = "cantidad")
-    private int cantidad;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "valor_total")
-    private int valorTotal;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2147483647)
+    private Integer cantidad;
+    @Column(name = "valortotal")
+    private Double valortotal;
+    @Size(max = 2147483647)
     @Column(name = "clave")
     private String clave;
+    @Column(name = "inicio")
+    private Integer inicio;
+    @Column(name = "fin")
+    private Integer fin;
+    @JoinColumns({
+        @JoinColumn(name = "idperiodoescolar", referencedColumnName = "id_periodo_escolar", insertable = false, updatable = false),
+        @JoinColumn(name = "codigocatalogo", referencedColumnName = "codigoactivo", insertable = false, updatable = false)})
+    @ManyToOne(optional = false)
+    private Catalogoactivo catalogoactivo;
 
     public Activofijo() {
     }
@@ -89,20 +86,8 @@ public class Activofijo implements Serializable {
         this.activofijoPK = activofijoPK;
     }
 
-    public Activofijo(ActivofijoPK activofijoPK, String tipoCargo, String caracteristica, String estadoFisico, Date fechaAquision, int valorUnitario, int cantidad, int valorTotal, String clave) {
-        this.activofijoPK = activofijoPK;
-        this.tipoCargo = tipoCargo;
-        this.caracteristica = caracteristica;
-        this.estadoFisico = estadoFisico;
-        this.fechaAquision = fechaAquision;
-        this.valorUnitario = valorUnitario;
-        this.cantidad = cantidad;
-        this.valorTotal = valorTotal;
-        this.clave = clave;
-    }
-
-    public Activofijo(String codigoInstitucion, String idPeriododEscolar, int codigoCatalogo, int codigoCorrelativo) {
-        this.activofijoPK = new ActivofijoPK(codigoInstitucion, idPeriododEscolar, codigoCatalogo, codigoCorrelativo);
+    public Activofijo(String codigoinstitucion, int idperiodoescolar, String codigocatalogo, String codigocorrelativo) {
+        this.activofijoPK = new ActivofijoPK(codigoinstitucion, idperiodoescolar, codigocatalogo, codigocorrelativo);
     }
 
     public ActivofijoPK getActivofijoPK() {
@@ -113,60 +98,60 @@ public class Activofijo implements Serializable {
         this.activofijoPK = activofijoPK;
     }
 
-    public String getTipoCargo() {
-        return tipoCargo;
+    public String getTipocargo() {
+        return tipocargo;
     }
 
-    public void setTipoCargo(String tipoCargo) {
-        this.tipoCargo = tipoCargo;
+    public void setTipocargo(String tipocargo) {
+        this.tipocargo = tipocargo;
     }
 
-    public String getCaracteristica() {
-        return caracteristica;
+    public String getCaracteristicas() {
+        return caracteristicas;
     }
 
-    public void setCaracteristica(String caracteristica) {
-        this.caracteristica = caracteristica;
+    public void setCaracteristicas(String caracteristicas) {
+        this.caracteristicas = caracteristicas;
     }
 
-    public String getEstadoFisico() {
-        return estadoFisico;
+    public String getEstadofisico() {
+        return estadofisico;
     }
 
-    public void setEstadoFisico(String estadoFisico) {
-        this.estadoFisico = estadoFisico;
+    public void setEstadofisico(String estadofisico) {
+        this.estadofisico = estadofisico;
     }
 
-    public Date getFechaAquision() {
-        return fechaAquision;
+    public Date getFechaaquision() {
+        return fechaaquision;
     }
 
-    public void setFechaAquision(Date fechaAquision) {
-        this.fechaAquision = fechaAquision;
+    public void setFechaaquision(Date fechaaquision) {
+        this.fechaaquision = fechaaquision;
     }
 
-    public int getValorUnitario() {
-        return valorUnitario;
+    public Double getValorunitario() {
+        return valorunitario;
     }
 
-    public void setValorUnitario(int valorUnitario) {
-        this.valorUnitario = valorUnitario;
+    public void setValorunitario(Double valorunitario) {
+        this.valorunitario = valorunitario;
     }
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
-    public int getValorTotal() {
-        return valorTotal;
+    public Double getValortotal() {
+        return valortotal;
     }
 
-    public void setValorTotal(int valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setValortotal(Double valortotal) {
+        this.valortotal = valortotal;
     }
 
     public String getClave() {
@@ -175,6 +160,30 @@ public class Activofijo implements Serializable {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public Integer getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(Integer inicio) {
+        this.inicio = inicio;
+    }
+
+    public Integer getFin() {
+        return fin;
+    }
+
+    public void setFin(Integer fin) {
+        this.fin = fin;
+    }
+
+    public Catalogoactivo getCatalogoactivo() {
+        return catalogoactivo;
+    }
+
+    public void setCatalogoactivo(Catalogoactivo catalogoactivo) {
+        this.catalogoactivo = catalogoactivo;
     }
 
     @Override

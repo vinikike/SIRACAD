@@ -8,12 +8,14 @@ import com.infosgroup.prueba.model.entities.Docente;
 import com.infosgroup.prueba.model.entities.Grado;
 import com.infosgroup.prueba.model.facades.DocenteFacade;
 import com.infosgroup.prueba.model.facades.GradoFacade;
+import com.infosgroup.prueba.view.beans.SessionBean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import org.primefaces.event.TransferEvent;
@@ -38,6 +40,9 @@ public class AsignarDocenteManagedBean extends AbstractJSFBean implements Serial
     private List<Grado> listaGradosTarget;
     private DualListModel<Grado> listaGradosDisponibles;
     //
+    @ManagedProperty(value = "#{SessionBean}")
+    private SessionBean sesionBean;
+    //
 
     @Override
     @PostConstruct
@@ -45,7 +50,7 @@ public class AsignarDocenteManagedBean extends AbstractJSFBean implements Serial
         super._init();
         listaDocentes = docenteFacade.findAll();
         listaGradosDisponibles = new DualListModel<>();
-        listaGradosSource = gradoFacade.findAll();
+        listaGradosSource = gradoFacade.findGradosSinAsignar(getSesionBean().getPeriodoEscolar());
         listaGradosTarget = new ArrayList<>();
 
         listaGradosDisponibles.setSource(listaGradosSource);
@@ -103,8 +108,24 @@ public class AsignarDocenteManagedBean extends AbstractJSFBean implements Serial
     }
 
     public void docente$valueChangeListener(ValueChangeEvent evt) {
-        listaGradosTarget = new ArrayList<>();
+        Docente docente = (Docente) evt.getNewValue();        
+        listaGradosTarget = gradoFacade.findGradosAsignadosADocente(getSesionBean().getPeriodoEscolar(), docente);
+ 
         listaGradosDisponibles.setSource(listaGradosSource);
         listaGradosDisponibles.setTarget(listaGradosTarget);
+    }
+
+    public SessionBean getSesionBean() {
+        return sesionBean;
+    }
+
+    public void setSesionBean(SessionBean sesionBean) {
+        this.sesionBean = sesionBean;
+    }
+    
+    public String guardarAsignacion$action()
+    {
+        
+        return null;
     }
 }

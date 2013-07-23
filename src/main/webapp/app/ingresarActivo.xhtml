@@ -13,7 +13,7 @@
     <ui:define name="dialogos"/>
     <ui:define name="acciones">      
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
-            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(form)" action="#{ativoFijoManagedBean.guardarActivo$action}"/>
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(form)" update="@(#contenidoForm)" action="#{ativoFijoManagedBean.guardarActivo$action}"/>
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
                 <pe:resetInput for="@(#contenidoForm)"/>
             </p:menuitem>
@@ -25,7 +25,7 @@
         <h:panelGrid columns="2" width="78%" cellspacing="10">
 
             <h:outputLabel value="Codigo:" />
-            <p:selectOneMenu style="width: 250px;" value="" filter="true" filterMatchMode="contains" height="200" required="true" requiredMessage="Seleccione una de las categorias">
+            <p:selectOneMenu style="width: 250px;" value="#{ativoFijoManagedBean.activo$codCatalogo}" filter="true" filterMatchMode="contains" height="200" required="true" requiredMessage="Seleccione una de las categorias">
                 <f:selectItem itemValue="#{null}" itemLabel="[Seleccione]"/>
                 <f:selectItems value="#{ativoFijoManagedBean.listaCatalogoActivos}" var="activo" itemLabel="#{activo.descripcion}" itemValue="#{activo}" />
             </p:selectOneMenu>
@@ -39,7 +39,7 @@
             </p:selectOneRadio>
 
             <h:outputLabel value="Características:" />
-            <p:inputText value="" id="caracteristicas" size="75" required="true" requiredMessage="Escriba la descripci&oacute;n del Mobiliario o Equipo" />
+            <p:inputText id="caracteristicas" value="#{ativoFijoManagedBean.activo$actCaracteristicas}" required="true" size="75" requiredMessage="Escriba la descripci&oacute;n del Mobiliario o Equipo" />
 
             <h:outputLabel value="Estado Fisico:" />
             <p:selectOneRadio id="estado" value="#{ativoFijoManagedBean.activo$estadoFisico}" required="true" requiredMessage="Seleccione el estado fisico del mobiliario o equipo">  
@@ -51,7 +51,7 @@
             <p:calendar showOn="button" pattern="dd/MM/yyyy" value="#{ativoFijoManagedBean.activo$fechaAdquisicion}" navigator="true" required="true" requiredMessage="Seleccione la fecha de adquisici&oacute;n" />                    
 
             <h:outputLabel value="Valor Unitario: $" />
-            <p:spinner id="precio" value="#{ativoFijoManagedBean.activo$preciounitario}" min="0" stepFactor="0.25" size="6" required="true"  requiredMessage="Ingresar el Precio Unitario">
+            <p:spinner id="precio" value="#{ativoFijoManagedBean.activo$preciounitario}" min="0" stepFactor="0.25" size="6" required="true" requiredMessage="Ingresar el Precio Unitario">
                 <p:ajax event="valueChange" update="preciototal" process="@this" />  
             </p:spinner>
 

@@ -31,7 +31,8 @@
             <p:inputTextarea value="#{nuevoTaller.talleres$descripcionTaller}" id="descripcion" cols="50" rows="5" required="true" requiredMessage="Escribir la Descripcion del Taller" />
             
             <h:outputLabel value="Docente Responsable:" />
-            <p:selectOneMenu style="width: 300px" value="#{nuevoTaller.talleres$responsableTaller}">  
+            <p:selectOneMenu style="width: 300px" value="#{nuevoTaller.talleres$responsableTaller}" required="true" requiredMessage="Seleccione el docente responsable"> 
+                <f:selectItem value="#{null}" itemValue="#{null}" itemLabel="Seleccione Docente" />
                 <f:selectItems value="#{nuevoTaller.listaDocentes}" var="docente" itemValue="#{docente.nombre}" itemLabel="#{docente.nombre}" />
             </p:selectOneMenu>        
         </h:panelGrid>

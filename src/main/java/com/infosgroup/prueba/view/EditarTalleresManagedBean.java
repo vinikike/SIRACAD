@@ -9,13 +9,18 @@ import com.infosgroup.prueba.model.entities.Talleres;
 import com.infosgroup.prueba.model.entities.TalleresPK;
 import com.infosgroup.prueba.model.facades.DocenteFacade;
 import com.infosgroup.prueba.model.facades.TalleresFacade;
+import com.infosgroup.prueba.view.beans.SessionBean;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 /**
  *
@@ -29,7 +34,10 @@ public class EditarTalleresManagedBean extends AbstractJSFBean implements Serial
     private transient TalleresFacade talleresFacade;
     @EJB
     private transient DocenteFacade docenteFacade;
-    //-----------------------------------------------------------------------    
+    //========================================================================
+    @Inject
+    private SessionBean sessionBean;
+    //========================================================================   
     private List<Docente> listaDocentes;
     private List<Talleres> listaTalleres;
     //-----------------------------------------------------------------------
@@ -38,6 +46,7 @@ public class EditarTalleresManagedBean extends AbstractJSFBean implements Serial
     private String talleres$nombreTaller;
     private String talleres$descripcionTaller;
     private String talleres$responsableTaller;
+    private Talleres talleres$taller;
 
 //-----------sets y Gets--------------------------------------------------------
     public Integer getTalleres$periodoEscolar() {
@@ -96,43 +105,80 @@ public class EditarTalleresManagedBean extends AbstractJSFBean implements Serial
         this.listaTalleres = listaTalleres;
     }
 
+    public SessionBean getSessionBean() {
+        return sessionBean;
+    }
+
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
+    }
+
+    public Talleres getTalleres$taller() {
+        return talleres$taller;
+    }
+
+    public void setTalleres$taller(Talleres talleres$taller) {
+        this.talleres$taller = talleres$taller;
+    }
+
 //-------------------------------------------------------------------------------------------
     @PostConstruct
     @Override
     public void _init() {
         super._init();
-        
+
         listaDocentes = docenteFacade.findAll();
         listaTalleres = talleresFacade.findAll();
-        
-        talleres$periodoEscolar = 2013;
+
+        talleres$periodoEscolar = sessionBean.getPeriodoEscolar().getId();
         talleres$nombreTaller = "";
         talleres$descripcionTaller = "";
         talleres$responsableTaller = "";
     }
-    
-        public String actualizarTaller$action() {
 
+    public String actualizarTaller$action(ValueChangeEvent evt) {
 
-        TalleresPK talleresPK = new TalleresPK();
-        talleresPK.setIdPeriodoEscolar(2013);
-        talleresPK.setCodigoTaller(talleresFacade.max(2013)+1);
-
-        Talleres talleres = new Talleres();
-        talleres.setTalleresPK(talleresPK);
-
-        talleres.setNombre(talleres$nombreTaller);
-        talleres.setDescripcion(talleres$descripcionTaller);
-        talleres.setResponsable(talleres$nombreTaller);
-        talleresFacade.create(talleres);
+        String taller = (String) evt.getNewValue();
+        listaTalleres = new ArrayList<>();
         
-        mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Taller Actualizado exitosamente");
-        
-        talleres$nombreTaller = "";
-        talleres$descripcionTaller = "";
-        talleres$responsableTaller = "Seleccione un Docente";
-        listaTalleres = talleresFacade.findAll();
+                
+        talleres$taller = getTalleres$taller();
+
+        talleres$nombreTaller = getTalleres$nombreTaller();
+        talleres$descripcionTaller = getTalleres$descripcionTaller();
+        talleres$responsableTaller = getTalleres$responsableTaller();
+
+        //talleresFacade.find(talleres$taller.getTalleresPK());
+
+//        TalleresPK talleresPK = new TalleresPK();
+//        talleresPK.setIdPeriodoEscolar(sessionBean.getPeriodoEscolar().getId());
+//        talleresPK.setCodigoTaller(talleresFacade.max(2013)+1);
+//
+//        Talleres talleres = new Talleres();
+//        talleres.setTalleresPK(talleresPK);
+//
+//        talleres.setNombre(talleres$nombreTaller);
+//        talleres.setDescripcion(talleres$descripcionTaller);
+//        talleres.setResponsable(talleres$nombreTaller);
+//        talleresFacade.create(talleres);
+//        
+//        mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Taller Actualizado exitosamente");
+//        
+//        talleres$nombreTaller = "";
+//        talleres$descripcionTaller = "";
+//        talleres$responsableTaller = "Seleccione un Docente";
+//        listaTalleres = talleresFacade.findAll();
 
         return null;
+    }
+
+    public void editartaller$valueChangeListener(ValueChangeEvent evt) {
+        talleres$taller = getTalleres$taller();
+
+        talleres$nombreTaller = getTalleres$nombreTaller();
+        talleres$descripcionTaller = getTalleres$descripcionTaller();
+        talleres$responsableTaller = getTalleres$responsableTaller();
+
+
     }
 }

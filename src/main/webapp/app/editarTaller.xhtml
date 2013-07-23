@@ -25,19 +25,19 @@
     </ui:define>
     <ui:define name="contenido">
         <h:panelGrid columns="1" cellspacing="10" width="100%">
-            <h:panelGrid columns="2" cellspacing="10" width="65%">
+            <h:panelGrid columns="2" cellspacing="10" width="75%">
                 <h:outputLabel value="Talleres Disponibles:" />
-                <p:selectOneMenu style="width: 300px" value="#{editarTaller.talleres$nombreTaller}">  
+                <p:selectOneMenu style="width: 300px" value="#{editarTaller.talleres$taller}" valueChangeListener="#{editarTaller.editartaller$valueChangeListener}">  
                     <f:selectItems value="#{editarTaller.listaTalleres}" var="listTalleres" itemValue="#{listTalleres.talleresPK.codigoTaller}" itemLabel="#{listTalleres.nombre}" />
             </p:selectOneMenu>         
             </h:panelGrid>
 
-            <h:panelGrid columns="2" cellspacing="10" width="65%">
-                <h:outputLabel value="Nombre de Taller:  " />
-                <p:inputText id="nombreTaller" required="true" requiredMessage="Ingresse el Nombre de l Taller" />
+            <h:panelGrid columns="2" cellspacing="10" width="75%">
+                <h:outputLabel value="Nombre de Taller:" />
+                <p:inputText id="nombreTaller" required="true" value="#{editarTaller.talleres$nombreTaller}" requiredMessage="Ingresse el Nombre del Taller" />
 
                 <h:outputLabel value="Descrpicion:  " />
-                <p:inputTextarea id="descripcion" cols="50" rows="5" required="true" requiredMessage="Escribir la Descripcion del Taller" />
+                <p:inputTextarea id="descripcion" cols="50" rows="5" value="#{editarTaller.talleres$descripcionTaller}" required="true" requiredMessage="Escribir la Descripcion del Taller" />
 
                 <h:outputLabel value="Docente Responsable:" />
             <p:selectOneMenu style="width: 300px" value="#{nuevoTaller.talleres$responsableTaller}">  

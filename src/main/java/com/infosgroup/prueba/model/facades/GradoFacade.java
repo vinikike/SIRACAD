@@ -4,8 +4,11 @@
  */
 package com.infosgroup.prueba.model.facades;
 
+import com.infosgroup.prueba.model.entities.Docente;
 import com.infosgroup.prueba.model.entities.Grado;
 import com.infosgroup.prueba.model.entities.GradoPK;
+import com.infosgroup.prueba.model.entities.PeriodoEscolar;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
@@ -30,5 +33,20 @@ public class GradoFacade extends AbstractFacade<Grado, GradoPK> {
         } catch (Exception excpt) {
             return null;
         }
+    }
+    
+    public List<Grado> findGradosSinAsignar(PeriodoEscolar periodo)
+    {
+        TypedQuery<Grado> tq = getEntityManager().createQuery("SELECT g FROM Grado g WHERE g.periodoEscolar = :periodo AND g.docenteId IS NULL", entityClass);
+        tq.setParameter("periodo", periodo);
+        return tq.getResultList();
+    }
+    
+    public List<Grado> findGradosAsignadosADocente(PeriodoEscolar periodo, Docente docente)
+    {
+        TypedQuery<Grado> tq = getEntityManager().createQuery("SELECT g FROM Grado g WHERE g.periodoEscolar = :periodo AND g.docenteId = :docente", entityClass);
+        tq.setParameter("periodo", periodo);
+        tq.setParameter("docente", docente);
+        return tq.getResultList();
     }
 }

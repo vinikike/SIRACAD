@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/default.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <ui:define name="titulo">
+        <h:outputText value="Consulta de Libros"/>
+    </ui:define>
+    <ui:define name="dialogos"/>
+    <ui:define name="acciones">      
+        <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
+            <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
+            <p:menuitem value="Cancelar" icon="ui-icon-trash" />
+            <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+        </p:submenu>      
+    </ui:define>
+    <ui:define name="contenido">
+        <h2 align="center">Traslado de Activos</h2>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Nº de solicitud:" style="font-size: 11pt !important;" />
+            <h:outputLabel value="0001" style="font-size: 11pt !important;" />
+        </h:panelGrid>
+
+        <h:panelGrid columns="4" cellpadding="3" cellspacing="5">
+            <h:outputLabel value="Procedencia:" />
+            <h:outputLabel value="Complejo Educativo Dr. Victoriano Rodriguez" style="font-size: 12pt !important;" />
+
+            <h:outputLabel value="Codigo:" />
+            <h:outputLabel value="12429" style="font-size: 12pt !important;" />
+
+            <h:outputLabel value="Destino:" />
+            <p:inputText value="" size="58" required="true" requiredMessage="Escribir el nombre de la institucion que recibe" />
+
+            <h:outputLabel value="Codigo:" />
+            <p:inputText id="codigodestino" value="" maxlength="5" size="7" required="true" requiredMessage="Escribir el Codigo de la institucion que recibe" />
+        </h:panelGrid>
+
+        <pe:keyFilter for="codigodestino" mask="int"/>
+
+        <h:panelGrid columns="2" cellspacing="5" width="50%">
+            <h:outputLabel value="Tipo de movimiento:" />
+            <p:selectOneRadio >
+                <f:selectItem itemLabel="Reparacion" itemValue="Reparacion" />
+                <f:selectItem itemLabel="Prestamo" itemValue="Prestamo" />
+                <f:selectItem itemLabel="Traslado definitivo" itemValue="Traslado definitivo" />
+            </p:selectOneRadio>
+        </h:panelGrid>
+
+        <h:panelGrid columns="4" cellspacing="5" width="65%">
+            <h:outputLabel value="Fecha de movimiento:" />
+            <p:calendar showOn="button" size="15" pattern="dd/MM/yyyy" navigator="true" required="true" requiredMessage="Ingrese la fecha de traslado "/>
+
+            <h:outputLabel value="Codigo:" />
+            <p:selectOneMenu value="#{descargarAtivoFijoManagedBean.activo$codCatalogo}" filter="true" filterMatchMode="contains" height="200" required="true" requiredMessage="Seleccione una de las categorias">
+                <f:selectItem itemValue="#{null}" itemLabel="[Seleccione]"/>
+                <f:selectItems value="#{descargarAtivoFijoManagedBean.listaCatalogoActivos}" var="activo" itemLabel="#{activo.descripcion}" itemValue="#{activo}" />
+            </p:selectOneMenu>
+        </h:panelGrid>
+
+        <h:panelGrid columns="2" cellspacing="5">
+            <h:outputLabel value="Características:" />
+            <p:inputText id="caracteristicas" required="true" value="#{descargarAtivoFijoManagedBean.activo$actCaracteristicas}" size="80" requiredMessage="Escriba la descripci&oacute;n del Mobiliario o Equipo" />
+        </h:panelGrid>
+
+        <h3 align="center">Activos</h3>
+
+        <p:dataTable value="#{ingresarDocente.listaDocentes}" var="docente">
+            <p:column headerText="Codigo" filterMatchMode="contains">
+                <h:outputText value="#{docente.docenteNip}"/>
+            </p:column>
+            <p:column headerText="Caracteriticas" filterMatchMode="contains">
+                <h:outputText value="#{docente.nombre}"/>
+            </p:column>
+            <p:column headerText="Especialidad" filterMatchMode="contains">
+                <h:outputText value="#{docente.especialidad}"/>
+            </p:column>                
+            <p:column headerText="Jornada" filterMatchMode="contains">
+                <h:outputText value="#{docente.jornadas}"/>
+            </p:column>
+        </p:dataTable> 
+
+    </ui:define>
+</ui:composition>

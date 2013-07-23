@@ -14,9 +14,12 @@
         <p:submenu label="Navegaci&oacute;n" icon="ui-icon-cancel">            
             <p:menuitem value="Guardar" icon="ui-icon-disk" process="@(centerForm)" update="@(panelContenido)" partialSubmit="true" global="true" />  
             <p:menuitem value="Cancelar" icon="ui-icon-trash" ajax="true" update="@(#contenidoForm)">
-            <pe:resetInput for="@(#contenidoForm)"/>
+                <pe:resetInput for="@(#contenidoForm)"/>
             </p:menuitem> 
             <p:menuitem value="Inicio" action="inicio?faces-redirect=true" icon="ui-icon-home" />
+            <p:menuitem value="Buscar Libro" action="buscarLibro.xhtml?faces-redirect=true" icon="ui-icon-search" />
+            <p:menuitem value="Devoluciones" action="devolucionLibros.xhtml?faces-redirect=true" icon="ui-icon-transferthick-e-w" />
+            <p:menuitem value="Ingresar Nuevo" action="ingresarLibroBiblioteca?faces-redirect=true" icon="ui-icon-copy" />
         </p:submenu>      
     </ui:define>
     <ui:define name="contenido">

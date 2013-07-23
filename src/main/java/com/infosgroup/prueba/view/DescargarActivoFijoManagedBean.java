@@ -8,7 +8,9 @@ import com.infosgroup.prueba.model.entities.Catalogoactivo;
 import com.infosgroup.prueba.model.facades.CaltalogoActivosFacade;
 import com.infosgroup.prueba.model.entities.Activofijo;
 import com.infosgroup.prueba.model.entities.ActivofijoPK;
-import com.infosgroup.prueba.model.facades.ActivoFijoFacade;
+import com.infosgroup.prueba.model.entities.Descargoactivo;
+import com.infosgroup.prueba.model.entities.DescargoactivoPK;
+import com.infosgroup.prueba.model.facades.DescargarActivoFijoFacade;
 import com.infosgroup.prueba.view.beans.SessionBean;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -25,14 +27,14 @@ import javax.inject.Inject;
  *
  * @author Guille
  */
-@ManagedBean(name = "ativoFijoManagedBean")
+@ManagedBean(name = "descargarAtivoFijoManagedBean")
 @ViewScoped
-public class AtivoFijoManagedBean extends AbstractJSFBean implements Serializable {
+public class DescargarActivoFijoManagedBean extends AbstractJSFBean implements Serializable {
 
     @EJB
     private transient CaltalogoActivosFacade caltalogoActivosFacade;
     @EJB
-    private transient ActivoFijoFacade activoFijoFacade;
+    private transient DescargarActivoFijoFacade descargarActivoFijoFacade;
     //========================================================================
     @Inject
     private SessionBean sessionBean;
@@ -157,72 +159,78 @@ public class AtivoFijoManagedBean extends AbstractJSFBean implements Serializabl
         this.activo$fin = activo$fin;
     }
 
+    public String getActivo$codigoActivo() {
+        return activo$codigoActivo;
+    }
+
+    public void setActivo$codigoActivo(String activo$codigoActivo) {
+        this.activo$codigoActivo = activo$codigoActivo;
+    }
+
     //------------------------------------------------------------------------
     @PostConstruct
     @Override
     public void _init() {
         super._init();
-        activo$tipoCargo = "1-1";
-        activo$estadoFisico = "Bueno";
+        activo$tipoCargo = "2-1";
+        activo$codigoActivo = "";
+        //activo$estadoFisico = "Bueno";
         activo$fechaAdquisicion = Calendar.getInstance().getTime();
         activo$preciounitario = 0.0;
         activo$cantidad = 1;
-        activo$clave = "R";
+        //activo$clave = "R";
         activo$precioTotal = activo$preciounitario * activo$cantidad;
-        listaCatalogoActivos = caltalogoActivosFacade.findAll();
-        activo$inicio = 0;
+        listaCatalogoActivos = descargarActivoFijoFacade.listaActivos();
+        //activo$inicio = 0;
     }
 
     public String guardarActivo$action() {
-//        Activofijo activoBuscar = activoFijoFacade.find(new ActivofijoPK(activo$codigoActivo, sessionBean.getPeriodoEscolar(), activo$codCatalogo, activo$clave) );
-//        if (activoBuscar != null) {
-//            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe registro del alumno en el periodo escolar");
-//            return null;
-//        }
 
-        activo$inicio = ((activo$codCatalogo == null) ? 0 : activoFijoFacade.cantidadActivos(sessionBean.getPeriodoEscolar(), sessionBean.getCompania(), activo$codCatalogo)) + 1;
-        activo$fin = ((activo$inicio == null) ? 0 : activo$inicio + activo$cantidad) - 1;
+        Descargoactivo descargoActivoBuscar = descargarActivoFijoFacade.find(new DescargoactivoPK(sessionBean.getCompania().getCodigo(), sessionBean.getPeriodoEscolar().getId(), activo$codCatalogo.getCatalogoactivoPK().getCodigoactivo(), activo$codigoActivo));
+        if (descargoActivoBuscar != null) {
+            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe el descargo de esta activo");
+            return null;
+        }
 
-        activo$codigoActivo = new StringBuilder().append(activo$inicio).append("/").append(activo$fin).toString();
+//        activo$inicio = ((activo$codCatalogo == null) ? 0 : activoFijoFacade.cantidadActivos(sessionBean.getPeriodoEscolar(), sessionBean.getCompania(), activo$codCatalogo)) + 1;
+//        activo$fin = ((activo$inicio == null) ? 0 : activo$inicio + activo$cantidad) - 1;
 
-        ActivofijoPK activofijoPK = new ActivofijoPK();
-        activofijoPK.setCodigocatalogo(activo$codCatalogo.getCatalogoactivoPK().getCodigoactivo());
-        activofijoPK.setCodigocorrelativo(activo$codigoActivo);
-        activofijoPK.setCodigoinstitucion(sessionBean.getCompania().getCodigo());
-        activofijoPK.setIdperiodoescolar(sessionBean.getPeriodoEscolar().getId());
+//        activo$codigoActivo = new StringBuilder().append(activo$inicio).append("/").append(activo$fin).toString();
 
-        Activofijo activofijo = new Activofijo();
-        activofijo.setActivofijoPK(activofijoPK);
-        activofijo.setCantidad(activo$cantidad);
-        activofijo.setCaracteristicas(activo$actCaracteristicas);
-        activofijo.setClave(activo$clave);
-        activofijo.setEstadofisico(activo$estadoFisico);
-        activofijo.setFechaaquision(activo$fechaAdquisicion);
-        activofijo.setTipocargo(activo$tipoCargo);
-        activofijo.setValorunitario(activo$preciounitario);
-        activofijo.setValortotal(activo$cantidad * activo$preciounitario);
-        activofijo.setInicio(activo$inicio);
-        activofijo.setFin(activo$fin);
-        activoFijoFacade.create(activofijo);
+        DescargoactivoPK descargoactivoPK = new DescargoactivoPK();
+        descargoactivoPK.setCodigocatalogo(activo$codCatalogo.getCatalogoactivoPK().getCodigoactivo());
+        descargoactivoPK.setCodigocorrelativo(activo$codigoActivo);
+        descargoactivoPK.setCodigoinstitucion(sessionBean.getCompania().getCodigo());
+        descargoactivoPK.setIdperiodoescolar(sessionBean.getPeriodoEscolar().getId());
+
+        Descargoactivo descargoactivo = new Descargoactivo();
+        descargoactivo.setDescargoactivoPK(descargoactivoPK);
+        descargoactivo.setCantidad(activo$cantidad);
+        descargoactivo.setCaracteristicas(activo$actCaracteristicas);
+//        descargoactivo.setClave(activo$clave);
+//        descargoactivo.setEstadofisico(activo$estadoFisico);
+        descargoactivo.setFechaaquision(activo$fechaAdquisicion);
+        descargoactivo.setTipocargo(activo$tipoCargo);
+        descargoactivo.setValorunitario(activo$preciounitario);
+        descargoactivo.setValortotal(activo$preciounitario * activo$cantidad);
+//        descargoactivo.setInicio(activo$inicio);
+//        descargoactivo.setFin(activo$fin);
+        //activofijo.getCatalogoactivo().get
+//        activoFijoFacade.create(activofijo);
+        descargarActivoFijoFacade.create(descargoactivo);
 
         mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Registro realizado con exito");
 
-        activo$tipoCargo = "1-1";
-        activo$estadoFisico = "Bueno";
+        activo$tipoCargo = "2-1";
+        activo$codigoActivo = "";
+        activo$actCaracteristicas = "";
+
         activo$fechaAdquisicion = Calendar.getInstance().getTime();
         activo$preciounitario = 0.0;
         activo$cantidad = 1;
-        activo$clave = "R";
-        activo$precioTotal = activo$preciounitario * activo$cantidad;
-        listaCatalogoActivos = caltalogoActivosFacade.findAll();
-        activo$inicio = 0;
-        activo$actCaracteristicas = "";
         activo$codCatalogo = null;
-        
+        activo$precioTotal = activo$preciounitario * activo$cantidad;
+
         return null;
     }
-//        public void categoria$valueChangeListener(ValueChangeEvent evt) {
-//        Catalogoactivo c = (Catalogoactivo) evt.getNewValue();
-//        activo$inicio = ((c == null) ? 0 : activoFijoFacade.cantidadLibros(sessionBean.getPeriodoEscolar(), sessionBean.getCompania(), c)) + 1;
-//    }
 }

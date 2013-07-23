@@ -8,6 +8,7 @@ import com.infosgroup.prueba.model.entities.Menu;
 import com.infosgroup.prueba.model.entities.Rol;
 import com.infosgroup.prueba.model.entities.Usuario;
 import com.infosgroup.prueba.model.facades.MenuFacade;
+import com.infosgroup.prueba.model.facades.PeriodoEscolarFacade;
 import com.infosgroup.prueba.model.facades.UsuarioFacade;
 import com.infosgroup.prueba.view.beans.SessionBean;
 import java.io.Serializable;
@@ -37,18 +38,19 @@ import org.primefaces.model.DefaultMenuModel;
 @ManagedBean(name = "loginManager")
 @ViewScoped
 public class LoginManager extends AbstractJSFBean implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 //
     @EJB
     private transient UsuarioFacade usuarioFacade;
     @EJB
     private transient MenuFacade menuFacade;
+    @EJB
+    private transient PeriodoEscolarFacade periodoEscolarFacade;
 //
     //@ManagedProperty(value = "#{SessionBean}")
     @Inject
     private SessionBean sessionBean;
-    
 //    public SessionBean getSessionBean() {
 //        return sessionBean;
 //    }
@@ -60,7 +62,7 @@ public class LoginManager extends AbstractJSFBean implements Serializable {
     //
     private String usuario;
     private String pass;
-    
+
     @Override
     @PostConstruct
     public void _init() {
@@ -71,15 +73,15 @@ public class LoginManager extends AbstractJSFBean implements Serializable {
     public String getUsuario() {
         return usuario;
     }
-    
+
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-    
+
     public String getPass() {
         return pass;
     }
-    
+
     public void setPass(String pass) {
         this.pass = pass;
     }
@@ -94,11 +96,11 @@ public class LoginManager extends AbstractJSFBean implements Serializable {
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.login(usuario, pass);
             FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-            
+
             Usuario u = usuarioFacade.find(usuario);
-            
+
             sessionBean.setUsuario(u);
-            sessionBean.setPeriodoEscolar((u.getDocente() != null) ? u.getDocente().getIdPeriodoEscolar() : null);
+            sessionBean.setPeriodoEscolar(periodoEscolarFacade.find(periodoEscolarFacade.max()));
             sessionBean.setCompania(sessionBean.getUsuario().getCompania());
             sessionBean.setRol(sessionBean.getUsuario().getRol());
             sessionBean.setFechaHoraInicioSesion(GregorianCalendar.getInstance().getTime());
@@ -119,21 +121,21 @@ public class LoginManager extends AbstractJSFBean implements Serializable {
             return navegacion;
         }
     }
-    
+
     public String cerrarSesion$action() {
         String navegacion = null;
         try {
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            
+
             List<Object> objs = new ArrayList<>();
             objs.add(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
             objs.add(GregorianCalendar.getInstance().getTime());
             logger.log(Level.INFO, "[Cierre de sesion del usuario {0}: {1}]", objs.toArray(new Object[0]));
-            
+
             request.logout();
             session.invalidate();
-            
+
             navegacion = inicio$action();
         } catch (Exception excpt) {
             mostrarMensajeJSF(FacesMessage.SEVERITY_ERROR, excpt.toString());

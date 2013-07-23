@@ -140,22 +140,17 @@ public class EditarUsuariosManagedBean extends AbstractJSFBean implements Serial
             return null;
         }
         if (!u.getPassw().equals(encriptarTexto(usuario$contraseniaAnterior))) {
-            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "La contrasena anterior no coincide");
+            mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "La contraseña anterior no coincide");
             return null;
         }
         u.setPassw(encriptarTexto(usuario$contrasenia1));
         usuarioFacade.edit(u);
-        mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Contrasena cambiada exitosamente");
+        mostrarMensajeJSF(FacesMessage.SEVERITY_INFO, "Contraseña cambiada exitosamente");
         return null;
     }
 
 //=====================================================================================================
-//    public void usuario$valueChangeListener(ValueChangeEvent e) {
-//        Docente d = (Docente) e.getNewValue();
-//        usuario$id = d.getId();
-//        //usuario$contrasenia = "";
-//        //usuario$cargo = "docente";
-//    }
+
     private String encriptarTexto(String texto) {
         try {
             final MessageDigest messageDigest = MessageDigest.getInstance("MD5");

@@ -38,7 +38,6 @@ public class UsuariosManagedBean extends AbstractJSFBean implements Serializable
     //@ManagedProperty(value = "#{SessionBean}")
     @Inject
     private SessionBean sessionBean;
-
 //    public SessionBean getSessionBean() {
 //        return sessionBean;
 //    }
@@ -116,14 +115,11 @@ public class UsuariosManagedBean extends AbstractJSFBean implements Serializable
     public void _init() {
         super._init();
         listaDocentes = docenteFacade.findAll();
+        listaDocentes.removeAll(docenteFacade.findDocentesConUsuario());
         listaRol = rolFacade.findAll();
-
     }
 
     public String guardarUsuario$action() {
-
-        
-        
         Usuario usuarioBuscar = usuarioFacade.find(usuario$docente.getId());
         if (usuarioBuscar != null) {
             mostrarMensajeJSF(FacesMessage.SEVERITY_WARN, "Ya existe el registro de este usuario");
@@ -160,7 +156,10 @@ public class UsuariosManagedBean extends AbstractJSFBean implements Serializable
 
         usuario$id = "";
         usuario$contrasenia = "";
- 
+
+        listaDocentes = docenteFacade.findAll();
+        listaDocentes.removeAll(docenteFacade.findDocentesConUsuario());
+
         return null;
     }
 

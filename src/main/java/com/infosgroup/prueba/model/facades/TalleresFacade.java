@@ -23,6 +23,7 @@ public class TalleresFacade extends AbstractFacade<Talleres, TalleresPK> {
     public Integer max(Integer periodoEscolar) {
         try {
             TypedQuery<Integer> tq = getEntityManager().createQuery("SELECT MAX(t.talleresPK.codigoTaller) FROM Talleres t WHERE t.talleresPK.idPeriodoEscolar = :periodoEscolar", Integer.class);
+//            TypedQuery<Integer> tq = getEntityManager().createQuery("SELECT MAX(t.talleresPK.codigoTaller) FROM Talleres t", Integer.class);            
             tq.setParameter("periodoEscolar", periodoEscolar);
             Integer resultado = tq.getSingleResult();
             return (resultado == null) ? 0 : resultado;
